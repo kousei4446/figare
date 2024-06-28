@@ -2,8 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 import Register from './components/newregester/Register';
 import Login from './components/Login/Login';
-
-
+import "./App.css";
 
 
 
@@ -31,7 +30,7 @@ function Navigation() {
 
   return (
     <nav>
-      <h1>Figare</h1>
+      <h1 className='title' id='title'>Figare</h1>
       <div>
           <Link to="/login">ログインさせません</Link>
           <br/>
