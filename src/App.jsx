@@ -50,7 +50,7 @@ function Navigation() {
   const navigate = useNavigate();
 
   const login = () => {
-    navigate('/login')
+    navigate('/login/serchplace')
   }
 
   // /aboutパス以降の場合はナビゲーションを表示しない
@@ -66,12 +66,21 @@ function Navigation() {
         <h2 className='subtitle'>ログイン</h2>
       </div>
       <nav className='mainlogin'>
-
-        <div className='login'>
-          <Link to="/login/namekanji">ログイン</Link>
-          <br />
-          <br />
-          <Link to="/login/register">新規登録</Link>
+        <div className='input'>
+          電話番号
+          <br/>
+          <input></input>
+          <br/>
+          パスワード
+          <br/>
+          <input></input>
+        </div>
+        <div id="login">
+          <button onClick={login} className='login/namekanji'>ログイン</button>
+        </div>
+          <br/>
+        <div className='new'>
+          <Link to="/login/register">新規登録の方はこちらへ</Link>
         </div>
       </nav>
     </div>
