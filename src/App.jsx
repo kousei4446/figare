@@ -15,6 +15,7 @@ import Home from './components/Home/Home';
 import Serch from './components/Home/Serch';
 import Profile from './components/Home/Profile';
 import AddPost from './components/Home/AddPost';
+import Hito from './components/Home/Hito';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/login/home/search" element={<Serch />} />
           <Route path="/login/home/profile" element={<Profile />} />
           <Route path="/login/home/addpost" element={<AddPost />} />
+          <Route path="/login/home/addpost/hito" element={<Hito />} />
         </Routes>
       </div>
     </Router>
@@ -64,21 +66,12 @@ function Navigation() {
         <h2 className='subtitle'>ログイン</h2>
       </div>
       <nav className='mainlogin'>
-        <div className='input'>
-          電話番号
-          <br/>
-          <input></input>
-          <br/>
-          パスワード
-          <br/>
-          <input></input>
-        </div>
-        <div id="login">
-          <button onClick={login} className='login/namekanji'>ログイン</button>
-        </div>
-          <br/>
-        <div className='new'>
-          <Link to="/login/register">新規登録の方はこちらへ</Link>
+
+        <div className='login'>
+          <Link to="/login/namekanji">ログイン</Link>
+          <br />
+          <br />
+          <Link to="/login/register">新規登録</Link>
         </div>
       </nav>
     </div>
