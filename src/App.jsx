@@ -33,7 +33,7 @@ function Navigation() {
     <nav>
       <h1>Figare</h1>
       <div>
-          <Link to="/login">ログインaaaaaaaaaaaaaaaaaaaaaaaaaa</Link>
+          <Link to="/login">ログインaaaaaaaaaaaaaaaaaaaaaaaaajfita</Link>
           <br/>
           <Link to="/login/register">新規登録</Link>
       </div>
