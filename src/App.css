@@ -1,0 +1,12 @@
+.mainlogin{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.login a{
+    text-decoration: none;
+    color: black;
+
+    border: 1px solid black;
+}
