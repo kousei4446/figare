@@ -74,7 +74,7 @@ function Navigation() {
           <input></input>
         </div>
         <div id="login">
-          <button onClick={login} className='login/namekanji'>ログイン</button>
+          <button onClick={login} className='login'>ログイン</button>
         </div>
           <br/>
         <div className='new'>
