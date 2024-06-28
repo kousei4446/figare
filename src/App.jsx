@@ -35,7 +35,7 @@ function Navigation() {
       <div>
           <Link to="/login">ログインさせません</Link>
           <br/>
-          <Link to="/login/register">新規登録</Link>
+          <Link to="/login/register">新規登録aaaaaaaa</Link>
       </div>
     </nav>
   );
