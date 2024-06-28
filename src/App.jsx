@@ -74,6 +74,7 @@ function Navigation() {
             <input></input>
           </div>
         </div>
+        <br/>
         <div id="login">
           <button onClick={login} className='login'>ログイン</button>
         </div>

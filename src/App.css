@@ -1,3 +1,6 @@
+
+/* ログインページ　*/
+
 body{
     margin: 0px;
 }
@@ -10,12 +13,6 @@ body{
 .subtitle{
     text-align:center;
 }
-/* .mainlogin{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-} */
 
 .Input{
     text-align: center;
@@ -36,6 +33,7 @@ body{
     background-color: #b3efff;
     box-shadow: 0 3px 0 0 #76e8fa;
     border: 1px solid #333;
+    border-radius: 5px;
 }
 .login:hover{
 text-decoration: none;
@@ -44,5 +42,17 @@ text-decoration: none;
   -webkit-transform: translateY(3px);
 }
 .new{
+    text-align: center;
+}
+
+/* 新規登録画面 */
+
+.Regtitle{
+    text-align: center;
+}
+.Reginput{
+    text-align: center;
+}
+.Reg{
     text-align: center;
 }
