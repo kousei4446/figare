@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate} from 'react-router-dom';
 import Register from './components/newregester/Register';
 import Login from './components/Login/Login';
 import "./App.css"
@@ -26,6 +26,11 @@ function App() {
 
 function Navigation() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const login = () => {
+    navigate('/login')
+  }
 
   // /aboutパス以降の場合はナビゲーションを表示しない
   if (location.pathname.startsWith('/login')) {
@@ -35,15 +40,26 @@ function Navigation() {
   return (
     <div>
       <div className='head'>
-        <h1>Figare</h1>
+
+        <h1 className="title">Figare</h1>
+        <h2 className='subtitle'>ログイン</h2>
       </div>
       <nav className='mainlogin'>
-
-        <div className='login'>
-          <Link to="/login">ログイン</Link>
-          <br />
-          <br />
-          <Link to="/login/register">新規登録</Link>
+        <div className='input'>
+          電話番号
+          <br/>
+          <input></input>
+          <br/>
+          パスワード
+          <br/>
+          <input></input>
+        </div>
+        <div id="login">
+          <button onClick={login} className='login'>ログイン</button>
+        </div>
+          <br/>
+        <div className='new'>
+          <Link to="/login/register">新規登録の方はこちらへ</Link>
         </div>
       </nav>
     </div>
