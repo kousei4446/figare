@@ -2,11 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate} from 'react-router-dom';
 import Register from './components/newregester/Register';
 import Login from './components/Login/Login';
-<<<<<<< HEAD
-import "./App.css";
-
-
-=======
 import "./App.css"
 import Username from './components/newregester/Username';
 import SerchPlace from './components/SerchPlace/SerchPlace';
@@ -20,7 +15,6 @@ import Home from './components/Home/Home';
 import Serch from './components/Home/Serch';
 import Profile from './components/Home/Profile';
 import AddPost from './components/Home/AddPost';
->>>>>>> 56ab08b311700d85836d5eb78d5132b965fe8672
 
 function App() {
   return (
@@ -63,19 +57,10 @@ function Navigation() {
   }
 
   return (
-<<<<<<< HEAD
-    <nav>
-      <h1 className='title' id='title'>Figare</h1>
-      <div>
-          <Link to="/login">ログインさせません</Link>
-          <br/>
-          <Link to="/login/register">新規登録aaaaaaaa</Link>
-=======
     <div>
       <div className='head'>
         <h1 className="title">Figare</h1>
         <h2 className='subtitle'>ログイン</h2>
->>>>>>> 56ab08b311700d85836d5eb78d5132b965fe8672
       </div>
       <nav className='mainlogin'>
         <div className='Input'>
