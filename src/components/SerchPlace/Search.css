@@ -1,24 +1,24 @@
 
-/*ユーザー名入力画面*/
+/*地区選択*/
 
-.usernametitle{
+.searchtitle{
     text-align: center;
-    padding-top: 50px;
-    padding-bottom: 30px;
+    padding-top: 100px;
+    padding-bottom: 20px;
 }
 
-.username{
-    display: block;
+.pulldown{
+    display: flex;
     margin: auto;
-    width: 300px;
+    width: 250px;
     height: 45px;
-    border: 1px solid #333;
-    border-radius: 5px;
+    margin-top: 50px;
 }
 
-.decision{
+.regionDecision{
     display: block;
     margin: auto;
+    margin-top: 300px;
     width: 150px;
     height: 40px;
     border: 1px solid #333;
@@ -28,7 +28,7 @@
     cursor: pointer;
 }
 
-.decision:hover{
+.regionDecision:hover{
     box-shadow: none;
     transform:matrix();
     -webkit-transform: translateY(3px);
