@@ -1,0 +1,35 @@
+
+/*ユーザー名入力画面*/
+
+.usernametitle{
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+.username{
+    display: block;
+    margin: auto;
+    width: 65%;
+    height: 45px;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+.decision{
+    display: block;
+    margin: auto;
+    width: 20%;
+    height: 40px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #b3efff;
+    box-shadow: 0 3px 0 0 #76e8fa;
+    cursor: pointer;
+}
+
+.decision:hover{
+    box-shadow: none;
+    transform:matrix();
+    -webkit-transform: translateY(3px);
+}
