@@ -61,22 +61,24 @@ function Navigation() {
   return (
     <div>
       <div className='head'>
-
         <h1 className="title">Figare</h1>
         <h2 className='subtitle'>ログイン</h2>
       </div>
       <nav className='mainlogin'>
-        <div className='input'>
-          電話番号
+        <div className='Input'>
+          <div className='input'>
+            電話番号
+            <input></input>
+          </div>
           <br/>
-          <input></input>
-          <br/>
-          パスワード
-          <br/>
-          <input></input>
+          <div className='input'>
+            パスワード
+            <input></input>
+          </div>
         </div>
+        <br/>
         <div id="login">
-          <button onClick={login} className='login/namekanji'>ログイン</button>
+          <button onClick={login} className='login'>ログイン</button>
         </div>
           <br/>
         <div className='new'>
