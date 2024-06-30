@@ -1,17 +1,17 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function Profile() {
-    const navigate=useNavigate()
+function Chat() {
+    const navigation =useNavigate()
     const back=()=>{
-        navigate("/login/home")
+        navigation("/login/home/message")
     }
   return (
     <div>
         <button onClick={back}>戻る</button>
-        <h1>プロフィール</h1>
+        <h1>Chat</h1>
     </div>
   )
 }
 
-export default Profile
+export default Chat

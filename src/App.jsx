@@ -14,8 +14,16 @@ import LoginUsername from './components/Login/LoginUsername';
 import Home from './components/Home/Home';
 import Serch from './components/Home/Serch';
 import Profile from './components/Home/Profile';
-import AddPost from './components/Home/AddPost';
-import Hito from './components/Home/Hito';
+import AddPost from './components/Home/AddPost/AddPost';
+import Hito from './components/Home/AddPost/Hito';
+import SureHitoInfo from './components/Home/AddPost/SureHitoInfo';
+import Messeage from './components/Home/Message/Messeage';
+import Chat from './components/Home/Message/Chat';
+import FinderProfile from './components/Home/FinderProfile';
+import Pet from './components/Home/AddPost/Pet';
+import SurePet from './components/Home/AddPost/SurePet';
+import Mono from './components/Home/AddPost/Mono';
+import SureMone from './components/Home/AddPost/SureMone';
 
 function App() {
   return (
@@ -39,6 +47,15 @@ function App() {
           <Route path="/login/home/profile" element={<Profile />} />
           <Route path="/login/home/addpost" element={<AddPost />} />
           <Route path="/login/home/addpost/hito" element={<Hito />} />
+          <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo />} />
+          <Route path="/login/home/addpost/pet" element={<Pet />} />
+          <Route path="/login/home/addpost/pet/surepet" element={<SurePet />} />
+          <Route path="/login/home/addpost/mono" element={<Mono />} />
+          <Route path="/login/home/addpost/mono/suremono" element={<SureMone />} />
+
+          <Route path="/login/home/message" element={<Messeage />} />
+          <Route path="/login/home/chat" element={<Chat />} />          
+          <Route path="/login/home/finder" element={<FinderProfile />} />          
         </Routes>
       </div>
     </Router>
