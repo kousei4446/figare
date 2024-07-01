@@ -4,12 +4,12 @@
 }
 .blue{
     width: 100%;
-    height: 10%;
-    background-color: rgb(86, 160, 225);
+    height: 70px;
+    background-color: rgb(180, 250, 250);
 }
 .kindmain{
     width: 100%;
-    height: 60%;
+    height: 45%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,13 +17,30 @@
 
 }
 .threebtn{
-    display: fle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    gap: 5%;
 }
 
-.kind-btn{
+.kind-btns{
     background: none;
     border: 1px solid black;
     border-radius: 5px;
     height: 50px;
     width: 40%;
+}
+
+.kind-btn{
+    margin-top: 10px;
+    background: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 50px;
+    width: 60%;
+}
+.back-btn{
+    border-radius: 50%;
+
 }

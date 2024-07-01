@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import "./AddPost.css"
+import image from "../../img/image.png"
 
 function AddPost() {
     const navigation = useNavigate()
@@ -13,20 +14,24 @@ function AddPost() {
     const petpage = () => {
         navigation("/login/home/addpost/pet")
     }
+    const monopage=()=>{
+        navigation("/login/home/addpost/mono")
+    }
     return (
         <div className='addpost'>
             <div className='blue'></div>
             <div>
-                <button onClick={back}>戻る</button>
+            <img src={image} height="50px" className='back-btn' onClick={back} />
+                
             </div>
             <div className='kindmain'>
-                <h1>種類を選んでね</h1>
-                <div className='threebtn'>
-                    <button onClick={hito} className='kind-btn'>人</button>
-                    <button onClick={petpage} className='kind-btn'>ペット</button>
-                    <button className='kind-btn'>もの</button>
+            <p style={{ fontSize: "30px" }}>種類を選んでね</p>
+            <div className='threebtn'>
+                    <button onClick={hito} className='kind-btns'>人</button>
+                    <button onClick={petpage} className='kind-btns'>ペット</button>
+                    <button onClick={monopage} className='kind-btns'>もの</button>
                 </div>
-                <button onClick={petpage} className='kind-bt'>その他</button>
+                <button onClick={petpage} className='kind-btn'>その他</button>
             </div>
         </div>
     )
