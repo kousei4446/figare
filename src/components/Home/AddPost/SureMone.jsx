@@ -18,7 +18,7 @@ function SureMone() {
 
       <p style={{ fontSize: "29px", marginTop: "0px", marginBottom: "0px", marginLeft: "5%" }}>情報を確認してね​</p>
       <div className='con-text'>
-        <p>種類 : ---</p>
+        <p>種類 : もの</p>
         <p>写真 :</p>
         <p>　　　 <img src={sampleimg} height="200px" /></p>
         <p>名前　　 : ---</p>
