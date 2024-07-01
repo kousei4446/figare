@@ -33,9 +33,9 @@ function Navigation() {
     <nav>
       <h1>Figare</h1>
       <div>
-          <Link to="/login">ログイン</Link>
-          <br/>
-          <Link to="/login/register">新規登録</Link>
+        <Link to="/login">ログイン</Link>
+        <br />
+        <Link to="/login/register">新規登録</Link>
       </div>
     </nav>
   );
