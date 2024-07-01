@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import image from '../../img/image.png';
 import './Hito.css';
-import sampleimg from "../../img/sampleimg.png"
+import sampleimg from "../../img/img1.jpg"
 
 function Hito() {
     const navigation = useNavigate();
@@ -39,7 +39,7 @@ function Hito() {
                 </div>
             </div>
             <div className='maigoimg'>
-                <img src={sampleimg} width="200px" height="200px" />
+                <img src={sampleimg} height="200px" />
             </div>
             <div>
                 <div className='dis-info'>
