@@ -19,10 +19,10 @@ import Hito from './components/Home/AddPost/Hito';
 import SureHitoInfo from './components/Home/AddPost/SureHitoInfo';
 import Messeage from './components/Home/Message/Messeage';
 import Chat from './components/Home/Message/Chat';
-import FinderProfile from './components/Home/FinderProfile';
 import Pet from './components/Home/AddPost/Pet';
 import SurePet from './components/Home/AddPost/SurePet';
 import Mono from './components/Home/AddPost/Mono';
+import LostDetail from "./components/LostDetail/LostDeatail"
 import SureMone from './components/Home/AddPost/SureMone';
 
 function App() {
@@ -55,7 +55,7 @@ function App() {
 
           <Route path="/login/home/message" element={<Messeage />} />
           <Route path="/login/home/chat" element={<Chat />} />          
-          <Route path="/login/home/finder" element={<FinderProfile />} />          
+          <Route path="/login/home/finder" element={<LostDetail />} />          
         </Routes>
       </div>
     </Router>

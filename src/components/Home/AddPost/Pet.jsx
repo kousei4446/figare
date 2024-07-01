@@ -34,7 +34,7 @@ function Pet() {
         </div>
       </div>
       <div className='maigoimg'>
-        <img src={sampleimg} width="200px" height="200px" />
+        <img src={sampleimg} height="200px" />
       </div>
       <div>
         <div className='dis-info'>

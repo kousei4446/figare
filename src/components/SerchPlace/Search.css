@@ -3,8 +3,14 @@
 
 .searchtitle{
     text-align: center;
-    padding-top: 100px;
-    padding-bottom: 20px;
+    padding-top: 50px;
+}
+
+.find{
+    margin-bottom: -35px;
+}
+.or{
+    margin-bottom: -35px;
 }
 
 .pulldown{
@@ -13,23 +19,4 @@
     width: 250px;
     height: 45px;
     margin-top: 50px;
-}
-
-.regionDecision{
-    display: block;
-    margin: auto;
-    margin-top: 300px;
-    width: 150px;
-    height: 40px;
-    border: 1px solid #333;
-    border-radius: 5px;
-    background-color: #b3efff;
-    box-shadow: 0 3px 0 0 #76e8fa;
-    cursor: pointer;
-}
-
-.regionDecision:hover{
-    box-shadow: none;
-    transform:matrix();
-    -webkit-transform: translateY(3px);
 }
