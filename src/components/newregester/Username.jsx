@@ -9,10 +9,13 @@ function Username() {
     }
   return (
     <div>
-        <h1 className='usernametitle'>ユーザー名を入力してください</h1>
-        <input className='username' placeholder='ユーザー名'></input>
-        <br></br>
-        <button className='decision' onClick={comp}>決定</button>
+      <div className='usernametitle'>
+        <h1 className='title1'>ユーザー名を</h1>
+        <h1 className='title2'>入力してください</h1>
+      </div>
+      <input className='username' placeholder='ユーザー名'></input>
+      <br></br>
+      <button className='decision' onClick={comp}>決定</button>
     </div>
   )
 }
