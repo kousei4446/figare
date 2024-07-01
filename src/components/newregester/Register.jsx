@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import "./Register.css";
 
 function Register() {
   const navgation=useNavigate()
@@ -23,8 +24,8 @@ function Register() {
         パスワード：
         <input></input><br/>
       </div><br/>
-      <div className='Reg'>
-        <button onClick={complete}>登録</button>
+      <div className='reg'>
+        <button onClick={complete} className='Reg'>登録</button>
       </div>
     </div>
   )

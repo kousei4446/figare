@@ -1,0 +1,25 @@
+/* 新規登録画面 */
+
+.Regtitle{
+    text-align: center;
+}
+.Reginput{
+    text-align: center;
+}
+.reg{
+    text-align: center;
+}
+.Reg{
+    display: inline-block;
+    width: 80px;
+    background-color: #b3efff;
+    box-shadow: 0 3px 0 0 #76e8fa;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+.Reg:hover{
+text-decoration: none;
+  box-shadow: none;
+  transform:matrix();
+  -webkit-transform: translateY(3px);
+}
