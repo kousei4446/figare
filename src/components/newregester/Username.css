@@ -7,6 +7,10 @@
     padding-bottom: 30px;
 }
 
+.title1{
+    margin-bottom: -20px;
+}
+
 .username{
     display: block;
     margin: auto;
@@ -16,6 +20,7 @@
     border-radius: 5px;
 }
 
+/*決定ボタン*/
 .decision{
     display: block;
     margin: auto;
@@ -26,8 +31,10 @@
     background-color: #b3efff;
     box-shadow: 0 3px 0 0 #76e8fa;
     cursor: pointer;
+    margin-top: 20px;
 }
 
+/*ボタンが沈む*/
 .decision:hover{
     box-shadow: none;
     transform:matrix();
