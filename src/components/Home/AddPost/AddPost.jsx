@@ -14,19 +14,18 @@ function AddPost() {
     const petpage = () => {
         navigation("/login/home/addpost/pet")
     }
-    const monopage=()=>{
+    const monopage = () => {
         navigation("/login/home/addpost/mono")
     }
     return (
         <div className='addpost'>
             <div className='blue'></div>
             <div>
-            <img src={image} height="50px" className='back-btn' onClick={back} />
-                
+                <img src={image} height="50px" className='back-btn' onClick={back} />
             </div>
             <div className='kindmain'>
-            <p style={{ fontSize: "30px" }}>種類を選んでね</p>
-            <div className='threebtn'>
+                <p style={{ fontSize: "30px" }}>種類を選んでね</p>
+                <div className='threebtn'>
                     <button onClick={hito} className='kind-btns'>人</button>
                     <button onClick={petpage} className='kind-btns'>ペット</button>
                     <button onClick={monopage} className='kind-btns'>もの</button>

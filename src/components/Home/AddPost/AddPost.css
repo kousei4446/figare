@@ -4,7 +4,7 @@
 }
 .blue{
     width: 100%;
-    height: 70px;
+    height: 55px;
     background-color: rgb(180, 250, 250);
 }
 .kindmain{
@@ -30,9 +30,11 @@
     border-radius: 5px;
     height: 50px;
     width: 40%;
+    font-size: 20px;
 }
 
 .kind-btn{
+    font-size: 20px;
     margin-top: 10px;
     background: none;
     border: 1px solid black;
