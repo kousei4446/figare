@@ -77,10 +77,9 @@ function Navigation() {
 
   return (
     <div>
-      <div className='head'>
-        <h1 className="title">Figare</h1>
-        <h2 className='subtitle'>ログイン</h2>
-      </div>
+      <h2 className="title">Figare</h2>
+      <div className='black-line'></div>
+      <h1 className='subtitle'>ログイン</h1>
       <nav className='mainlogin'>
         <div className='Input'>
           <div className='input'>
