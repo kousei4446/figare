@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate} from 'react-router-dom';
 import Register from './components/newregester/Register';
 import Login from './components/Login/Login';
 import "./App.css"
@@ -19,10 +19,10 @@ import Hito from './components/Home/AddPost/Hito';
 import SureHitoInfo from './components/Home/AddPost/SureHitoInfo';
 import Messeage from './components/Home/Message/Messeage';
 import Chat from './components/Home/Message/Chat';
-import LostDetail from './components/LostDetail/LostDeatail';
 import Pet from './components/Home/AddPost/Pet';
 import SurePet from './components/Home/AddPost/SurePet';
 import Mono from './components/Home/AddPost/Mono';
+import LostDetail from "./components/LostDetail/LostDeatail"
 import SureMone from './components/Home/AddPost/SureMone';
 
 function App() {
@@ -54,8 +54,8 @@ function App() {
           <Route path="/login/home/addpost/mono/suremono" element={<SureMone />} />
 
           <Route path="/login/home/message" element={<Messeage />} />
-          <Route path="/login/home/chat" element={<Chat />} />
-          <Route path="/login/home/finder" element={<LostDetail />} />
+          <Route path="/login/home/chat" element={<Chat />} />          
+          <Route path="/login/home/finder" element={<LostDetail />} />          
         </Routes>
       </div>
     </Router>
@@ -77,11 +77,9 @@ function Navigation() {
 
   return (
     <div>
-      <h1>Figare</h1>
-      <div>
-        <Link to="/login">ログイン</Link>
-        <br />
-        <Link to="/login/register">新規登録</Link>
+      <div className='head'>
+        <h1 className="title">Figare</h1>
+        <h2 className='subtitle'>ログイン</h2>
       </div>
       <nav className='mainlogin'>
         <div className='Input'>
@@ -89,17 +87,17 @@ function Navigation() {
             電話番号
             <input></input>
           </div>
-          <br />
+          <br/>
           <div className='input'>
             パスワード
             <input></input>
           </div>
         </div>
-        <br />
+        <br/>
         <div id="login">
           <button onClick={login} className='login'>ログイン</button>
         </div>
-        <br />
+          <br/>
         <div className='new'>
           <Link to="/login/register">新規登録の方はこちらへ</Link>
         </div>
