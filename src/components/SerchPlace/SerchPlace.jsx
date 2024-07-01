@@ -9,7 +9,11 @@ function SerchPlace() {
   }
   return (
     <div>
-      <h1 className='searchtitle' >探したい地区 or 発見した地区</h1>
+      <div className='searchtitle'>
+        <h1 className='find'>探したい地区</h1>
+        <h1 className='or'>or</h1>
+        <h1 className='detect'>発見した地区</h1>
+      </div>
       <select className='pulldown'>
         <option selected>選択してください</option>
         <optgroup label='北海道'>
@@ -78,7 +82,7 @@ function SerchPlace() {
         <option>その他</option>
       </select>
       <br></br>
-      <button className='regionDecision' onClick={comp}>決定</button>
+      <button className='decision' onClick={comp} style={{marginTop:"265px"}}>決定</button>
     </div>
   )
 }
