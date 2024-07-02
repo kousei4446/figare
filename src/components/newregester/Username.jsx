@@ -5,7 +5,7 @@ import "./Username.css";
 function Username() {
     const navigate=useNavigate()
     const comp=()=>{
-        navigate("/login/serchplace");
+        navigate("/logout");
     }
   return (
     <div>

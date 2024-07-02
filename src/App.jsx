@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom';
 import Register from './components/newregester/Register';
 import Login from './components/Login/Login';
 import "./App.css"
@@ -24,21 +24,23 @@ import SurePet from './components/Home/AddPost/SurePet';
 import Mono from './components/Home/AddPost/Mono';
 import LostDetail from "./components/LostDetail/LostDeatail"
 import SureMone from './components/Home/AddPost/SureMone';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from './firebase';
 
 function App() {
-  
-  const [hitoInfo, setHitoInfo] = useState({name: "",age: "",time: "",gender: "",place: "",tokutyou: ""});
-  const [petInfo, setPetInfo] = useState({name: "",time: "",place: "",tokutyou: ""});
-  const [monoInfo, setMonoInfo] = useState({name: "",time: "",place: "",tokutyou: ""});
+
+  const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
+  const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
+  const [monoInfo, setMonoInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
+  const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "" })
   return (
     <Router>
       <div>
         <Navigation />
         <Routes>
-
           <Route path="/login/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/login/register" element={<Register />} />
+          <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} />
           <Route path="/login/username" element={<Username />} />
           <Route path="/login/serchplace" element={<SerchPlace />} />
           <Route path="/login/namekanji" element={<Name />} />
@@ -50,16 +52,16 @@ function App() {
           <Route path="/login/home/search" element={<Serch />} />
           <Route path="/login/home/profile" element={<Profile />} />
           <Route path="/login/home/addpost" element={<AddPost />} />
-          <Route path="/login/home/addpost/hito" element={<Hito hitoInfo={hitoInfo} setHitoInfo={setHitoInfo}/>} />
-          <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo hitoInfo={hitoInfo} setHitoInfo={setHitoInfo}/>} />
-          <Route path="/login/home/addpost/pet" element={<Pet petInfo={petInfo} setPetInfo={setPetInfo}/>} />
-          <Route path="/login/home/addpost/pet/surepet" element={<SurePet petInfo={petInfo} setPetInfo={setPetInfo}/>} />
-          <Route path="/login/home/addpost/mono" element={<Mono monoInfo={monoInfo} setMonoInfo={setMonoInfo}/>} />
-          <Route path="/login/home/addpost/mono/suremono" element={<SureMone monoInfo={monoInfo} setMonoInfo={setMonoInfo}/>} />
+          <Route path="/login/home/addpost/hito" element={<Hito hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
+          <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
+          <Route path="/login/home/addpost/pet" element={<Pet petInfo={petInfo} setPetInfo={setPetInfo} />} />
+          <Route path="/login/home/addpost/pet/surepet" element={<SurePet petInfo={petInfo} setPetInfo={setPetInfo} />} />
+          <Route path="/login/home/addpost/mono" element={<Mono monoInfo={monoInfo} setMonoInfo={setMonoInfo} />} />
+          <Route path="/login/home/addpost/mono/suremono" element={<SureMone monoInfo={monoInfo} setMonoInfo={setMonoInfo} />} />
 
           <Route path="/login/home/message" element={<Messeage />} />
-          <Route path="/login/home/chat" element={<Chat />} />          
-          <Route path="/login/home/finder" element={<LostDetail />} />          
+          <Route path="/login/home/chat" element={<Chat />} />
+          <Route path="/login/home/finder" element={<LostDetail />} />
         </Routes>
       </div>
     </Router>
@@ -78,6 +80,22 @@ function Navigation() {
   if (location.pathname.startsWith('/login')) {
     return null;
   }
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    const fetchAllUserData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setUserData(usersList);
+        console.log("All users data:", usersList);
+      } catch (e) {
+        console.error("Error getting documents: ", e);
+      }
+    };
+
+    fetchAllUserData();
+  }, []);
 
   return (
     <div>
@@ -88,12 +106,12 @@ function Navigation() {
         <div className='Input'>
           <div className='input'>
             電話番号
-            <input></input>
+            <input type='number'/>
           </div>
           <br/>
           <div className='input'>
             パスワード
-            <input></input>
+            <input type='text'/>
           </div>
         </div>
         <br/>
@@ -108,5 +126,4 @@ function Navigation() {
     </div>
   );
 }
-
 export default App;
