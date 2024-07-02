@@ -1,12 +1,5 @@
 /* App.css */
 
-/* 基本的なスタイルリセット */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 /* ボディ全体のスタイル */
 body {
     font-family: Arial, sans-serif;
