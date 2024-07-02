@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate} from 'react-router-dom';
 import Register from './components/newregester/Register';
 import Login from './components/Login/Login';
@@ -26,6 +26,10 @@ import LostDetail from "./components/LostDetail/LostDeatail"
 import SureMone from './components/Home/AddPost/SureMone';
 
 function App() {
+  
+  const [hitoInfo, setHitoInfo] = useState({name: "",age: "",time: "",gender: "",place: "",tokutyou: ""});
+  const [petInfo, setPetInfo] = useState({name: "",time: "",place: "",tokutyou: ""});
+  const [monoInfo, setMonoInfo] = useState({name: "",time: "",place: "",tokutyou: ""});
   return (
     <Router>
       <div>
@@ -46,12 +50,12 @@ function App() {
           <Route path="/login/home/search" element={<Serch />} />
           <Route path="/login/home/profile" element={<Profile />} />
           <Route path="/login/home/addpost" element={<AddPost />} />
-          <Route path="/login/home/addpost/hito" element={<Hito />} />
-          <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo />} />
-          <Route path="/login/home/addpost/pet" element={<Pet />} />
-          <Route path="/login/home/addpost/pet/surepet" element={<SurePet />} />
-          <Route path="/login/home/addpost/mono" element={<Mono />} />
-          <Route path="/login/home/addpost/mono/suremono" element={<SureMone />} />
+          <Route path="/login/home/addpost/hito" element={<Hito hitoInfo={hitoInfo} setHitoInfo={setHitoInfo}/>} />
+          <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo hitoInfo={hitoInfo} setHitoInfo={setHitoInfo}/>} />
+          <Route path="/login/home/addpost/pet" element={<Pet petInfo={petInfo} setPetInfo={setPetInfo}/>} />
+          <Route path="/login/home/addpost/pet/surepet" element={<SurePet petInfo={petInfo} setPetInfo={setPetInfo}/>} />
+          <Route path="/login/home/addpost/mono" element={<Mono monoInfo={monoInfo} setMonoInfo={setMonoInfo}/>} />
+          <Route path="/login/home/addpost/mono/suremono" element={<SureMone monoInfo={monoInfo} setMonoInfo={setMonoInfo}/>} />
 
           <Route path="/login/home/message" element={<Messeage />} />
           <Route path="/login/home/chat" element={<Chat />} />          
