@@ -1,20 +1,29 @@
 import React from 'react'
+import './LostDetail.css';
 import { useState } from 'react';
 import logoImage from '../LostDetail/testpict.png';
 import cameraImage from '../LostDetail/CameraMark.png';
+import { TiArrowSortedDown } from "react-icons/ti";
+
 
 const ChangePict = ({ newLogo, setLogo }) => { //写真を表示
 
     setLogo(newLogo);
 
     return (
-        <img src={newLogo || logoImage} alt="Logo" />
+        <img className='logo-image' src={newLogo || logoImage} alt="Logo" />
     );
 };
 
 const Tag = () => { //関連するタグを表示
     return (
-        <>tag</>
+        <div className='tag-container'>
+            <ul className='tag-list'>
+                <li>tag1</li>
+                <li>tag2</li>
+                <li>tag3</li>
+            </ul>
+        </div>
     );
 };
 
@@ -25,9 +34,13 @@ const DetDisp = ({ Add, setAdd }) => { //詳細を表示
 
     return (
         <>
-            <button onClick={detail}>詳細を表示</button>
+            詳細を表示
+            <button className='detail-button' onClick={detail}>
+                <TiArrowSortedDown />
+            </button>
+
             {Add && (
-                <div>
+                <div className='detail-content'>
                     プロフィールが表示される．
                 </div>
             )}
@@ -41,7 +54,7 @@ const Plusalpha = () => { //入力のその他
     };
 
     return (
-        <button onClick={Plus}>＋</button>
+        <button className='plus-button' onClick={Plus}>＋</button>
     );
 };
 
@@ -51,7 +64,7 @@ const Camera = () => { //画像を追加
     };
 
     return (
-        <button onClick={cam}>
+        <button className='camera-button' onClick={cam}>
             <img src={cameraImage} alt="Camera" />
         </button>
     )
@@ -63,7 +76,7 @@ const Message = () => { //メッセージを入力
     };
 
     return (
-        <button onClick={mess}>メッセージを入力</button>
+        <button className='message-button' onClick={mess}>メッセージを入力</button>
     );
 };
 
@@ -76,26 +89,28 @@ function App() {
 
     return (
 
-        <>
-            <div className='Top'>
+        <div className='container'>
+            <div className='box ctp top'>
                 <ChangePict newLogo={logo} setLogo={setLogo} />
                 <Tag />
                 <br />
             </div>
 
 
-            <div className='DetailDisplay'>
+            <div className='box detail-display'>
                 <DetDisp Add={AddDet} setAdd={setAddDet} />
                 <br />
             </div>
 
-
-            <div className='Input'>
-                <Plusalpha />
-                <Camera />
-                <Message />
+            <div className='box inbtn'>
+                <div className='input'>
+                    <Plusalpha />
+                    <Camera />
+                    <Message />
+                </div>
             </div>
-        </>
+
+        </div>
 
     );
 }
