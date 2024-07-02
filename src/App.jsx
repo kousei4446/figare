@@ -89,9 +89,9 @@ function Navigation({ userData }) {
   const navigate = useNavigate();
   const [tel, setTel] = useState("");
   const [password, setPassword] = useState("");
-
   const login = () => {
-    if (userData.length > 0 && (userData[0].tel === tel || userData[0].password === password)) {
+    const user = userData.find(user => user.tel === tel && user.password === password);
+    if (user) {
       navigate('/login/serchplace');
     } else {
       window.alert("正しくないです");
