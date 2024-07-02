@@ -15,7 +15,6 @@ function SureMone() {
     <div>
       <div className='blue'></div>
       <img src={image} height="50px" className='back-btn' onClick={back} />
-
       <p style={{ fontSize: "29px", marginTop: "0px", marginBottom: "0px", marginLeft: "5%" }}>情報を確認してね​</p>
       <div className='con-text'>
         <p>種類 : もの</p>
