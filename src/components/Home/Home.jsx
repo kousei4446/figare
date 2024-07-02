@@ -1,5 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import "./Home.css";
+import image from "./../img/sampleimg.png"
+import { IoMdSearch } from 'react-icons/io';
 
 function Home() {
   const navigation=useNavigate()
@@ -20,9 +23,10 @@ function Home() {
   }
   return (
     <div>
-      <div>
-        <button onClick={profilepage}>プロフィール画面へ</button>
-        <button onClick={serchpage}>探す</button>
+      <div className='background'>
+
+        <img src={image} height="100px" className="Icon" onClick={profilepage} />
+        < IoMdSearch onClick={serchpage} size={40} className='search'/>
       </div>
       <button onClick={message}>
         <div><img/></div>
