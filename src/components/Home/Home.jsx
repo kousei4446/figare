@@ -2,36 +2,39 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function Home() {
-  const navigation=useNavigate()
-  const profilepage=()=>{
+  const navigation = useNavigate()
+  const profilepage = () => {
     navigation("/login/home/profile")
   }
-  const serchpage=()=>{
+  const serchpage = () => {
     navigation("/login/home/search")
   }
-  const addPost =()=>{
+  const addPost = () => {
     navigation("/login/home/addpost")
   }
-  const message=()=>{
+  const message = () => {
     navigation("/login/home/finder")
   }
-  const msgpage=()=>{
+  const msgpage = () => {
     navigation("/login/home/message")
   }
   return (
     <div>
-      <div>
+      <div className='blue' style={{ borderBottom: "3px solid black" }}>
         <button onClick={profilepage}>プロフィール画面へ</button>
         <button onClick={serchpage}>探す</button>
       </div>
-      <button onClick={message}>
-        <div><img/></div>
-        <div>
-          <p>地区</p>
-          <p>犬を見つけた</p>
-          <p>日付</p>
-        </div>
-      </button>
+      <div>
+        <button onClick={message}>
+          <div><img /></div>
+          <div>
+            <p>地区</p>
+            <p>犬を見つけた</p>
+            <p>日付</p>
+          </div>
+        </button>
+        
+      </div>
       <div>
         <button onClick={msgpage}>メッセージ</button>
         <button onClick={addPost}>+</button>
