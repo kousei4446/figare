@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom';
 import Register from './components/newregester/Register';
 import Login from './components/Login/Login';
-import "./App.css"
+import "./App.css";
 import Username from './components/newregester/Username';
 import SerchPlace from './components/SerchPlace/SerchPlace';
 import Namefuri from './components/Login/Namefuri';
@@ -22,21 +22,38 @@ import Chat from './components/Home/Message/Chat';
 import Pet from './components/Home/AddPost/Pet';
 import SurePet from './components/Home/AddPost/SurePet';
 import Mono from './components/Home/AddPost/Mono';
-import LostDetail from "./components/LostDetail/LostDeatail"
+import LostDetail from "./components/LostDetail/LostDeatail";
 import SureMone from './components/Home/AddPost/SureMone';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from './firebase';
 
 function App() {
+  const [userData, setUserData] = useState([]);
+  
+  useEffect(() => {
+    const fetchAllUserData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setUserData(usersList);
+        console.log("All users data:", usersList);
+      } catch (e) {
+        console.error("Error getting documents: ", e);
+      }
+    };
+
+    fetchAllUserData();
+  }, []);
 
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
   const [monoInfo, setMonoInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
-  const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "" })
+  const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "" });
+  
   return (
     <Router>
       <div>
-        <Navigation />
+        <Navigation userData={userData} />
         <Routes>
           <Route path="/login/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -58,7 +75,6 @@ function App() {
           <Route path="/login/home/addpost/pet/surepet" element={<SurePet petInfo={petInfo} setPetInfo={setPetInfo} />} />
           <Route path="/login/home/addpost/mono" element={<Mono monoInfo={monoInfo} setMonoInfo={setMonoInfo} />} />
           <Route path="/login/home/addpost/mono/suremono" element={<SureMone monoInfo={monoInfo} setMonoInfo={setMonoInfo} />} />
-
           <Route path="/login/home/message" element={<Messeage />} />
           <Route path="/login/home/chat" element={<Chat />} />
           <Route path="/login/home/finder" element={<LostDetail />} />
@@ -68,34 +84,24 @@ function App() {
   );
 }
 
-function Navigation() {
+function Navigation({ userData }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const [tel, setTel] = useState("");
+  const [password, setPassword] = useState("");
 
   const login = () => {
-    navigate('/login/serchplace')
-  }
+    if (userData.length > 0 && (userData[0].tel === tel || userData[0].password === password)) {
+      navigate('/login/serchplace');
+    } else {
+      window.alert("正しくないです");
+    }
+  };
 
-  // /aboutパス以降の場合はナビゲーションを表示しない
+  // /login パス以降の場合はナビゲーションを表示しない
   if (location.pathname.startsWith('/login')) {
     return null;
   }
-  const [userData, setUserData] = useState([]);
-
-  useEffect(() => {
-    const fetchAllUserData = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'users'));
-        const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setUserData(usersList);
-        console.log("All users data:", usersList);
-      } catch (e) {
-        console.error("Error getting documents: ", e);
-      }
-    };
-
-    fetchAllUserData();
-  }, []);
 
   return (
     <div>
@@ -106,19 +112,19 @@ function Navigation() {
         <div className='Input'>
           <div className='input'>
             電話番号
-            <input type='number'/>
+            <input type='number' onChange={(e) => setTel(e.target.value)} />
           </div>
-          <br/>
+          <br />
           <div className='input'>
             パスワード
-            <input type='text'/>
+            <input type='password' onChange={(e) => setPassword(e.target.value)} />
           </div>
         </div>
-        <br/>
+        <br />
         <div id="login">
           <button onClick={login} className='login'>ログイン</button>
         </div>
-          <br/>
+        <br />
         <div className='new'>
           <Link to="/login/register">新規登録の方はこちらへ</Link>
         </div>
@@ -126,4 +132,5 @@ function Navigation() {
     </div>
   );
 }
+
 export default App;
