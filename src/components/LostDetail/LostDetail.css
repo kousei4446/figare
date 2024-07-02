@@ -1,7 +1,10 @@
 /* App.css */
 
+/* 基本的なスタイルリセット */
+
+
 /* ボディ全体のスタイル */
-body {
+.lostde-body {
     font-family: Arial, sans-serif;
     background-color: #ffffff;
     display: flex;
@@ -13,7 +16,7 @@ body {
 }
 
 /* コンテナのスタイル */
-.container {
+.lostde-container {
     background-color: #eae6e6;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -22,11 +25,11 @@ body {
     padding: 20px;
 }
 
-.ctp {
+.lostde-ctp {
     border-top: solid 3px #6091d3;
 }
 
-.box {
+.lostde-box {
     padding: 0.5em 1em;
     margin: 2em 0;
     font-weight: bold;
@@ -39,7 +42,7 @@ body {
 
 
 /* Topセクションのスタイル */
-.top {
+.lostde-top {
     display: flex;
     /* flex-direction: row; */
     align-items: center;
@@ -48,7 +51,7 @@ body {
     /* margin-bottom: 20px; */
 }
 
-.logo-image {
+.lostde-logo-image {
     max-width: 150px;
     height: auto;
     border-radius: 8px;
@@ -63,7 +66,7 @@ body {
     margin-right: 20px;
 } */
 
-.tag-container {
+.lostde-tag-container {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px;
@@ -74,17 +77,17 @@ body {
     /*右揃え */
 }
 
-.tag-list {
+.lostde-tag-list {
     list-style-type: disc;
     padding-left: 20px;
 }
 
-.tag-list li {
+.lostde-tag-list li {
     margin-bottom: 5px;
 }
 
 /* DetailDisplayセクションのスタイル */
-.detail-display {
+.lostde-detail-display {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,7 +95,7 @@ body {
     justify-content: center; */
 }
 
-.detail-button {
+.lostde-detail-button {
     background-color: #a3a5a7;
     color: white;
     border: none;
@@ -103,16 +106,16 @@ body {
     /* justify-content: center; */
 }
 
-.detail-button:hover {
+.lostde-detail-button:hover {
     background-color: #0056b3;
 }
 
-.detail-content {
+.lostde-detail-content {
     text-align: center;
     margin-bottom: 10px;
 }
 
-.inbtn {
+.lostde-inbtn {
     position: fixed;
     bottom: 20px;
     /* 画面下からの距離を調整 */
@@ -133,7 +136,7 @@ body {
 }
 
 /* Inputセクションのスタイル */
-.input {
+.lostde-input {
     display: flex;
     /* justify-content: space-around; */
     /* justify-content: space-around; */
@@ -141,8 +144,8 @@ body {
     /* gap: 10px; */
 }
 
-.plus-button,
-.camera-button {
+.lostde-plus-button,
+.lostde-camera-button {
     background-color: #6091d3;
     color: white;
     border: none;
@@ -151,7 +154,7 @@ body {
     cursor: pointer;
 }
 
-.message-button {
+.lostde-message-button {
     background-color: #6091d3;
     color: white;
     border: none;
@@ -161,14 +164,14 @@ body {
     white-space: nowrap;
 }
 
-.plus-button:hover,
-.camera-button:hover,
-.message-button:hover {
+.lostde-plus-button:hover,
+.lostde-camera-button:hover,
+.lostde-message-button:hover {
     background-color: #006eff;
 }
 
 /* Cameraボタン内の画像のスタイル */
-.camera-button img {
+.lostde-camera-button img {
     max-width: auto;
     height: 18px;
 }
