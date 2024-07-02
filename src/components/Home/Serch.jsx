@@ -13,24 +13,28 @@ function Serch() {
     <div>
         <button onClick={back}>戻る</button>
         <h1>絞り込み検索</h1>
-        種類：
-        <input type="radio" name="kind-box" id="hito" value="hito"/>人
-        <input type="radio" name="kind-box" id="pet" value="pet"/>ペット
-        <input type="radio" name="kind-box" id="mono" value="mono"/>もの<br />
-        性別：
-        <input type="radio" name="gender-box" id="male" value="male"/>男性
-        <input type="radio" name="gender-box" id="female" value="female"/>女性
-        <input type="radio" name="gender-box" id="others" value="others"/>その他<br />
+        <div className='select-Seed'>
+          種類：
+          <input type="radio" name="kind-box" id="hito" value="hito"/>人
+          <input type="radio" name="kind-box" id="pet" value="pet"/>ペット
+          <input type="radio" name="kind-box" id="mono" value="mono"/>もの<br />
+        </div>
+        <div className='select-Gender'>
+          性別：
+          <input type="radio" name="gender-box" id="male" value="male"/>男性
+          <input type="radio" name="gender-box" id="female" value="female"/>女性
+          <input type="radio" name="gender-box" id="others" value="others"/>その他<br />
+        </div>
         名前：
         <input></input><br />
         場所：
         <input></input><br />
         目撃時間：
-        <select name="select-AorP">
+        <select className="select-AorP">
           <option value="am">午前</option>
           <option value="pm">午後</option>
         </select>
-        <select name="select-hour">
+        <select className="select-hour">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -44,7 +48,7 @@ function Serch() {
           <option value="11">11</option>
           <option value="12">12</option>
         </select>時
-        <select name="select-minut">
+        <select className="select-minut">
           <option value="Zero">0</option>
           <option value="Ten">10</option>
           <option value="Twenty">20</option>
@@ -52,7 +56,7 @@ function Serch() {
           <option value="Fourty">40</option>
           <option value="Fifty">50</option>
         </select>分頃<br />
-        <button onClick={ok}>条件を適用</button>
+        <button className="select-Desition" onClick={ok}>条件を適用</button>
     </div>
   )
 }
