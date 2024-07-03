@@ -11,9 +11,7 @@ function Register({ register, setRegister }) {
     try {
       const docRef = doc(db, 'users', register.tel); // 'users'はコレクション名、register.nameはドキュメントID
       await setDoc(docRef, register);
-      console.log("Document written with ID: ", register.name);
       navigation("/login/username");
-      setRegister({tel:"",password:"",gender:"",name:"",furigana:""})
     } catch (e) {
       console.error("Error adding document: ", e);
     }
