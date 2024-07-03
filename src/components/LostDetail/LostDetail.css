@@ -170,9 +170,3 @@
 .lostdetail-message-button:hover {
     background-color: #006eff;
 }
-
-/* Cameraボタン内の画像のスタイル */
-.lostdetail-camera-button img {
-    max-width: auto;
-    height: 18px;
-}

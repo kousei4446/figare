@@ -2,8 +2,9 @@ import React from 'react'
 import './LostDetail.css';
 import { useState } from 'react';
 import logoImage from '../LostDetail/testpict.png';
-import cameraImage from '../LostDetail/CameraMark.png';
+import { AiOutlinePicture } from "react-icons/ai";
 import { TiArrowSortedDown } from "react-icons/ti";
+import { BsPlusLg } from "react-icons/bs";
 
 
 const ChangePict = ({ newLogo, setLogo }) => { //写真を表示
@@ -54,7 +55,9 @@ const Plusalpha = () => { //入力のその他
     };
 
     return (
-        <button className='lostdetail-plus-button' onClick={Plus}>＋</button>
+        <button className='lostdetail-plus-button' onClick={Plus}>
+            <BsPlusLg />
+        </button>
     );
 };
 
@@ -65,7 +68,7 @@ const Camera = () => { //画像を追加
 
     return (
         <button className='lostdetail-camera-button' onClick={cam}>
-            <img src={cameraImage} alt="Camera" />
+            <AiOutlinePicture />
         </button>
     )
 }
