@@ -2,8 +2,9 @@ import React from 'react'
 import './LostDetail.css';
 import { useState } from 'react';
 import logoImage from '../LostDetail/testpict.png';
-import cameraImage from '../LostDetail/CameraMark.png';
+import { AiOutlinePicture } from "react-icons/ai";
 import { TiArrowSortedDown } from "react-icons/ti";
+import { BsPlusLg } from "react-icons/bs";
 
 
 const ChangePict = ({ newLogo, setLogo }) => { //写真を表示
@@ -11,14 +12,14 @@ const ChangePict = ({ newLogo, setLogo }) => { //写真を表示
     setLogo(newLogo);
 
     return (
-        <img className='lostde-logo-image' src={newLogo || logoImage} alt="Logo" />
+        <img className='lostdetail-logo-image' src={newLogo || logoImage} alt="Logo" />
     );
 };
 
 const Tag = () => { //関連するタグを表示
     return (
-        <div className='lostde-tag-container'>
-            <ul className='lostde-tag-list'>
+        <div className='lostdetail-tag-container'>
+            <ul className='lostdetail-tag-list'>
                 <li>tag1</li>
                 <li>tag2</li>
                 <li>tag3</li>
@@ -35,12 +36,12 @@ const DetDisp = ({ Add, setAdd }) => { //詳細を表示
     return (
         <>
             詳細を表示
-            <button className='lostde-detail-button' onClick={detail}>
+            <button className='lostdetail-detail-button' onClick={detail}>
                 <TiArrowSortedDown />
             </button>
 
             {Add && (
-                <div className='lostde-detail-content'>
+                <div className='lostdetail-detail-content'>
                     プロフィールが表示される．
                 </div>
             )}
@@ -54,7 +55,9 @@ const Plusalpha = () => { //入力のその他
     };
 
     return (
-        <button className='lostde-plus-button' onClick={Plus}>＋</button>
+        <button className='lostdetail-plus-button' onClick={Plus}>
+            <BsPlusLg />
+        </button>
     );
 };
 
@@ -64,8 +67,8 @@ const Camera = () => { //画像を追加
     };
 
     return (
-        <button className='lostde-camera-button' onClick={cam}>
-            <img src={cameraImage} alt="Camera" />
+        <button className='lostdetail-camera-button' onClick={cam}>
+            <AiOutlinePicture />
         </button>
     )
 }
@@ -76,7 +79,7 @@ const Message = () => { //メッセージを入力
     };
 
     return (
-        <button className='lostde-message-button' onClick={mess}>メッセージを入力</button>
+        <button className='lostdetail-message-button' onClick={mess}>メッセージを入力</button>
     );
 };
 
@@ -88,22 +91,22 @@ function App() {
 
 
     return (
-        <div className='lostde-body'>
-            <div className='lostde-container'>
-                <div className='lostde-box lostde-ctp lostde-top'>
+        <div className='lostdetail-body'>
+            <div className='lostdetail-container'>
+                <div className='lostdetail-box lostdetail-ctp lostdetail-top'>
                     <ChangePict newLogo={logo} setLogo={setLogo} />
                     <Tag />
                     <br />
                 </div>
 
 
-                <div className='lostde-box lostde-detail-display'>
+                <div className='lostdetail-box lostdetail-detail-display'>
                     <DetDisp Add={AddDet} setAdd={setAddDet} />
                     <br />
                 </div>
 
-                <div className='lostde-box lostde-inbtn'>
-                    <div className='lostde-input'>
+                <div className='lostdetail-box lostdetail-inbtn'>
+                    <div className='lostdetail-input'>
                         <Plusalpha />
                         <Camera />
                         <Message />
