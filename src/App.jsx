@@ -44,21 +44,21 @@ function App() {
 
     fetchAllUserData();
   }, []);
-
+  const [profile,setProfile]=useState({name:"",furigana:"",gender:"",password:"",tel:"",auth:false})
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
   const [monoInfo, setMonoInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
-  const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "" });
+  const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "" ,username:""});
   
   return (
     <Router>
       <div>
-        <Navigation userData={userData} />
+        <Navigation userData={userData} setProfile={setProfile} />
         <Routes>
           <Route path="/login/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} />
-          <Route path="/login/username" element={<Username />} />
+          <Route path="/login/username" element={<Username register={register} setRegister={setRegister}/>} />
           <Route path="/login/serchplace" element={<SerchPlace />} />
           <Route path="/login/namekanji" element={<Name />} />
           <Route path="/login/namefurigana" element={<Namefuri />} />
@@ -67,7 +67,7 @@ function App() {
           <Route path="/login/password" element={<Password />} />
           <Route path="/login/usernamed" element={<LoginUsername />} />
           <Route path="/login/home/search" element={<Serch />} />
-          <Route path="/login/home/profile" element={<Profile />} />
+          <Route path="/login/home/profile" element={<Profile profile={profile} setProfile={setProfile}/>} />
           <Route path="/login/home/addpost" element={<AddPost />} />
           <Route path="/login/home/addpost/hito" element={<Hito hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
           <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
@@ -84,7 +84,7 @@ function App() {
   );
 }
 
-function Navigation({ userData }) {
+function Navigation({ userData ,setProfile}) {
   const location = useLocation();
   const navigate = useNavigate();
   const [tel, setTel] = useState("");
@@ -92,7 +92,10 @@ function Navigation({ userData }) {
   const login = () => {
     const user = userData.find(user => user.tel === tel && user.password === password);
     if (user) {
+      console.log(user.name)
       navigate('/login/serchplace');
+      localStorage.setItem("電話番号", JSON.stringify(user.tel))
+      setProfile({name:user.name,furigana:user.furigana,gender:user.gender,password:user.password,tel:user.tel})
     } else {
       window.alert("正しくないです");
     }
