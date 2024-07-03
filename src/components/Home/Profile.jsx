@@ -6,7 +6,6 @@ import image2 from "./../img/profile-img.png"
 import { collection, doc, getDocs } from 'firebase/firestore'
 import { db } from '../../firebase'
 
-
 function Profile({ profile ,setProfile}) {
 
  
@@ -18,6 +17,7 @@ function Profile({ profile ,setProfile}) {
     navigate("/")
     localStorage.setItem("電話番号","")
   }
+  
   useEffect(() => {
     const fetchAllUserData = async () => {
       const querySnapshot = await getDocs(collection(db, "users"));
@@ -37,33 +37,61 @@ function Profile({ profile ,setProfile}) {
       <h2 className='pro_title'>プロフィール</h2>
       <div className='profile_checker'>
         <label className='pro_item'>プロフィール画</label>
-        <br></br>
-        <img src={image2} className='pro_img'></img>
+          <br></br>
+          <div className='pro_content'>
+            <img src={image2} className='pro_img'></img>
+            <button className='pro_editbtn'>編集</button>
+          </div>
         <div className='line'></div>
+
         <label className='pro_item'>名前</label>
-        <br></br>
-        <div className='pro_input'>{profile.name}</div>
+          <br></br>
+          <div className='pro_content'>
+            <div className='pro_input'>{profile.name}</div>
+            <button className='pro_editbtn'>編集</button>
+          </div>
         <div className='line'></div>
+
         <label className='pro_item'>フリガナ</label>
-        <br></br>
-        <div className='pro_input'>{profile.furigana}</div>
+          <br></br>
+          <div className='pro_content'>
+            <div className='pro_input'>{profile.furigana}</div>
+            <button className='pro_editbtn'>編集</button>
+          </div>
         <div className='line'></div>
+
         <label className='pro_item'>ユーザ名</label>
-        <br></br>
-        <div className='pro_input'>{profile.username}</div>
+          <br></br>
+          <div className='pro_content'>
+            <div className='pro_input'>{profile.username}</div>
+            <button className='pro_editbtn'>編集</button>
+          </div>
         <div className='line'></div>
+
         <label className='pro_item'>性別</label>
-        <br></br>
-        <div className='pro_input'>{profile.gender}</div>
+          <br></br>
+          <div className='pro_content'>
+            <div className='pro_input'>{profile.gender}</div>
+            <button className='pro_editbtn'>編集</button>
+          </div>
         <div className='line'></div>
+
         <label className='pro_item'>電話番号</label>
-        <br></br>
-        <div className='pro_input'>{profile.tel}</div>
+          <br></br>
+          <div className='pro_content'>
+            <div className='pro_input'>{profile.tel}</div>
+            <button className='pro_editbtn'>編集</button>
+          </div>
         <div className='line'></div>
+
         <label className='pro_item'>パスワード</label>
-        <br></br>
-        <div className='pro_input'>{profile.password}</div>
+          <br></br>
+          <div className='pro_content'>
+            <div className='pro_input'>{profile.password}</div>
+            <button className='pro_editbtn'>編集</button>
+          </div>
         <div className='line'></div>
+
       </div>
       <button className='logout_btn' onClick={logout}>ログアウト</button>
     </div>
