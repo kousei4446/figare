@@ -17,7 +17,7 @@ function Username({ register, setRegister }) {
 
   const comp = async () => {
     try {
-      const docRef = doc(db, 'users', register.tel); // 'users'はコレクション名、register.telはドキュメントID
+      const docRef = doc(db, 'users', register.tel); 
       await setDoc(docRef, { ...register });
       navigate("/");
     } catch (e) {
