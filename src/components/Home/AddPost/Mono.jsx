@@ -1,81 +1,99 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import image from "../../img/image.png"
-import sampleimg from "../../img/sampleimg.png"
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import image from "../../img/image.png";
 
+function Mono({ disInfo, setDisInfo }) {
+  const navigate = useNavigate();
 
-function Mono({monoInfo,setMonoInfo}) {
-  const navigation = useNavigate()
+  // デフォルトで"もの"を選択するための初期値設定
+  useEffect(() => {
+    setDisInfo(prevState => ({
+      ...prevState,
+      kind: "もの"
+    }));
+  }, [setDisInfo]);
+
   const ok = () => {
-    navigation("/login/home/addpost/mono/suremono")
-  }
+    navigate("/login/home/addpost/mono/suremono");
+  };
+
   const back = () => {
-    navigation("/login/home/addpost")
-  }
+    navigate("/login/home");
+  };
+
+  const upload = async (e) => {
+    const file = e.target.files[0];
+    setDisInfo(prevState => ({
+      ...prevState,
+      img: URL.createObjectURL(file),
+      file: file
+    }));
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setMonoInfo(prevState => ({
+    setDisInfo(prevState => ({
       ...prevState,
       [name]: value
     }));
-  }
+  };
+
   return (
     <div>
-    <div className='blue'></div>
-    <div className='dis-head'>
-      <img src={image} height='50px' className='back-btn' onClick={back} alt='戻る' />
-      <div style={{ textAlign: "center", width: "100vw" }}>
-        <p style={{ fontSize: '28px' }}>詳細情報を入力してね</p>
+      <div className='blue'></div>
+      <div className='dis-head'>
+        <img src={image} height='50px' className='back-btn' onClick={back} alt='戻る' />
+        <div style={{ textAlign: "center", width: "100vw" }}>
+          <p style={{ fontSize: '28px' }}>詳細情報を入力してね</p>
+        </div>
       </div>
-    </div>
-    <div className='maigoimg'>
-      <img src={sampleimg} height="200px" alt='サンプル画像'/>
-    </div>
-    <div>
-      <div className='dis-info'>
-        <div className="name">
-          <label>　　名前　:</label>
+      <div>
+        <input
+          type='radio'
+          name='kind'
+          value="もの"
+          checked={disInfo.kind === "もの"}
+          onChange={handleInputChange}
+        />
+        <label>もの</label>
+        <input
+          type='radio'
+          name='kind'
+          value="ペット"
+          checked={disInfo.kind === "ペット"}
+          onChange={handleInputChange}
+        />
+        <label>ペット</label>
+        <input
+          type='radio'
+          name='kind'
+          value="人"
+          checked={disInfo.kind === "人"}
+          onChange={handleInputChange}
+        />
+        <label>人</label>
+        <div>
           <input
-            type='text'
-            name='name'
-            value={monoInfo.name}
-            onChange={handleInputChange}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onChange={upload}
           />
+          {disInfo.img && <img src={disInfo.img} width="50%" alt="Preview" />}
         </div>
-        <div className='name'>
-          <label>　　場所　:</label>
-          <input
-            type='text'
-            name='place'
-            value={monoInfo.place}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className='name'>
-          <label>　目撃時間:</label>
-          <input
-            type='text'
-            name='time'
-            value={monoInfo.time}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className='tokuryou'>
-          <label>特徴 :</label>
+        <div>
           <textarea
-            className='tokutyou-area'
-            name='tokutyou'
-            value={monoInfo.tokutyou}
+            name="text"
+            value={disInfo.text}
             onChange={handleInputChange}
           />
         </div>
-      </div>
-      <div className='okbtn-posi'>
-        <button className='ok-btn' onClick={ok}>OK</button>
+        <div className='okbtn-posi'>
+          <button className='ok-btn' onClick={ok}>OK</button>
+        </div>
       </div>
     </div>
-  </div>
-  )
+  );
 }
 
-export default Mono
+export default Mono;

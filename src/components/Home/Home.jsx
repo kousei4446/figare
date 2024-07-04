@@ -18,7 +18,7 @@ function Home() {
     navigation("/login/home/search")
   }
   const addPost = () => {
-    navigation("/login/home/addpost")
+    navigation("/login/home/addpost/mono")
   }
   const message = () => {
     navigation("/login/home/finder")
@@ -37,6 +37,7 @@ function Home() {
         // console.log(savedTel)
       }
     }
+
     fetchAllUserData();
   }, [])
   return (

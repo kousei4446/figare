@@ -36,6 +36,7 @@ function App() {
         const querySnapshot = await getDocs(collection(db, 'users'));
         const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setUserData(usersList);
+        
         console.log("All users data:", usersList);
       } catch (e) {
         console.error("Error getting documents: ", e);
@@ -43,11 +44,10 @@ function App() {
     };
     fetchAllUserData();
   }, []);
-  
+  const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:""});
   const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
-  const [monoInfo, setMonoInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
   const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "", username: "" ,place:""});
 
   return (
@@ -73,8 +73,8 @@ function App() {
           <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
           <Route path="/login/home/addpost/pet" element={<Pet petInfo={petInfo} setPetInfo={setPetInfo} />} />
           <Route path="/login/home/addpost/pet/surepet" element={<SurePet petInfo={petInfo} setPetInfo={setPetInfo} />} />
-          <Route path="/login/home/addpost/mono" element={<Mono monoInfo={monoInfo} setMonoInfo={setMonoInfo} />} />
-          <Route path="/login/home/addpost/mono/suremono" element={<SureMone monoInfo={monoInfo} setMonoInfo={setMonoInfo} />} />
+          <Route path="/login/home/addpost/mono" element={<Mono disInfo={disInfo} setDisInfo={setDisInfo}/>} />
+          <Route path="/login/home/addpost/mono/suremono" element={<SureMone disInfo={disInfo} setDisInfo={setDisInfo}/>} />
           <Route path="/login/home/message" element={<Messeage />} />
           <Route path="/login/home/chat" element={<Chat />} />
           <Route path="/login/home/finder" element={<LostDetail />} />
