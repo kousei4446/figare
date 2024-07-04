@@ -47,17 +47,30 @@ const DetDisp = ({ Add, setAdd }) => { //詳細を表示
             </button>
 
             <div className={`lostdetail-collapse ${open ? 'lostdetail-visible' : 'lostdetail-hidden'}`}>
-                特徴
-                <br />
-                場所
-                <br />
-                時間
-                <br />
-                その他
-                <br />
-                その他
-                <br />
-                その他
+                <div className='lostdetail-section'>
+                    <div className='lostdetail-title'>特徴</div>
+                    <div className='lostdetail-content'>
+                        a
+                    </div>
+                </div>
+                <div className='lostdetail-section'>
+                    <div className='lostdetail-title'>場所</div>
+                    <div className='lostdetail-content'>
+                        b
+                    </div>
+                </div>
+                <div className='lostdetail-section'>
+                    <div className='lostdetail-title'>時間</div>
+                    <div className='lostdetail-content'>
+                        c
+                    </div>
+                </div>
+                <div className='lostdetail-section'>
+                    <div className='lostdetail-title'>その他</div>
+                    <div className='lostdetail-content'>
+                        d
+                    </div>
+                </div>
             </div>
 
             {/* {Add && (
