@@ -3,8 +3,9 @@ import './LostDetail.css';
 import { useState } from 'react';
 import logoImage from '../LostDetail/testpict.png';
 import { AiOutlinePicture } from "react-icons/ai";
-import { TiArrowSortedDown } from "react-icons/ti";
+import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { BsPlusLg } from "react-icons/bs";
+import { IoIosExpand } from 'react-icons/io';
 
 
 const ChangePict = ({ newLogo, setLogo }) => { //写真を表示
@@ -20,31 +21,63 @@ const Tag = () => { //関連するタグを表示
     return (
         <div className='lostdetail-tag-container'>
             <ul className='lostdetail-tag-list'>
-                <li>tag1</li>
+                <li>tag1aaaaaaaaaaaa</li>
                 <li>tag2</li>
-                <li>tag3</li>
+                <li>tag3bbbbb</li>
             </ul>
         </div>
     );
 };
 
 const DetDisp = ({ Add, setAdd }) => { //詳細を表示
+    const [open, setOpen] = useState(false);
+
     const detail = () => {
+        setOpen((prev) => !prev);
         setAdd(!Add);
     };
 
+    // const Plus = () => setOpen((prev) => !prev);
+
     return (
         <>
-            詳細を表示
+            Show Details
             <button className='lostdetail-detail-button' onClick={detail}>
-                <TiArrowSortedDown />
+                {open ? <GoChevronUp /> : <GoChevronDown />}
             </button>
 
-            {Add && (
+            <div className={`lostdetail-collapse ${open ? 'lostdetail-visible' : 'lostdetail-hidden'}`}>
+                <div className='lostdetail-section'>
+                    <div className='lostdetail-title'>特徴</div>
+                    <div className='lostdetail-content'>
+                        a
+                    </div>
+                </div>
+                <div className='lostdetail-section'>
+                    <div className='lostdetail-title'>場所</div>
+                    <div className='lostdetail-content'>
+                        b
+                    </div>
+                </div>
+                <div className='lostdetail-section'>
+                    <div className='lostdetail-title'>時間</div>
+                    <div className='lostdetail-content'>
+                        c
+                    </div>
+                </div>
+                <div className='lostdetail-section'>
+                    <div className='lostdetail-title'>その他</div>
+                    <div className='lostdetail-content'>
+                        d
+                    </div>
+                </div>
+            </div>
+
+            {/* {Add && (
                 <div className='lostdetail-detail-content'>
                     プロフィールが表示される．
                 </div>
-            )}
+            )} */}
         </>
     );
 };
@@ -55,9 +88,12 @@ const Plusalpha = () => { //入力のその他
     };
 
     return (
-        <button className='lostdetail-plus-button' onClick={Plus}>
-            <BsPlusLg />
-        </button>
+        <>
+            <button className='lostdetail-plus-button' onClick={Plus}>
+                <BsPlusLg />
+            </button>
+
+        </>
     );
 };
 
@@ -105,14 +141,13 @@ function App() {
                     <br />
                 </div>
 
-                <div className='lostdetail-box lostdetail-inbtn'>
+                <div className='lostdetail-box-ex lostdetail-inbtn'>
                     <div className='lostdetail-input'>
                         <Plusalpha />
                         <Camera />
                         <Message />
                     </div>
                 </div>
-
             </div>
         </div>
 

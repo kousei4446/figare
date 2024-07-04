@@ -29,37 +29,37 @@ import { db } from './firebase';
 
 function App() {
   const [userData, setUserData] = useState([]);
-  
+
   useEffect(() => {
     const fetchAllUserData = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'users'));
         const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setUserData(usersList);
-        console.log("All users data:", usersList);
+        // console.log("All users data:", usersList);
       } catch (e) {
         console.error("Error getting documents: ", e);
       }
     };
-
     fetchAllUserData();
   }, []);
-  const [profile,setProfile]=useState({name:"",furigana:"",gender:"",password:"",tel:"",auth:false})
+
+  const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
   const [monoInfo, setMonoInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
-  const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "" ,username:""});
-  
+  const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "", username: "", place: "" });
+
   return (
     <Router>
       <div>
-        <Navigation userData={userData} setProfile={setProfile} />
+        <Navigation userData={userData} setProfile={setProfile} setRegister={setRegister} />
         <Routes>
           <Route path="/login/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} />
-          <Route path="/login/username" element={<Username register={register} setRegister={setRegister}/>} />
-          <Route path="/login/serchplace" element={<SerchPlace />} />
+          <Route path="/login/username" element={<Username register={register} setRegister={setRegister} />} />
+          <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister} />} />
           <Route path="/login/namekanji" element={<Name />} />
           <Route path="/login/namefurigana" element={<Namefuri />} />
           <Route path="/login/gender" element={<Gender />} />
@@ -67,7 +67,7 @@ function App() {
           <Route path="/login/password" element={<Password />} />
           <Route path="/login/usernamed" element={<LoginUsername />} />
           <Route path="/login/home/search" element={<Serch />} />
-          <Route path="/login/home/profile" element={<Profile profile={profile} setProfile={setProfile}/>} />
+          <Route path="/login/home/profile" element={<Profile profile={profile} setProfile={setProfile} />} />
           <Route path="/login/home/addpost" element={<AddPost />} />
           <Route path="/login/home/addpost/hito" element={<Hito hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
           <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
@@ -84,18 +84,19 @@ function App() {
   );
 }
 
-function Navigation({ userData ,setProfile}) {
+function Navigation({ userData, setProfile, setRegister }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [tel, setTel] = useState("");
   const [password, setPassword] = useState("");
+
   const login = () => {
     const user = userData.find(user => user.tel === tel && user.password === password);
     if (user) {
-      console.log(user.name)
       navigate('/login/serchplace');
-      localStorage.setItem("電話番号", JSON.stringify(user.tel))
-      setProfile({name:user.name,furigana:user.furigana,gender:user.gender,password:user.password,tel:user.tel})
+      localStorage.setItem("電話番号", JSON.stringify(user.tel));
+      setRegister({ tel: user.tel, password: user.password, gender: user.gender, name: user.name, furigana: user.furigana, username: user.username, place: user.place });
+      setProfile({ name: user.name, furigana: user.furigana, gender: user.gender, password: user.password, tel: user.tel });
     } else {
       window.alert("正しくないです");
     }

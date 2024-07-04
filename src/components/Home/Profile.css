@@ -7,28 +7,51 @@
 
 .pro_title {
     text-align: center;
-    margin-top: -10px;
-    margin-bottom: 30px;
+    margin-left: 88px;
+    margin-top: -55px;
+    margin-bottom: 40px;
+    border: 4px solid #888888;
+    width: 200px;
+    border-radius: 15px; 
 }
 
 .profile_checker {
     margin-left: 30px;
 }
 
+.pro_item {
+    font-weight:bolder;
+    font-size: 13px;
+}
+
 .pro_img {
     width: 50px;
-    margin-left: 100px;
+    margin-left: 25%;
+}
+
+.pro_content {
+    display: flex;
+    position: relative;
 }
 
 .pro_input {
-    margin-left: 100px;
+    margin-left: 25%;
+    font-size: 15px;
+}
+
+.pro_editbtn {
+    width: 50px;
+    height: 25px;
+    position: absolute;
+    right: 30px;
+    bottom: 2px;
 }
 
 .line {
     border-top: 1px solid #BBBBBB;
     margin: 0px;
-    width: 85%;
-    padding-bottom: 10px;
+    width: 95%;
+    padding-bottom: 15px;
 
 }
 
@@ -37,6 +60,7 @@
     margin: auto;
     width: 150px;
     height: 40px;
+    font-weight: bold;
     border: 1px solid #333;
     border-radius: 5px;
     color: black;
