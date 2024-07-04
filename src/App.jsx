@@ -36,30 +36,30 @@ function App() {
         const querySnapshot = await getDocs(collection(db, 'users'));
         const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setUserData(usersList);
-        // console.log("All users data:", usersList);
+        console.log("All users data:", usersList);
       } catch (e) {
         console.error("Error getting documents: ", e);
       }
     };
     fetchAllUserData();
   }, []);
-
+  
   const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
   const [monoInfo, setMonoInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
-  const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "", username: "", place: "" });
+  const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "", username: "" ,place:""});
 
   return (
     <Router>
       <div>
-        <Navigation userData={userData} setProfile={setProfile} setRegister={setRegister} />
+        <Navigation userData={userData} setProfile={setProfile} setRegister={setRegister}/>
         <Routes>
-          <Route path="/login/home" element={<Home />} />
+          <Route path="/login/home" element={<Home register={register.place}/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} />
           <Route path="/login/username" element={<Username register={register} setRegister={setRegister} />} />
-          <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister} />} />
+          <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister}/>} />
           <Route path="/login/namekanji" element={<Name />} />
           <Route path="/login/namefurigana" element={<Namefuri />} />
           <Route path="/login/gender" element={<Gender />} />
@@ -84,7 +84,7 @@ function App() {
   );
 }
 
-function Navigation({ userData, setProfile, setRegister }) {
+function Navigation({ userData, setProfile,setRegister }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [tel, setTel] = useState("");
@@ -93,9 +93,10 @@ function Navigation({ userData, setProfile, setRegister }) {
   const login = () => {
     const user = userData.find(user => user.tel === tel && user.password === password);
     if (user) {
+      // console.log(user.name)
       navigate('/login/serchplace');
       localStorage.setItem("電話番号", JSON.stringify(user.tel));
-      setRegister({ tel: user.tel, password: user.password, gender: user.gender, name: user.name, furigana: user.furigana, username: user.username, place: user.place });
+      setRegister( {tel: user.tel, password: user.password, gender: user.gender, name: user.name, furigana: user.furigana, username: user.username ,place:user.place})
       setProfile({ name: user.name, furigana: user.furigana, gender: user.gender, password: user.password, tel: user.tel });
     } else {
       window.alert("正しくないです");

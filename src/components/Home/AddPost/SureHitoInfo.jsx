@@ -2,12 +2,25 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import image from "../../img/image.png"
 import image1 from "../../img/img1.jpg"
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore'
+import { db } from '../../../firebase'
 
-function SureHitoInfo({hitoInfo,setHitoInfo}) {
+function SureHitoInfo({ hitoInfo, profile, setProfile }) {
   const navigation = useNavigate()
-  const ok = () => {
-    setHitoInfo({name: "",age: "",time: "",gender: "",place: "",tokutyou: ""})
+  const ok = async () => {
+    // setHitoInfo({name: "",age: "",time: "",gender: "",place: "",tokutyou: ""})
     navigation("/login/home")
+
+    // const querySnapshot = await getDocs(collection(db, "users"));
+    // const userList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    // const savedTel = JSON.parse(localStorage.getItem("電話番号"))
+    // if (savedTel) {
+    //   const foundUser = userList.find(user => user.tel === savedTel);
+    //   setProfile(foundUser)
+    // }
+    const hito = { ...hitoInfo, tel: JSON.parse(localStorage.getItem("電話番号")) }
+    const docRef = doc(collection(db, 'Posts')); // 'users'はコレクション名、register.nameはドキュメントID
+    await setDoc(docRef, hito);
   }
   const back = () => {
     navigation("/login/home/addpost/hito")
@@ -17,7 +30,7 @@ function SureHitoInfo({hitoInfo,setHitoInfo}) {
       <div className='blue'></div>
       <img src={image} height="50px" className='back-btn' onClick={back} />
 
-      <p style={{ fontSize: "29px", marginTop: "0px",marginBottom:"0px", marginLeft: "5%" }}>情報を確認してね​</p>
+      <p style={{ fontSize: "29px", marginTop: "0px", marginBottom: "0px", marginLeft: "5%" }}>情報を確認してね​</p>
       <div className='con-text'>
         <p>種類 : 人</p>
         <p>性別 : {hitoInfo.gender}</p>

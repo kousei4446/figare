@@ -20,6 +20,7 @@ function Username({ register, setRegister }) {
       const docRef = doc(db, 'users', register.tel); 
       await setDoc(docRef, { ...register });
       navigate("/");
+      window.location.reload();
     } catch (e) {
       console.error("Error adding document: ", e);
     }

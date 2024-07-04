@@ -26,7 +26,6 @@ function Profile({ profile ,setProfile}) {
       if (savedTel){
         const foundUser=userList.find(user=>user.tel === savedTel);
         setProfile(foundUser)
-        console.log(profile)
       }
     }
     fetchAllUserData();
