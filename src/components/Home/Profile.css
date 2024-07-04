@@ -9,10 +9,24 @@
     text-align: center;
     margin-left: 88px;
     margin-top: -55px;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
     border: 4px solid #888888;
     width: 200px;
     border-radius: 15px; 
+}
+
+.pro_editbtn {
+    margin-left: 85%;
+    margin-bottom: 5px;
+    border: 1px solid #888888;
+    border-radius: 5px;
+}
+
+.pro_savebtn {
+    margin-left: 55%;
+    margin-bottom: 5px;
+    border: 1px solid #888888;
+    border-radius: 5px;
 }
 
 .profile_checker {
@@ -37,14 +51,6 @@
 .pro_input {
     margin-left: 25%;
     font-size: 15px;
-}
-
-.pro_editbtn {
-    width: 50px;
-    height: 25px;
-    position: absolute;
-    right: 30px;
-    bottom: 2px;
 }
 
 .line {
