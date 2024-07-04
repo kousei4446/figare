@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import "./Profile.css";
 import image1 from "./../img/image.png";
 import image2 from "./../img/profile-img.png";
-import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
 function Profile({ profile ,setProfile }) {
@@ -57,10 +57,22 @@ function Profile({ profile ,setProfile }) {
   };
 
   const handleSave = async (field) => {
+    const userDocRef = doc(db, "users", profile.id);
+
+    if (field === 'tel') {
+      const newTel = editProfile.tel;
+      const newUserDocRef = doc(db, "users", newTel);
+      await setDoc(newUserDocRef, { ...editProfile, tel: newTel });
+      await deleteDoc(userDocRef);
+
+      setProfile(prev => ({ ...prev, id: newTel, tel: newTel }));
+      localStorage.setItem("電話番号", JSON.stringify(newTel));
+    } else {
+      await updateDoc(userDocRef, { [field]: editProfile[field] });
+      setProfile(prev => ({ ...prev, [field]: editProfile[field] }));
+    }
+
     setIsEditing(prev => ({ ...prev, [field]: false }));
-    const userDoc = doc(db, "users", profile.id);
-    await updateDoc(userDoc, { [field]: editProfile[field] });
-    setProfile(prev => ({ ...prev, [field]: editProfile[field] }));
   };
 
   return (
