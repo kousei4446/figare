@@ -1,16 +1,28 @@
 import React from 'react'
 import image from "../../img/image.png"
 import { useNavigate } from 'react-router-dom'
-import sampleimg from "../../img/sampleimg.png"
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { db, storage } from '../../../firebase'
+import { collection, doc, setDoc } from 'firebase/firestore'
 
-function SureMone({monoInfo,setMonoInfo}) {
+function SureMone({ disInfo, setDisInfo }) {
   const navigation = useNavigate()
   const back = () => {
     navigation("/login/home/addpost/mono")
   }
-  const ok = () => {
-    navigation("/login/home/addpost")
-  }
+  const ok = async () => {
+    const storageRef = ref(storage, 'images/' + disInfo.file.name);
+    await uploadBytes(storageRef, disInfo.file); // ファイルをまずアップロード
+    const url = await getDownloadURL(storageRef); // その後にURLを取得
+    console.log("File available at:", url);
+    const docRef = doc(collection(db, 'Posts')); // 'Post'はコレクション名
+    const newDisInfo = { ...disInfo, file: url }; // URLを含めて新しいオブジェクトを作成
+    await setDoc(docRef, newDisInfo); // Firestoreに新しいオブジェクトを保存
+
+    setDisInfo({ kind: "", text: "", img: "", file: "" });
+    navigation("/login/home");
+
+  };
   return (
     <div>
       <div className='blue'></div>
@@ -19,11 +31,8 @@ function SureMone({monoInfo,setMonoInfo}) {
       <div className='con-text'>
         <p>種類 : もの</p>
         <p>写真 :</p>
-        <p>　　　 <img src={sampleimg} height="200px" /></p>
-        <p>名前　　 : {monoInfo.name}</p>
-        <p>場所　　 : {monoInfo.place}</p>
-        <p>目撃時間 : {monoInfo.time}</p>
-        <p>特徴　　 : {monoInfo.tokutyou}</p>
+        <p>　　　 <img src={disInfo.img ? disInfo.img : {}} height="200px" /></p>
+        <p>記述 : {disInfo.text}</p>
       </div>
       <div className="okbtn-posi">
         <button onClick={ok} className='con-btn'>確定する</button>
