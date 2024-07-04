@@ -1,0 +1,68 @@
+.serch-Title{
+    text-align: center;
+}
+
+.select-BackGround{
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #DEFFFF;
+}
+
+.select-Back{
+    width: 5rem;
+    height: 2.5rem;
+    font: 20px;
+    font-weight: bold;
+    border: none;
+    color: white;
+    background-color: blue;
+    border-radius: 8px;
+}
+
+.select-Seed{
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+.select-Gender{
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+.select-Name{
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+.select-Location{
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+.select-Time{
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+.select-Desition{
+    color: white;
+    font: 20px;
+    font-weight: bold;
+    background-color: blue;
+    height: 2.5rem;
+    width: 5rem;
+    border-radius: 8px;
+    border: none;
+}
+
+.Desition-poji{
+    display: flex;
+    justify-content: right;
+    margin-right: 40%;
+}
