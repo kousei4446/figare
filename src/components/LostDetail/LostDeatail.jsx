@@ -30,7 +30,7 @@ const Tag = () => { //関連するタグを表示
 };
 
 const DetDisp = ({ Add, setAdd }) => { //詳細を表示
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
     const detail = () => {
         setOpen((prev) => !prev);
@@ -41,7 +41,9 @@ const DetDisp = ({ Add, setAdd }) => { //詳細を表示
 
     return (
         <>
-            Show Details
+            <div className='lostdetail-font'>
+                Show Details
+            </div>
             <button className='lostdetail-detail-button' onClick={detail}>
                 {open ? <GoChevronUp /> : <GoChevronDown />}
             </button>
@@ -50,13 +52,13 @@ const DetDisp = ({ Add, setAdd }) => { //詳細を表示
                 <div className='lostdetail-section'>
                     <div className='lostdetail-title'>特徴</div>
                     <div className='lostdetail-content'>
-                        a
+                        aaaaaaaaaaaaaaaaaaaaaa
                     </div>
                 </div>
                 <div className='lostdetail-section'>
                     <div className='lostdetail-title'>場所</div>
                     <div className='lostdetail-content'>
-                        b
+                        bbb
                     </div>
                 </div>
                 <div className='lostdetail-section'>
@@ -115,7 +117,8 @@ const Message = () => { //メッセージを入力
     };
 
     return (
-        <button className='lostdetail-message-button' onClick={mess}>メッセージを入力</button>
+        <input className='lostdetail-message-button' placeholder='メッセージを入力してください'>
+        </input>
     );
 };
 
