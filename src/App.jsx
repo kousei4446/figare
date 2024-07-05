@@ -24,7 +24,7 @@ import SurePet from './components/Home/AddPost/SurePet';
 import Mono from './components/Home/AddPost/Mono';
 import LostDetail from "./components/LostDetail/LostDeatail";
 import SureMone from './components/Home/AddPost/SureMone';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import { signInWithPopup } from "firebase/auth";
 import { useAuthState} from "react-firebase-hooks/auth";
 import { db, auth, provider } from './firebase';
@@ -47,7 +47,7 @@ function App() {
     fetchAllUserData();
   }, []);
   const [activePost,setActivePost]=useState({})
-  const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:""});
+  const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:"",place:""});
   const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false,time:null });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
@@ -117,9 +117,21 @@ function Navigation({ userData, setProfile, setRegister }) {
   /* googleログイン */
   function SignInButton(){
     const signInWithGoogle = () => {
-      signInWithPopup(auth, provider).then((result) => {
+      signInWithPopup(auth, provider)
+      .then(async (result) => {
         navigate('/login/serchplace');
-        console.log('signin')
+        // console.log('signin', result.user);
+
+        const user = result.user;
+        const userData = {
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL
+        };
+        localStorage.setItem("uid",user.uid)
+        const docRef = doc(db, 'googleusers', user.uid);
+        await setDoc(docRef, userData);
       }).catch((error) => {
         console.log('signin error')
       })

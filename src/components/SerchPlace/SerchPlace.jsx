@@ -26,10 +26,10 @@ function SerchPlace({ register, setRegister }) {
 
   const comp = async () => {
     if (selectedRegion) {
-      const updatedRegister = { ...register, place: selectedRegion };
-      setRegister(updatedRegister);
-      const docRef = doc(db, 'users', register.tel);
-      await setDoc(docRef, updatedRegister);
+      // const updatedRegister = { ...register, place: selectedRegion };
+      // setRegister(updatedRegister);
+      // const docRef = doc(db, 'users', register.tel);
+      // await setDoc(docRef, updatedRegister);
       navigate('/login/home');
       console.log('navigate to home')
     } else {
