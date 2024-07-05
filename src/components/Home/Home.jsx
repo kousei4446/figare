@@ -44,8 +44,8 @@ function Home({ setActivePost, myInfo, setMyInfo }) {
       const savedUid = localStorage.getItem('uid');
       if (savedUid) {
         const foundUser = userList.find((user) => user.uid === savedUid);
-        console.log(foundUser);
-        setMyInfo({ ...myInfo, photoURL: foundUser.photoURL, name: foundUser.displayName });
+        // console.log(foundUser);
+        setMyInfo({ place: foundUser.place, photoURL: foundUser.photoURL, username: foundUser.user });
       }
     };
 
@@ -59,7 +59,8 @@ function Home({ setActivePost, myInfo, setMyInfo }) {
       const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
       const querySnapshot = await getDocs(q);
       const postList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setPosts(postList);
+      const newPost=postList.filter((user) => user.place === myInfo.place);
+      setPosts(newPost);
     };
     fetchAllPosts();
   }, []);
@@ -68,7 +69,7 @@ function Home({ setActivePost, myInfo, setMyInfo }) {
     <div>
       <div className='background'>
         <img src={myInfo.photoURL || image} height='75px' className='Icon' onClick={profilepage} alt='Profile' />
-        <h3 className='main-title'>{place.place && place.place}の検索一覧</h3>
+        <h3 className='main-title'>{myInfo.place && myInfo.place}の検索一覧</h3>
         <IoMdSearch onClick={serchpage} size={35} className='search' />
       </div>
 
