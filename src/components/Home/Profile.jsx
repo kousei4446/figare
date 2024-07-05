@@ -6,17 +6,10 @@ import image2 from "./../img/profile-img.png";
 import { collection, doc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
-function Profile({ profile ,setProfile }) {
+function Profile({ profile, setProfile }) {
   const navigate = useNavigate();
 
-  const [isEditing, setIsEditing] = useState({
-    name: false,
-    furigana: false,
-    username: false,
-    gender: false,
-    tel: false,
-    password: false
-  });
+  const [isEditing, setIsEditing] = useState(false);
   const [editProfile, setEditProfile] = useState({ ...profile });
 
   const back = () => {
@@ -25,9 +18,9 @@ function Profile({ profile ,setProfile }) {
 
   const logout = () => {
     navigate("/");
-    localStorage.setItem("電話番号","");
+    localStorage.setItem("電話番号", "");
   };
-  
+
   useEffect(() => {
     const fetchAllUserData = async () => {
       const querySnapshot = await getDocs(collection(db, "users"));
@@ -37,7 +30,6 @@ function Profile({ profile ,setProfile }) {
         const foundUser = userList.find(user => user.tel === savedTel);
         setProfile(foundUser);
         setEditProfile(foundUser);
-        console.log(profile)
       }
     };
     fetchAllUserData();
@@ -47,19 +39,15 @@ function Profile({ profile ,setProfile }) {
     setEditProfile(profile);
   }, [profile]);
 
-  const handleEdit = (field) => {
-    setIsEditing(prev => ({ ...prev, [field]: !prev[field] }));
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEditProfile(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = async (field) => {
+  const handleSave = async () => {
     const userDocRef = doc(db, "users", profile.id);
 
-    if (field === 'tel') {
+    if (editProfile.tel !== profile.tel) {
       const newTel = editProfile.tel;
       const newUserDocRef = doc(db, "users", newTel);
       await setDoc(newUserDocRef, { ...editProfile, tel: newTel });
@@ -68,11 +56,21 @@ function Profile({ profile ,setProfile }) {
       setProfile(prev => ({ ...prev, id: newTel, tel: newTel }));
       localStorage.setItem("電話番号", JSON.stringify(newTel));
     } else {
-      await updateDoc(userDocRef, { [field]: editProfile[field] });
-      setProfile(prev => ({ ...prev, [field]: editProfile[field] }));
+      await updateDoc(userDocRef, {
+        name: editProfile.name,
+        furigana: editProfile.furigana,
+        username: editProfile.username,
+        gender: editProfile.gender,
+        password: editProfile.password
+      });
+      setProfile(editProfile);
     }
 
-    setIsEditing(prev => ({ ...prev, [field]: false }));
+    setIsEditing(false);
+  };
+
+  const handleEditToggle = () => {
+    setIsEditing(prev => !prev);
   };
 
   return (
@@ -80,150 +78,122 @@ function Profile({ profile ,setProfile }) {
       <img src={image1} className='back_btn' onClick={back} />
       <h2 className='pro_title'>プロフィール</h2>
       <div className='profile_checker'>
+      <div className='edit_save_btn'>
+        {isEditing ? (
+          <>
+            <button className='pro_savebtn' onClick={handleSave}>保存</button>
+            <button className='pro_cancelbtn' onClick={handleEditToggle}>キャンセル</button>
+          </>
+        ) : (
+          <button className='pro_editbtn' onClick={handleEditToggle}>編集</button>
+        )}
+      </div>
         <label className='pro_item'>プロフィール画</label>
-          <br />
-          <div className='pro_content'>
-            <img src={image2} className='pro_img' />
-            <button className='pro_editbtn'>編集</button>
-          </div>
+        <br />
+        <div className='pro_content'>
+          <img src={image2} className='pro_img' />
+        </div>
         <div className='line'></div>
 
         <label className='pro_item'>名前</label>
-          <br />
-          <div className='pro_content'>
-            {isEditing.name ? (
-              <>
-                <input
-                  type="text"
-                  name="name"
-                  value={editProfile.name}
-                  onChange={handleChange}
-                />
-                <button onClick={() => handleSave('name')}>保存</button>
-              </>
-            ) : (
-              <>
-                <div className='pro_input'>{profile.name}</div>
-                <button className='pro_editbtn' onClick={() => handleEdit('name')}>編集</button>
-              </>
-            )}
-          </div>
-          <div className='line'></div>
+        <br />
+        <div className='pro_content'>
+          {isEditing ? (
+            <input
+              type="text"
+              name="name"
+              value={editProfile.name}
+              onChange={handleChange}
+            />
+          ) : (
+            <div className='pro_input'>{profile.name}</div>
+          )}
+        </div>
+        <div className='line'></div>
 
         <label className='pro_item'>フリガナ</label>
-          <br />
-          <div className='pro_content'>
-          {isEditing.furigana ? (
-            <>
-              <input
-                type='text'
-                name='furigana'
-                value={editProfile.furigana}
-                onChange={handleChange}
-              />
-              <button onClick={() => handleSave('furigana')}>保存</button>
-            </>
+        <br />
+        <div className='pro_content'>
+          {isEditing ? (
+            <input
+              type='text'
+              name='furigana'
+              value={editProfile.furigana}
+              onChange={handleChange}
+            />
           ) : (
-            <>
-              <div className='pro_input'>{profile.furigana}</div>
-              <button className='pro_editbtn' onClick={() => handleEdit('furigana')}>編集</button>
-            </>
+            <div className='pro_input'>{profile.furigana}</div>
           )}
         </div>
         <div className='line'></div>
 
         <label className='pro_item'>ユーザ名</label>
-          <br />
-          <div className='pro_content'>
-          {isEditing.username ? (
-            <>
-              <input
-                type='text'
-                name='username'
-                value={editProfile.username}
-                onChange={handleChange}
-              />
-              <button onClick={() => handleSave('username')}>保存</button>
-            </>
+        <br />
+        <div className='pro_content'>
+          {isEditing ? (
+            <input
+              type='text'
+              name='username'
+              value={editProfile.username}
+              onChange={handleChange}
+            />
           ) : (
-            <>
-              <div className='pro_input'>{profile.username}</div>
-              <button className='pro_editbtn' onClick={() => handleEdit('username')}>編集</button>
-            </>
+            <div className='pro_input'>{profile.username}</div>
           )}
         </div>
         <div className='line'></div>
 
         <label className='pro_item'>性別</label>
-          <br />
-          <div className='pro_content'>
-          {isEditing.gender ? (
-            <>
-              <input
-                type='text'
-                name='gender'
-                value={editProfile.gender}
-                onChange={handleChange}
-              />
-              <button onClick={() => handleSave('gender')}>保存</button>
-            </>
+        <br />
+        <div className='pro_content'>
+          {isEditing ? (
+            <input
+              type='text'
+              name='gender'
+              value={editProfile.gender}
+              onChange={handleChange}
+            />
           ) : (
-            <>
-              <div className='pro_input'>{profile.gender}</div>
-              <button className='pro_editbtn' onClick={() => handleEdit('gender')}>編集</button>
-            </>
+            <div className='pro_input'>{profile.gender}</div>
           )}
         </div>
         <div className='line'></div>
 
         <label className='pro_item'>電話番号</label>
-          <br />
-          <div className='pro_content'>
-          {isEditing.tel ? (
-            <>
-              <input
-                type='text'
-                name='tel'
-                value={editProfile.tel}
-                onChange={handleChange}
-              />
-              <button onClick={() => handleSave('tel')}>保存</button>
-            </>
+        <br />
+        <div className='pro_content'>
+          {isEditing ? (
+            <input
+              type='text'
+              name='tel'
+              value={editProfile.tel}
+              onChange={handleChange}
+            />
           ) : (
-            <>
-              <div className='pro_input'>{profile.tel}</div>
-              <button className='pro_editbtn' onClick={() => handleEdit('tel')}>編集</button>
-            </>
+            <div className='pro_input'>{profile.tel}</div>
           )}
         </div>
         <div className='line'></div>
 
         <label className='pro_item'>パスワード</label>
-          <br />
-          <div className='pro_content'>
-          {isEditing.password ? (
-            <>
-              <input
-                type='password'
-                name='password'
-                value={editProfile.password}
-                onChange={handleChange}
-              />
-              <button onClick={() => handleSave('password')}>保存</button>
-            </>
+        <br />
+        <div className='pro_content'>
+          {isEditing ? (
+            <input
+              type='password'
+              name='password'
+              value={editProfile.password}
+              onChange={handleChange}
+            />
           ) : (
-            <>
-              <div className='pro_input'>{profile.password}</div>
-              <button className='pro_editbtn' onClick={() => handleEdit('password')}>編集</button>
-            </>
+            <div className='pro_input'>{profile.password}</div>
           )}
         </div>
         <div className='line'></div>
-
       </div>
       <button className='logout_btn' onClick={logout}>ログアウト</button>
     </div>
   );
 }
 
-export default Profile
+export default Profile;

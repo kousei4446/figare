@@ -44,10 +44,10 @@ function Home() {
   return (
     <div>
       <div className='background'>
-        <img src={image} height="100px" className="Icon" onClick={profilepage} />
-          < IoMdSearch onClick={serchpage} size={40} className='search' />
+        <img src={image} height="75px" className="Icon" onClick={profilepage} />
+        <h3 className='main-title'>{place.place && place.place}の検索一覧</h3>
+        < IoMdSearch onClick={serchpage} size={35} className='search' />
       </div>
-      <h3 className='main-title'>{place.place && place.place}の検索一覧</h3>
 
       <div className='main-post'>
         <div onClick={message} className='main-postcard'>
@@ -99,6 +99,7 @@ function Home() {
 
       <div className='main-foot'>
         <IoMdChatbubbles onClick={msgpage} className='main-msg-btn' />
+        <></>
         <IoMdAdd onClick={addPost} className='add-postbtn' />
       </div>
     </div>
