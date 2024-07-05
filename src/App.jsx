@@ -26,7 +26,7 @@ import LostDetail from "./components/LostDetail/LostDeatail";
 import SureMone from './components/Home/AddPost/SureMone';
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import { signInWithPopup } from "firebase/auth";
-import { useAuthState} from "react-firebase-hooks/auth";
+// import { useAuthState} from "react-firebase-hooks/auth";
 import { db, auth, provider } from './firebase';
 
 function App() {
@@ -97,7 +97,7 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
   // const [tel, setTel] = useState("");
   // const [password, setPassword] = useState("");
 
-  const [user] = useAuthState(auth);
+  // const [user] = useAuthState(auth);
 
   // const login = () => {
   //   const user = userData.find(user => user.tel === tel && user.password === password);
