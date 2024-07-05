@@ -63,7 +63,7 @@ function App() {
         <Route path="/login" element={<Login />} />
           {/* <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} /> */}
           {/* <Route path="/login/username" element={<Username register={register} setRegister={setRegister} />} /> */}
-          <Route path="/login/serchplace" element={<SerchPlace disInfo={disInfo} setDisInfo={setDisInfo}/>} />
+          <Route path="/login/serchplace" element={<SerchPlace userData={userData} setUserData={setUserData}/>} />
           {/* <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister}/>} /> */}
           <Route path="/login/namekanji" element={<Name />} />
           <Route path="/login/namefurigana" element={<Namefuri />} />

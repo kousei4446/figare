@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Search.css";
 import { db } from '../../firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 
-function SerchPlace( { disInfo, setDisInfo } ) {
+function SerchPlace({userData, setUserData}) {
   const [selectedRegion, setSelectedRegion] = useState('');
   const navigate = useNavigate();
 
@@ -24,16 +24,27 @@ function SerchPlace( { disInfo, setDisInfo } ) {
     setSelectedRegion(event.target.value);
   };
 
-  const comp = async () => {
+  const comp = async (e) => {
     if (selectedRegion) {
-    setDisInfo(prevState => ({
-      ...prevState,
-      place: selectedRegion
-    }));
+      console.log(selectedRegion);
+      
+      const UID = localStorage.getItem("uid")
+      const docRef = doc(db, "googleusers", UID )
+      await updateDoc(docRef, {
+        place: selectedRegion
+      });
+
+      // const { name } = e.target;
+      // setUserData(prevState => ({
+      //   ...prevState,
+      //   [name]: userData.selectedRegion
+      // }))
+      
       // const updateddisInfo = { ...disInfo, place: selectedRegion };
       // setDisInfo(updateddisInfo);
       // const docRef = doc(db, 'Posts');
       // await setDoc(docRef, updateddisInfo);
+      
       navigate('/login/home');
       console.log('navigate to home')
     } else {
@@ -48,7 +59,7 @@ function SerchPlace( { disInfo, setDisInfo } ) {
         <h1 className='or'>or</h1>
         <h1 className='detect'>発見した地区</h1>
       </div>
-      <select className='pulldown' value={selectedRegion} onChange={handleChange}>
+      <select className='pulldown' value={selectedRegion} onChange={handleChange} name='place'>
         <option value="" disabled>選択してください</option>
         {regions.map((region, index) => (
           <optgroup key={index} label={region.label}>
