@@ -4,7 +4,7 @@ import "./Username.css";
 import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
-function Username({ register, setRegister}) {
+function Username() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   
@@ -22,7 +22,7 @@ function Username({ register, setRegister}) {
       const updatedUserDatas = { username: username };
       const docRef = doc(db, 'googleusers', localStorage.getItem("uid"));
       await updateDoc(docRef, updatedUserDatas);
-      navigate("/");
+      navigate("/login/home");
       window.location.reload();
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -39,7 +39,7 @@ function Username({ register, setRegister}) {
         className='username'
         placeholder='ユーザー名'
         name="username"
-        value={register.username}
+        value={username}
         onChange={handleInputChange}
       />
       <br />

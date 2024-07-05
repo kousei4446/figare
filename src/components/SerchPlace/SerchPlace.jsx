@@ -4,7 +4,7 @@ import "./Search.css";
 import { db } from '../../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 
-function SerchPlace({userData, setUserData}) {
+function SerchPlace() {
   const [selectedRegion, setSelectedRegion] = useState('');
   const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ function SerchPlace({userData, setUserData}) {
       // const docRef = doc(db, 'Posts');
       // await setDoc(docRef, updateddisInfo);
       
-      navigate('/login/home');
+      navigate('/login/username');
       console.log('navigate to home')
     } else {
       alert('地区を選択してください。');

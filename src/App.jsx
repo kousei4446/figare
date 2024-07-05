@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate 
 // import Register from './components/newregester/Register';
 import Login from './components/Login/Login';
 import "./App.css";
-// import Username from './components/newregester/Username';
+import Username from './components/newregester/Username';
 import SerchPlace from './components/SerchPlace/SerchPlace';
 import Namefuri from './components/Login/Namefuri';
 import Name from './components/Login/Name';
@@ -46,7 +46,7 @@ function App() {
     };
     fetchAllUserData();
   }, []);
-  const [usrDatas,setUserDatas]=useState({})
+
   const [activePost,setActivePost]=useState({})
   const [myInfo,setMyInfo]=useState({userName:"",place:"",photoURL:""})
   const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:"",place:"",poster:""});
@@ -60,12 +60,11 @@ function App() {
       <div>
         <Navigation userData={userData} setProfile={setProfile} /*setRegister={setRegister}*//>
         <Routes>
-        <Route path="/login/home" element={<Home />} />
-        {/* <Route path="/login/home" element={<Home register={register.place} myInfo={myInfo} setMyInfo={setMyInfo}/>} /> */}
+        <Route path="/login/home" element={<Home setActivePost={setActivePost} myInfo={myInfo} setMyInfo={setMyInfo}/>} />
         <Route path="/login" element={<Login />} />
           {/* <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} /> */}
-          {/* <Route path="/login/username" element={<Username register={register} setRegister={setRegister} />} /> */}
-          <Route path="/login/serchplace" element={<SerchPlace userData={userData} setUserData={setUserData}/>} />
+          <Route path="/login/username" element={<Username  />} />
+          <Route path="/login/serchplace" element={<SerchPlace/>} />
           {/* <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister}/>} /> */}
           <Route path="/login/namekanji" element={<Name />} />
           <Route path="/login/namefurigana" element={<Namefuri />} />
