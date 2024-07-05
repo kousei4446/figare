@@ -46,8 +46,10 @@ function App() {
     };
     fetchAllUserData();
   }, []);
+  const [usrDatas,setUserDatas]=useState({})
   const [activePost,setActivePost]=useState({})
-  const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:"",place:""});
+  const [myInfo,setMyInfo]=useState({userName:"",place:"",photoURL:""})
+  const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:"",place:"",poster:""});
   const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false,time:null });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
@@ -59,7 +61,7 @@ function App() {
         <Navigation userData={userData} setProfile={setProfile} /*setRegister={setRegister}*//>
         <Routes>
         <Route path="/login/home" element={<Home />} />
-        {/* <Route path="/login/home" element={<Home register={register.place}/>} /> */}
+        {/* <Route path="/login/home" element={<Home register={register.place} myInfo={myInfo} setMyInfo={setMyInfo}/>} /> */}
         <Route path="/login" element={<Login />} />
           {/* <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} /> */}
           {/* <Route path="/login/username" element={<Username register={register} setRegister={setRegister} />} /> */}
