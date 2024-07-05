@@ -8,7 +8,7 @@ import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { IoMdAdd } from 'react-icons/io';
 
-function Home() {
+function Home({setActivePost}) {
   const navigation = useNavigate()
   const [place, setPlace] = useState("")
   const profilepage = () => {
@@ -22,7 +22,8 @@ function Home() {
   const addPost = () => {
     navigation("/login/home/addpost/mono")
   }
-  const message = () => {
+  const message = (post) => {
+    setActivePost({...post})
     navigation("/login/home/finder")
   }
   const msgpage = () => {
@@ -63,7 +64,7 @@ function Home() {
       {posts.map((post, index) => {
         return(
         <div className='main-post' key={index}>
-          <div onClick={message} className='main-postcard'>
+          <div onClick={()=>message(post)} className='main-postcard'>
             <strong>{post.kind}</strong>
             <div><img src={post.file}width="50%"/></div>
             <div>
