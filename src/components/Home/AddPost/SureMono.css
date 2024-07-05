@@ -1,0 +1,50 @@
+.mono-sure {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.kind-check {
+    padding-left: 40px;
+    margin-bottom: 10px;
+}
+
+.picture-check {
+    padding-left: 40px;
+}
+
+.preview-check {
+    display: flex;
+    justify-content: center;
+}
+
+.text-check {
+    padding-top: 20px;
+    padding-left: 40px;
+}
+
+.context-check {
+    font-size: 13px;
+    padding-left: 50px;
+    padding-right: 40px;
+}
+
+.con-btn-posi {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+.con-btn {
+    color: white;
+    font-size: 15px;
+    background-color: rgb(88, 151, 234);
+    height: 2.5rem;
+    width: 6rem;
+    border-radius: 10px;
+    /* border: 1px solid black; */
+    border: none;
+
+}

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../../../firebase';
 import { Timestamp, collection, doc, setDoc } from 'firebase/firestore';
+import "./SureMono.css";
 
 function SureMone({ disInfo, setDisInfo }) {
   const navigate = useNavigate();
@@ -41,16 +42,17 @@ function SureMone({ disInfo, setDisInfo }) {
         </div>
       ) : (
         <>
-          <div className='blue'></div>
+          <div className='mono-blue'>figare</div>
           <img src={image} height="50px" className='back-btn' onClick={back} alt="戻る" />
-          <p style={{ fontSize: "29px", marginTop: "0px", marginBottom: "0px", marginLeft: "5%" }}>情報を確認してね​</p>
+          <div className='mono-sure'>＜情報を確認してね＞​</div>
           <div className='con-text'>
-            <p>種類 : もの</p>
-            <p>写真 :</p>
-            <p>　　　 <img src={disInfo.img ? disInfo.img : {}} height="200px" alt="プレビュー" /></p>
-            <p>記述 : {disInfo.text}</p>
+            <div className='kind-check'>種類 : もの</div>
+            <div className='picture-check'>写真 :</div>
+            <div className='preview-check'><img src={disInfo.img ? disInfo.img : {}} height="200px" alt="プレビュー" /></div>
+            <div className='text-check'>記述 :</div>
+            <div className='context-check'>{disInfo.text}</div>
           </div>
-          <div className="okbtn-posi">
+          <div className="con-btn-posi">
             <button onClick={ok} className='con-btn'>確定する</button>
           </div>
         </>
