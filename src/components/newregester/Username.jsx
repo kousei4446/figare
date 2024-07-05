@@ -4,7 +4,7 @@ import "./Username.css";
 import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
-function Username({ register, setRegister, userDatas }) {
+function Username({ register, setRegister}) {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   
