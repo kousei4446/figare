@@ -26,7 +26,7 @@ import LostDetail from "./components/LostDetail/LostDeatail";
 import SureMone from './components/Home/AddPost/SureMone';
 import { collection, getDocs } from 'firebase/firestore';
 import { signInWithPopup } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useAuthState} from "react-firebase-hooks/auth";
 import { db, auth, provider } from './firebase';
 
 function App() {

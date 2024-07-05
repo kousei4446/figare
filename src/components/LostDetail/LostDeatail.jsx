@@ -117,9 +117,8 @@ const Message = () => { //メッセージを入力
     };
 
     return (
-        <button className='lostdetail-message-button' onClick={mess}>
-            メッセージを入力
-        </button>
+        <input className='lostdetail-message-button' placeholder='メッセージを入力してください'>
+        </input>
     );
 };
 
