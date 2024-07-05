@@ -14,10 +14,8 @@ function Home() {
   const profilepage = () => {
     navigation("/login/home/profile")
   }
-  const [toggle, setToggle]=useState(false);
   const serchpage = () => {
     navigation("/login/home/search")
-    setToggle(!toggle);
   }
   const addPost = () => {
     navigation("/login/home/addpost")
