@@ -44,6 +44,7 @@ function App() {
     };
     fetchAllUserData();
   }, []);
+  const [activePost,setActivePost]=useState({})
   const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:""});
   const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false,time:null });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
@@ -55,7 +56,7 @@ function App() {
       <div>
         <Navigation userData={userData} setProfile={setProfile} setRegister={setRegister}/>
         <Routes>
-          <Route path="/login/home" element={<Home register={register.place}/>} />
+          <Route path="/login/home" element={<Home register={register.place}setActivePost={setActivePost}/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} />
           <Route path="/login/username" element={<Username register={register} setRegister={setRegister} />} />
@@ -77,7 +78,7 @@ function App() {
           <Route path="/login/home/addpost/mono/suremono" element={<SureMone disInfo={disInfo} setDisInfo={setDisInfo}/>} />
           <Route path="/login/home/message" element={<Messeage />} />
           <Route path="/login/home/chat" element={<Chat />} />
-          <Route path="/login/home/finder" element={<LostDetail />} />
+          <Route path="/login/home/finder" element={<LostDetail activePost={activePost}/>} />
         </Routes>
       </div>
     </Router>
