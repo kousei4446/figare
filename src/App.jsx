@@ -39,7 +39,7 @@ function App() {
         const usersList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setUserData(usersList);
         
-        console.log("All users data:", usersList);
+        // console.log("All users data:", usersList);
       } catch (e) {
         console.error("Error getting documents: ", e);
       }
@@ -80,7 +80,7 @@ function App() {
           <Route path="/login/home/addpost/pet" element={<Pet petInfo={petInfo} setPetInfo={setPetInfo} />} />
           <Route path="/login/home/addpost/pet/surepet" element={<SurePet petInfo={petInfo} setPetInfo={setPetInfo} />} />
           <Route path="/login/home/addpost/mono" element={<Mono disInfo={disInfo} setDisInfo={setDisInfo}/>} />
-          <Route path="/login/home/addpost/mono/suremono" element={<SureMone disInfo={disInfo} setDisInfo={setDisInfo}/>} />
+          <Route path="/login/home/addpost/mono/suremono" element={<SureMone disInfo={disInfo} setDisInfo={setDisInfo} myInfo={myInfo}/>} />
           <Route path="/login/home/message" element={<Messeage />} />
           <Route path="/login/home/chat" element={<Chat />} />
           <Route path="/login/home/finder" element={<LostDetail activePost={activePost}/>} />

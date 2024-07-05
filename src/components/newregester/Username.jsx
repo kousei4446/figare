@@ -10,11 +10,11 @@ function Username() {
   
   const handleInputChange = (e) => {
     setUsername(e.target.value);
-    const { name, value } = e.target;
-    setRegister(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+    // const { name, value } = e.target;
+    // setRegister(prevState => ({
+    //   ...prevState,
+    //   [name]: value
+    // }));
   };
 
   const comp = async () => {
