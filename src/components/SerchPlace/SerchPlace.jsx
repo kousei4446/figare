@@ -31,6 +31,7 @@ function SerchPlace({ register, setRegister }) {
       const docRef = doc(db, 'users', register.tel);
       await setDoc(docRef, updatedRegister);
       navigate('/login/home');
+      console.log('navigate to home')
     } else {
       alert('地区を選択してください。');
     }

@@ -4,7 +4,8 @@ import "./Profile.css";
 import image1 from "./../img/image.png";
 import image2 from "./../img/profile-img.png";
 import { collection, doc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
+import {getAuth, signOut } from "firebase/auth";
+import { db, auth } from '../../firebase';
 
 function Profile({ profile, setProfile }) {
   const navigate = useNavigate();
@@ -20,6 +21,16 @@ function Profile({ profile, setProfile }) {
     navigate("/");
     localStorage.setItem("電話番号", "");
   };
+  
+  function SignOutButton(){
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      navigate("/");
+      console.log('signout');
+    }).catch((error) => {
+      console.log(" signout error");
+    })
+  }
 
   useEffect(() => {
     const fetchAllUserData = async () => {
@@ -191,6 +202,11 @@ function Profile({ profile, setProfile }) {
         </div>
         <div className='line'></div>
       </div>
+      
+      <button onClick={SignOutButton}>
+        <p>サインアウト</p>
+      </button>
+
       <button className='logout_btn' onClick={logout}>ログアウト</button>
     </div>
   );
