@@ -1,12 +1,17 @@
 .serch-Title{
     text-align: center;
+    margin-left: 200px;
+    margin-top: -40px;
+    width: 200px;
+    border-radius: 15px;
+    background-color: rgb(180, 250, 250);
 }
 
 .select-BackGround{
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #DEFFFF;
+    background-color: rgb(250,250,250);
 }
 
 .select-Back{
@@ -20,10 +25,18 @@
     border-radius: 8px;
 }
 
+.sS-Name{
+    text-align: center;
+}
+
 .select-Seed{
     text-align: center;
     margin: 5px;
     padding: 5px;
+}
+
+.sG-Name{
+    text-align: center;
 }
 
 .select-Gender{
@@ -32,16 +45,28 @@
     padding: 5px;
 }
 
+.sN-Name{
+    text-align: center;
+}
+
 .select-Name{
     text-align: center;
     margin: 5px;
     padding: 5px;
 }
 
+.sL-Name{
+    text-align: center;
+}
+
 .select-Location{
     text-align: center;
     margin: 5px;
     padding: 5px;
+}
+
+.sT-Name{
+    text-align: center;
 }
 
 .select-Time{
@@ -56,13 +81,12 @@
     font-weight: bold;
     background-color: blue;
     height: 2.5rem;
-    width: 5rem;
+    width: 10rem;
     border-radius: 8px;
     border: none;
 }
 
 .Desition-poji{
     display: flex;
-    justify-content: right;
-    margin-right: 40%;
+    justify-content: center;
 }
