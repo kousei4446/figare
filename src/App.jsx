@@ -45,7 +45,7 @@ function App() {
     fetchAllUserData();
   }, []);
   const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:""});
-  const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false });
+  const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false,time:null });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
   const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "", username: "" ,place:""});
