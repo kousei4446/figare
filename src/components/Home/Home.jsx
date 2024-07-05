@@ -10,10 +10,10 @@ function Home({ setActivePost, myInfo, setMyInfo }) {
   const navigate = useNavigate();
   const [place, setPlace] = useState("");
   const profilepage = () => {
-    navigation("/login/home/profile")
+    navigate("/login/home/profile")
   }
   const serchpage = () => {
-    navigation("/login/home/search")
+    navigate("/login/home/search")
   }
   const addPost = () => {
     navigate('/login/home/addpost/mono');
