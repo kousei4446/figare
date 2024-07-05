@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useLocation, useNavigate } from 'react-router-dom';
-import Register from './components/newregester/Register';
+// import Register from './components/newregester/Register';
 import Login from './components/Login/Login';
 import "./App.css";
-import Username from './components/newregester/Username';
+// import Username from './components/newregester/Username';
 import SerchPlace from './components/SerchPlace/SerchPlace';
 import Namefuri from './components/Login/Namefuri';
 import Name from './components/Login/Name';
@@ -46,22 +46,24 @@ function App() {
     };
     fetchAllUserData();
   }, []);
-  const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:""});
+  const [disInfo, setDisInfo] = useState({ place:"", kind: "", text: "", img: "" ,file:""});
   const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false,time:null });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
-  const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "", username: "" ,place:""});
+  // const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "", username: "" ,place:""});
 
   return (
     <Router>
       <div>
-        <Navigation userData={userData} setProfile={setProfile} setRegister={setRegister}/>
+        <Navigation userData={userData} setProfile={setProfile} /*setRegister={setRegister}*//>
         <Routes>
-          <Route path="/login/home" element={<Home register={register.place}/>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} />
-          <Route path="/login/username" element={<Username register={register} setRegister={setRegister} />} />
-          <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister}/>} />
+        <Route path="/login/home" element={<Home />} />
+        {/* <Route path="/login/home" element={<Home register={register.place}/>} /> */}
+        <Route path="/login" element={<Login />} />
+          {/* <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} /> */}
+          {/* <Route path="/login/username" element={<Username register={register} setRegister={setRegister} />} /> */}
+          <Route path="/login/serchplace" element={<SerchPlace disInfo={disInfo} setDisInfo={setDisInfo}/>} />
+          {/* <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister}/>} /> */}
           <Route path="/login/namekanji" element={<Name />} />
           <Route path="/login/namefurigana" element={<Namefuri />} />
           <Route path="/login/gender" element={<Gender />} />
@@ -87,26 +89,26 @@ function App() {
 }
 
 
-function Navigation({ userData, setProfile, setRegister }) {
+function Navigation(/*{ userData, setProfile, setRegister }*/) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [tel, setTel] = useState("");
-  const [password, setPassword] = useState("");
+  // const [tel, setTel] = useState("");
+  // const [password, setPassword] = useState("");
 
   const [user] = useAuthState(auth);
 
-  const login = () => {
-    const user = userData.find(user => user.tel === tel && user.password === password);
-    if (user) {
-      // console.log(user.name)
-      navigate('/login/serchplace');
-      localStorage.setItem("電話番号", JSON.stringify(user.tel));
-      setRegister( {tel: user.tel, password: user.password, gender: user.gender, name: user.name, furigana: user.furigana, username: user.username ,place:user.place})
-      setProfile({ name: user.name, furigana: user.furigana, gender: user.gender, password: user.password, tel: user.tel });
-    } else {
-      window.alert("正しくないです");
-    }
-  };
+  // const login = () => {
+  //   const user = userData.find(user => user.tel === tel && user.password === password);
+  //   if (user) {
+  //     // console.log(user.name)
+  //     navigate('/login/serchplace');
+  //     localStorage.setItem("電話番号", JSON.stringify(user.tel));
+  //     setRegister( {tel: user.tel, password: user.password, gender: user.gender, name: user.name, furigana: user.furigana, username: user.username ,place:user.place})
+  //     setProfile({ name: user.name, furigana: user.furigana, gender: user.gender, password: user.password, tel: user.tel });
+  //   } else {
+  //     window.alert("正しくないです");
+  //   }
+  // };
 
   // /login パス以降の場合はナビゲーションを表示しない
   if (location.pathname.startsWith('/login')) {
@@ -155,7 +157,7 @@ function Navigation({ userData, setProfile, setRegister }) {
       <div className='black-line'></div>
       <h1 className='subtitle'>ログイン</h1>
       <nav className='mainlogin'>
-        <div className='Input'>
+        {/* <div className='Input'>
           <div className='input'>
             電話番号
             <input type='number' onChange={(e) => setTel(e.target.value)} />
@@ -169,7 +171,7 @@ function Navigation({ userData, setProfile, setRegister }) {
         <br />
         <div id="login">
           <button onClick={login} className='login'>ログイン</button>
-        </div>
+        </div> */}
 
         <SignInButton/>
 
@@ -183,10 +185,10 @@ function Navigation({ userData, setProfile, setRegister }) {
           )}
         </div> */}
 
-        <br />
+        {/* <br />
         <div className='new'>
           <Link to="/login/register">新規登録の方はこちらへ</Link>
-        </div>
+        </div> */}
       </nav>
     </div>
   );

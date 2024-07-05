@@ -4,7 +4,7 @@ import "./Search.css";
 import { db } from '../../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 
-function SerchPlace({ register, setRegister }) {
+function SerchPlace( { disInfo, setDisInfo } ) {
   const [selectedRegion, setSelectedRegion] = useState('');
   const navigate = useNavigate();
 
@@ -26,10 +26,14 @@ function SerchPlace({ register, setRegister }) {
 
   const comp = async () => {
     if (selectedRegion) {
-      const updatedRegister = { ...register, place: selectedRegion };
-      setRegister(updatedRegister);
-      const docRef = doc(db, 'users', register.tel);
-      await setDoc(docRef, updatedRegister);
+    setDisInfo(prevState => ({
+      ...prevState,
+      place: selectedRegion
+    }));
+      // const updateddisInfo = { ...disInfo, place: selectedRegion };
+      // setDisInfo(updateddisInfo);
+      // const docRef = doc(db, 'Posts');
+      // await setDoc(docRef, updateddisInfo);
       navigate('/login/home');
       console.log('navigate to home')
     } else {
