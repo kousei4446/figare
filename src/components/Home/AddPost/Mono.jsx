@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import image from "../../img/image.png";
+import "./Mono.css";
 
 function Mono({ disInfo, setDisInfo }) {
   const navigate = useNavigate();
@@ -40,52 +41,62 @@ function Mono({ disInfo, setDisInfo }) {
 
   return (
     <div>
-      <div className='blue'></div>
-      <div className='dis-head'>
+      <div className='mono-blue'>figare</div>
+      <div className='mono-head'>
         <img src={image} height='50px' className='back-btn' onClick={back} alt='戻る' />
         <div style={{ textAlign: "center", width: "100vw" }}>
-          <p style={{ fontSize: '28px' }}>詳細情報を入力してね</p>
+          <p className='mono-title'>＜詳細情報を入力してね＞</p>
         </div>
       </div>
       <div>
-        <input
-          type='radio'
-          name='kind'
-          value="もの"
-          checked={disInfo.kind === "もの"}
-          onChange={handleInputChange}
-        />
-        <label>もの</label>
-        <input
-          type='radio'
-          name='kind'
-          value="ペット"
-          checked={disInfo.kind === "ペット"}
-          onChange={handleInputChange}
-        />
-        <label>ペット</label>
-        <input
-          type='radio'
-          name='kind'
-          value="人"
-          checked={disInfo.kind === "人"}
-          onChange={handleInputChange}
-        />
-        <label>人</label>
-        <div>
+        <div className="kind-item">
+          種類：
+        </div>
+        <div className="kind-select">
+          <input
+            type='radio'
+            name='kind'
+            value="もの"
+            checked={disInfo.kind === "もの"}
+            onChange={handleInputChange}
+          />
+          <label>もの</label>
+          <input
+            type='radio'
+            name='kind'
+            value="ペット"
+            checked={disInfo.kind === "ペット"}
+            onChange={handleInputChange}
+          />
+          <label>ペット</label>
+          <input
+            type='radio'
+            name='kind'
+            value="人"
+            checked={disInfo.kind === "人"}
+            onChange={handleInputChange}
+          />
+          <label>人</label>
+        </div>
+        <div className='file-item'>
+          写真：
+        </div>
+        <div className='mono-file'>
+          {disInfo.img && <img src={disInfo.img} width="50%" alt="Preview" />}  
           <input
             type="file"
             accept="image/*"
             capture="environment"
             onChange={upload}
           />
-          {disInfo.img && <img src={disInfo.img} width="50%" alt="Preview" />}
         </div>
-        <div>
+        <div className='characteristic'>
           <textarea
             name="text"
             value={disInfo.text}
             onChange={handleInputChange}
+            placeholder="※特徴や情報などご記載ください。(任意)"
+            
           />
         </div>
         <div className='okbtn-posi'>
