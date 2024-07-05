@@ -1,0 +1,74 @@
+.chat-contaner{
+    height: 100vh;
+}
+.chat-true {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-left: 5%;
+}
+
+.chatran-true {
+    background-color: rgb(255, 145, 145);
+    border-radius: 5px;
+    max-width: 70%;
+    color: white;
+    font-size: 24px;
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+.chat-false {
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: right;
+    align-items: center;
+}
+
+.chatran-false {
+    background-color: rgb(209, 209, 209);
+    border-radius: 5px;
+    max-width: 70%;
+    color: black;
+    font-size: 24px;
+    padding: 10px;
+    margin-right: 5%;
+    word-wrap: break-word;
+}
+
+
+.NyuuryokuRan { 
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.NyuuryokuRan input {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.NyuuryokuRan button {
+
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.NyuuryokuRan button:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,6 @@
+.msg-person{
+    background-color: aliceblue;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}

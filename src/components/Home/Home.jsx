@@ -4,7 +4,7 @@ import "./Home.css";
 import image from "./../img/sampleimg.png"
 import { IoMdChatbubbles } from 'react-icons/io';
 import { IoMdSearch } from 'react-icons/io';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { IoMdAdd } from 'react-icons/io';
 
@@ -42,6 +42,16 @@ function Home() {
 
     fetchAllUserData();
   }, [])
+  const [posts, setPosts] = useState([])
+  useEffect(() => {
+    const fetchAllPosts = async () => {
+      const q = query(collection(db, "Posts"), orderBy("time", "desc"));
+      const querySnapshot = await getDocs(q);
+      const postList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setPosts(postList);
+    }
+    fetchAllPosts();
+  }, [])
   return (
     <div>
       <div className='background'>
@@ -49,6 +59,20 @@ function Home() {
         <h3 className='main-title'>{place.place && place.place}の検索一覧</h3>
         < IoMdSearch onClick={serchpage} size={35} className='search' />
       </div>
+
+      {posts.map((post, index) => {
+        return(
+        <div className='main-post' key={index}>
+          <div onClick={message} className='main-postcard'>
+            <strong>{post.kind}</strong>
+            <div><img src={post.file}width="50%"/></div>
+            <div>
+              <p>{post.text}</p>
+              <p>投稿時間:{post.time.toDate().toLocaleString()}</p>
+            </div>
+          </div>
+        </div>
+      )})}
 
       <div className='main-post'>
         <div onClick={message} className='main-postcard'>
@@ -93,17 +117,17 @@ function Home() {
             <p>日付</p>
           </div>
         </div>
-        
+
       </div>
-       
- 
+
+
 
       <div className='main-foot'>
         <IoMdChatbubbles onClick={msgpage} className='main-msg-btn' />
         <></>
         <IoMdAdd onClick={addPost} className='add-postbtn' />
       </div>
-    </div>
+    </div >
   )
 }
 
