@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Username.css";
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
-function Username({ register, setRegister }) {
+function Username({ register, setRegister, userDatas }) {
   const navigate = useNavigate();
-
+  const [username, setUsername] = useState("");
+  
   const handleInputChange = (e) => {
+    setUsername(e.target.value);
     const { name, value } = e.target;
     setRegister(prevState => ({
       ...prevState,
@@ -17,8 +19,9 @@ function Username({ register, setRegister }) {
 
   const comp = async () => {
     try {
-      const docRef = doc(db, 'users', register.tel); 
-      await setDoc(docRef, { ...register });
+      const updatedUserDatas = { username: username };
+      const docRef = doc(db, 'googleusers', localStorage.getItem("uid"));
+      await updateDoc(docRef, updatedUserDatas);
       navigate("/");
       window.location.reload();
     } catch (e) {
@@ -46,3 +49,4 @@ function Username({ register, setRegister }) {
 }
 
 export default Username;
+  

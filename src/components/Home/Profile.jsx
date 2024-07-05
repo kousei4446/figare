@@ -20,6 +20,7 @@ function Profile({ profile, setProfile }) {
   const logout = () => {
     navigate("/");
     localStorage.setItem("電話番号", "");
+    localStorage.setItem("uid", "");
   };
   
   function SignOutButton(){

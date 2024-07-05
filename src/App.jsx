@@ -46,8 +46,10 @@ function App() {
     };
     fetchAllUserData();
   }, []);
+  const [userDatas,setUserDatas]=useState({})
   const [activePost,setActivePost]=useState({})
-  const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:"",place:""});
+  const [myInfo,setMyInfo]=useState({userName:"",place:"",photoURL:""})
+  const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:"",place:"",poster:""});
   const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false,time:null });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
@@ -56,12 +58,12 @@ function App() {
   return (
     <Router>
       <div>
-        <Navigation userData={userData} setProfile={setProfile} setRegister={setRegister}/>
+        <Navigation userData={userData} setProfile={setProfile} setRegister={setRegister} setUserData={setUserDatas}/>
         <Routes>
-          <Route path="/login/home" element={<Home register={register.place}setActivePost={setActivePost}/>} />
+          <Route path="/login/home" element={<Home register={register.place}setActivePost={setActivePost} myInfo={myInfo} setMyInfo={setMyInfo}/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} />
-          <Route path="/login/username" element={<Username register={register} setRegister={setRegister} />} />
+          <Route path="/login/username" element={<Username register={register} setRegister={setRegister} userDatas={userDatas}/>} />
           <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister}/>} />
           <Route path="/login/namekanji" element={<Name />} />
           <Route path="/login/namefurigana" element={<Namefuri />} />
@@ -88,7 +90,7 @@ function App() {
 }
 
 
-function Navigation({ userData, setProfile, setRegister }) {
+function Navigation({ userData, setProfile, setRegister ,setUserData}) {
   const location = useLocation();
   const navigate = useNavigate();
   const [tel, setTel] = useState("");
@@ -132,6 +134,7 @@ function Navigation({ userData, setProfile, setRegister }) {
         localStorage.setItem("uid",user.uid)
         const docRef = doc(db, 'googleusers', user.uid);
         await setDoc(docRef, userData);
+        setUserData(userData)
       }).catch((error) => {
         console.log('signin error')
       })
