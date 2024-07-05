@@ -25,7 +25,9 @@ import Mono from './components/Home/AddPost/Mono';
 import LostDetail from "./components/LostDetail/LostDeatail";
 import SureMone from './components/Home/AddPost/SureMone';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from './firebase';
+import { signInWithPopup } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { db, auth, provider } from './firebase';
 
 function App() {
   const [userData, setUserData] = useState([]);
@@ -84,11 +86,14 @@ function App() {
   );
 }
 
+
 function Navigation({ userData, setProfile, setRegister }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [tel, setTel] = useState("");
   const [password, setPassword] = useState("");
+
+  const [user] = useAuthState(auth);
 
   const login = () => {
     const user = userData.find(user => user.tel === tel && user.password === password);
@@ -106,6 +111,42 @@ function Navigation({ userData, setProfile, setRegister }) {
   if (location.pathname.startsWith('/login')) {
     return null;
   }
+
+  /* googleログイン */
+  function SignInButton(){
+    const signInWithGoogle = () => {
+      signInWithPopup(auth, provider).then((result) => {
+        navigate('/login/serchplace');
+        console.log('signin')
+      }).catch((error) => {
+        console.log('signin error')
+      })
+    };
+
+    return(
+      <button onClick={signInWithGoogle}>  
+        <p>グーグルでサインイン</p>
+      </button>
+    )
+  }
+
+  // const SerchPlace = () => {
+  //   navigate('/login/serchplace');
+  // }
+
+  // function SignOutButton(){
+  //   return(
+  //     <button onClick={() => auth.signOut()}/>
+  //   )
+  // }
+  // function UserInfo(){
+  //   return(
+  //     <div>
+  //       <img src={auth.currntUser.photoURL} alt=""/>
+  //       <p>{auth.currntUser.diplayName}</p>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div>
@@ -128,6 +169,19 @@ function Navigation({ userData, setProfile, setRegister }) {
         <div id="login">
           <button onClick={login} className='login'>ログイン</button>
         </div>
+
+        <SignInButton/>
+
+        {/* <div>
+          {user ?(
+            <>
+            <SerchPlace/>
+            </>
+          ) : (
+            <SignInButton/>
+          )}
+        </div> */}
+
         <br />
         <div className='new'>
           <Link to="/login/register">新規登録の方はこちらへ</Link>
