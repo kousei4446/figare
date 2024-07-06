@@ -72,7 +72,7 @@ function App() {
           <Route path="/login/password" element={<Password />} />
           <Route path="/login/usernamed" element={<LoginUsername />} />
           <Route path="/login/home/search" element={<Serch />} />
-          <Route path="/login/home/profile" element={<Profile profile={profile} setProfile={setProfile} />} />
+          <Route path="/login/home/profile" element={<Profile userData={userData} setUserData={setUserData} />} />
           <Route path="/login/home/addpost" element={<AddPost />} />
           <Route path="/login/home/addpost/hito" element={<Hito hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
           <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
