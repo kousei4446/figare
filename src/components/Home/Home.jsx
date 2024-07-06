@@ -10,10 +10,10 @@ function Home({ setActivePost, myInfo, setMyInfo }) {
   const navigate = useNavigate();
   const [place, setPlace] = useState("");
   const profilepage = () => {
-    navigate("/login/home/profile")
+    navigate("/login/home/profile");
   }
   const serchpage = () => {
-    navigate("/login/home/search")
+    navigate("/login/home/search");
   }
   const addPost = () => {
     navigate('/login/home/addpost/mono');
@@ -27,16 +27,16 @@ function Home({ setActivePost, myInfo, setMyInfo }) {
   };
 
   useEffect(() => {
-    const fetchAllUserData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'users'));
-      const userList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      const savedTel = JSON.parse(localStorage.getItem('電話番号'));
-      if (savedTel) {
-        const foundUser = userList.find((user) => user.tel === savedTel);
-        setPlace(foundUser);
-        setMyInfo({ ...myInfo, place: foundUser });
-      }
-    };
+    // const fetchAllUserData = async () => {
+    //   const querySnapshot = await getDocs(collection(db, 'users'));
+    //   const userList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    //   const savedTel = JSON.parse(localStorage.getItem('電話番号'));
+    //   if (savedTel) {
+    //     const foundUser = userList.find((user) => user.tel === savedTel);
+    //     setPlace(foundUser);
+    //     setMyInfo({ ...myInfo, place: foundUser.place });
+    //   }
+    // };
 
     const fetchGoogleUserData = async () => {
       const querySnapshot = await getDocs(collection(db, 'googleusers'));
@@ -44,12 +44,11 @@ function Home({ setActivePost, myInfo, setMyInfo }) {
       const savedUid = localStorage.getItem('uid');
       if (savedUid) {
         const foundUser = userList.find((user) => user.uid === savedUid);
-        // console.log(foundUser);
-        setMyInfo({ place: foundUser.place, photoURL: foundUser.photoURL, username: foundUser.user });
+        setMyInfo({ place: foundUser.place, photoURL: foundUser.photoURL, username: foundUser.displayName });
       }
     };
 
-    fetchAllUserData();
+    // fetchAllUserData();
     fetchGoogleUserData();
   }, []);
 
@@ -59,36 +58,34 @@ function Home({ setActivePost, myInfo, setMyInfo }) {
       const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
       const querySnapshot = await getDocs(q);
       const postList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      const newPost=postList.filter((user) => user.place === myInfo.place);
+      const newPost = postList.filter((post) => post.place === myInfo.place);
       setPosts(newPost);
     };
     fetchAllPosts();
-  }, []);
+  }, [myInfo.place]);
 
   return (
     <div>
       <div className='background'>
         <img src={myInfo.photoURL || image} height='75px' className='Icon' onClick={profilepage} alt='Profile' />
-        <h3 className='main-title'>{myInfo.place && myInfo.place}の検索一覧</h3>
+        <h3 className='main-title'>{myInfo.place && `${myInfo.place}の検索一覧`}</h3>
         <IoMdSearch onClick={serchpage} size={35} className='search' />
       </div>
 
-      {posts.map((post, index) => {
-        return (
-          <div className='main-post' key={index}>
-            <div onClick={() => message(post)} className='main-postcard'>
-              <strong>{post.kind}</strong>
-              <div>
-                <img src={post.file} width='50%' alt='Post' />
-              </div>
-              <div>
-                <p>{post.text}</p>
-                <p>投稿時間: {post.time.toDate().toLocaleString()}</p>
-              </div>
+      {posts.map((post, index) => (
+        <div className='main-post' key={index}>
+          <div onClick={() => message(post)} className='main-postcard'>
+            <strong>{post.kind}</strong>
+            <div>
+              <img src={post.file} width='50%' alt='Post' />
+            </div>
+            <div>
+              <p>{post.text}</p>
+              <p>投稿時間: {post.time.toDate().toLocaleString()}</p>
             </div>
           </div>
-        );
-      })}
+        </div>
+      ))}
 
       <div className='main-foot'>
         <IoMdChatbubbles onClick={msgpage} className='main-msg-btn' />

@@ -24,7 +24,7 @@ import SurePet from './components/Home/AddPost/SurePet';
 import Mono from './components/Home/AddPost/Mono';
 import LostDetail from "./components/LostDetail/LostDeatail";
 import SureMone from './components/Home/AddPost/SureMone';
-import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import { signInWithPopup } from "firebase/auth";
 // import { useAuthState} from "react-firebase-hooks/auth";
 import { db, auth, provider } from './firebase';
@@ -124,7 +124,6 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
       .then(async (result) => {
         navigate('/login/serchplace');
         // console.log('signin', result.user);
-
         const user = result.user;
         const userData = {
           uid: user.uid,
@@ -134,7 +133,7 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
         };
         localStorage.setItem("uid",user.uid)
         const docRef = doc(db, 'googleusers', user.uid);
-        await setDoc(docRef, userData);
+        await updateDoc(docRef, userData);
       }).catch((error) => {
         console.log('signin error')
       })

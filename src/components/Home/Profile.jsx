@@ -33,19 +33,19 @@ function Profile({ profile, setProfile }) {
     })
   }
 
-  useEffect(() => {
-    const fetchAllUserData = async () => {
-      const querySnapshot = await getDocs(collection(db, "users"));
-      const userList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      const savedTel = JSON.parse(localStorage.getItem("電話番号"));
-      if (savedTel) {
-        const foundUser = userList.find(user => user.tel === savedTel);
-        setProfile(foundUser);
-        setEditProfile(foundUser);
-      }
-    };
-    fetchAllUserData();
-  }, [setProfile]);
+  // useEffect(() => {
+  //   const fetchAllUserData = async () => {
+  //     const querySnapshot = await getDocs(collection(db, "users"));
+  //     const userList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  //     const savedTel = JSON.parse(localStorage.getItem("電話番号"));
+  //     if (savedTel) {
+  //       const foundUser = userList.find(user => user.tel === savedTel);
+  //       setProfile(foundUser);
+  //       setEditProfile(foundUser);
+  //     }
+  //   };
+  //   fetchAllUserData();
+  // }, [setProfile]);
 
   useEffect(() => {
     setEditProfile(profile);

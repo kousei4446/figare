@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Search.css";
 import { db } from '../../firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 function SerchPlace() {
   const [selectedRegion, setSelectedRegion] = useState('');
@@ -30,10 +30,18 @@ function SerchPlace() {
       
       const UID = localStorage.getItem("uid")
       const docRef = doc(db, "googleusers", UID )
+      const docSnap=await getDoc(docRef);
+      let data=docSnap.data();
+      if (data.username){
+        navigate('/login/home');
+      }else{
+        navigate("/login/username")
+      }
       await updateDoc(docRef, {
         place: selectedRegion
       });
-
+      console.log(docRef)
+      console.log("ok")
       // const { name } = e.target;
       // setUserData(prevState => ({
       //   ...prevState,
@@ -45,8 +53,7 @@ function SerchPlace() {
       // const docRef = doc(db, 'Posts');
       // await setDoc(docRef, updateddisInfo);
       
-      navigate('/login/username');
-      console.log('navigate to home')
+      
     } else {
       alert('地区を選択してください。');
     }
