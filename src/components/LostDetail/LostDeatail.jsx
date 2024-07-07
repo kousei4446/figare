@@ -117,19 +117,31 @@ const Message = ({ activePost }) => { //メッセージを入力
     const navigation = useNavigate();
 
     const chatpage = async () => {
-        const chatPairId = localStorage.getItem("uid") + activePost.poster;
+        const UID = localStorage.getItem("uid");
+        const chatPairId = UID + activePost.poster;
+        const chatPairIds = activePost.poster + UID;
         localStorage.setItem("chatpair", chatPairId);
         const docRef = doc(db, 'chats', chatPairId);
-        const docSnap = await getDoc(docRef);
+        const docRefs = doc(db, 'chats', chatPairIds);
 
-        if (!docSnap.exists()) {
-            await setDoc(docRef, {
-                message: [{ date: Timestamp.now(), sender: localStorage.getItem("uid"), text: text }]
-            });
-        } else {
+        const docSnap = await getDoc(docRef);
+        const docSnaps = await getDoc(docRefs);
+
+        if (docSnap.exists()) {
             await updateDoc(docRef, {
-                message: arrayUnion({ date: Timestamp.now(), sender: localStorage.getItem("uid"), text: text })
+                message: arrayUnion({ date: Timestamp.now(), sender: UID, text: text })
             });
+            localStorage.setItem("chatpair", chatPairId);
+        } else if (docSnaps.exists()) {
+            await updateDoc(docRefs, {
+                message: arrayUnion({ date: Timestamp.now(), sender: UID, text: text })
+            });
+            localStorage.setItem("chatpair", chatPairIds);
+        } else {
+            await setDoc(docRef, {
+                message: [{ date: Timestamp.now(), sender: UID, text: text }]
+            });
+            localStorage.setItem("chatpair", chatPairId);
         }
         navigation("/login/home/chat");
     };
