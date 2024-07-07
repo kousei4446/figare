@@ -2,9 +2,9 @@
 /*地区選択*/
 
 .searchPlace {
-    background-color: rgb(88, 151, 234); /* 青色の背景 */
-    color: #fff; /* テキストの色を白にする */
-    min-height: 100vh; /* ビューポートの高さの100% */
+    background-color: rgb(88, 151, 234);
+    color: #fff;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
