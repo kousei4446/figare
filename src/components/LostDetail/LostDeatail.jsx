@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './LostDetail.css';
 import { useState } from 'react';
 import logoImage from '../LostDetail/testpict.png';
 import { AiOutlinePicture } from "react-icons/ai";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { BsPlusLg } from "react-icons/bs";
-import { FaRegPaperPlane } from "react-icons/fa";
-// import { doc, setDoc } from 'firebase/firestore';
 // import { IoIosExpand } from 'react-icons/io';
+import { Timestamp, arrayUnion, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../../firebase';
+import { useNavigate } from 'react-router-dom';
+import { FaRegPaperPlane } from "react-icons/fa";
 
 
 const ChangePict = ({ newLogo, setLogo, activePost }) => { //写真を表示
@@ -124,15 +126,37 @@ const Camera = () => { //画像を追加
     )
 }
 
-const Message = () => { //メッセージを入力
+const Message = ({ activePost }) => { //メッセージを入力
+    const [text, setText] = useState("")
     const mess = () => {
 
     };
+    const navigation = useNavigate()
+    const chatpage = async () => {
+        const chatPairId = localStorage.getItem("uid") + activePost.poster;
+        localStorage.setItem("chatpair", chatPairId);
+        const docRef = doc(db, 'chats', chatPairId);
+        const docSnap = await getDoc(docRef);
 
+        if (!docSnap.exists()) {
+            await setDoc(docRef, {
+                message: [{ date: Timestamp.now(), sender: localStorage.getItem("uid"), text: text }]
+            });
+
+        } else {
+            await updateDoc(docRef, {
+                message: arrayUnion({ date: Timestamp.now(), sender: localStorage.getItem("uid"), text: text })
+            });
+        }
+        navigation("/login/home/chat");
+
+    };
     return (
-        <input className='lostdetail-message-button'
-            placeholder='メッセージをココに入力'>
-        </input>
+        <>
+            <input className='lostdetail-message-button' placeholder='メッセージを入力してください' onChange={(e) => setText(e.target.value)} />
+            <button onClick={chatpage}>送信</button>
+        </>
+
     );
 };
 
@@ -143,14 +167,21 @@ const Contribution = () => {
     )
 }
 
-
-function App({ activePost }) {
-
+function App() {
+    const [activePost,setActivePost]=useState({})
     const [logo, setLogo] = useState(logoImage);
     const [AddDet, setAddDet] = useState(false);
-
-
-
+    useEffect(() => {
+        const fetchPostData = async () => {
+            const docRef = doc(db, "Posts", localStorage.getItem("postid"));
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const post = docSnap.data();
+                setActivePost(post);
+            }
+        };
+        fetchPostData();
+    }, [setActivePost]);
     return (
         <div className='lostdetail-body'>
             <div className='lostdetail-container'>
@@ -170,7 +201,7 @@ function App({ activePost }) {
                     <div className='lostdetail-input'>
                         <Plusalpha />
                         <Camera />
-                        <Message />
+                        <Message activePost={activePost} />
                         <Contribution />
                     </div>
                 </div>
