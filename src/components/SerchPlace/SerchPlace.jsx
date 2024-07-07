@@ -59,8 +59,9 @@ function SerchPlace() {
     }
   };
 
+
   return (
-    <div>
+    <div className='searchPlace'>
       <div className='searchtitle'>
         <h1 className='find'>探したい地区</h1>
         <h1 className='or'>or</h1>
@@ -77,7 +78,7 @@ function SerchPlace() {
         ))}
       </select>
       <br />
-      <button className='decision' onClick={comp} style={{ marginTop: "265px" }}>決定</button>
+      <button className='searchDecision' onClick={comp} style={{ marginTop: "265px" }}>決定</button>
     </div>
   );
 }
