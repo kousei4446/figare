@@ -22,7 +22,7 @@ function SureMone({ disInfo, setDisInfo, myInfo }) {
       const url = await getDownloadURL(storageRef); // その後にURLを取得
       console.log("File available at:", url);
       const docRef = doc(collection(db, 'Posts')); // 'Post'はコレクション名
-      const newDisInfo = { ...disInfo, file: url, time: Timestamp.now(), poster: localStorage.getItem("uid"), place: myInfo.place }; // URLを含めて新しいオブジェクトを作成
+      const newDisInfo = { ...disInfo, file: url, time: Timestamp.now(), poster: localStorage.getItem("uid"), place: myInfo.place,id:docRef.id }; // URLを含めて新しいオブジェクトを作成
       await setDoc(docRef, newDisInfo); // Firestoreに新しいオブジェクトを保存
 
       setDisInfo({ kind: "", text: "", img: "", file: "", time: "" });

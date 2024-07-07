@@ -2,25 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Profile.css";
 import image1 from "./../img/image.png";
-import image2 from "./../img/profile-img.png";
+// import image2 from "./../img/profile-img.png";
 import { collection, doc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import {getAuth, signOut } from "firebase/auth";
 import { db, auth } from '../../firebase';
 
-function Profile({ profile, setProfile }) {
+function Profile({ userData, setUserData }) {
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editProfile, setEditProfile] = useState({ ...profile });
+  const [editProfile, setEditProfile] = useState({ ...userData });
 
   const back = () => {
     navigate("/login/home");
-  };
-
-  const logout = () => {
-    navigate("/");
-    localStorage.setItem("電話番号", "");
-    localStorage.setItem("uid", "");
   };
   
   function SignOutButton(){
@@ -33,23 +27,24 @@ function Profile({ profile, setProfile }) {
     })
   }
 
-  // useEffect(() => {
-  //   const fetchAllUserData = async () => {
-  //     const querySnapshot = await getDocs(collection(db, "users"));
-  //     const userList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  //     const savedTel = JSON.parse(localStorage.getItem("電話番号"));
-  //     if (savedTel) {
-  //       const foundUser = userList.find(user => user.tel === savedTel);
-  //       setProfile(foundUser);
-  //       setEditProfile(foundUser);
-  //     }
-  //   };
-  //   fetchAllUserData();
-  // }, [setProfile]);
+  useEffect(() => {
+    const fetchAllUserData = async () => {
+      
+      // const querySnapshot = await getDocs(collection(db, "googleusers"));
+      // const userList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      // const UID = JSON.parse(localStorage.getItem("uid"));
+      // if (UID) {
+      //   const foundUser = userList.find(user => user.uid === UID);
+      //   setUserData(foundUser);
+      //   setEditProfile(foundUser);
+      // }
+    };
+    fetchAllUserData();
+  }, [setUserData]);
 
   useEffect(() => {
-    setEditProfile(profile);
-  }, [profile]);
+    setEditProfile(userData);
+  }, [userData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -57,25 +52,27 @@ function Profile({ profile, setProfile }) {
   };
 
   const handleSave = async () => {
-    const userDocRef = doc(db, "users", profile.id);
+    console.log(editProfile);
+    const userDocRef = doc(db, "googleusers", userData.id);
 
-    if (editProfile.tel !== profile.tel) {
-      const newTel = editProfile.tel;
-      const newUserDocRef = doc(db, "users", newTel);
-      await setDoc(newUserDocRef, { ...editProfile, tel: newTel });
+    if (editProfile.uid !== userData.uid) {
+      const newInfo = editProfile.uid;
+      const newUserDocRef = doc(db, "googleusers", newInfo);
+      await setDoc(newUserDocRef, { ...editProfile, uid: newInfo });
       await deleteDoc(userDocRef);
 
-      setProfile(prev => ({ ...prev, id: newTel, tel: newTel }));
-      localStorage.setItem("電話番号", JSON.stringify(newTel));
+      setUserData(prev => ({ ...prev, id: newInfo, place: newInfo }));
+      localStorage.setItem("情報更新", JSON.stringify(newInfo));
     } else {
       await updateDoc(userDocRef, {
-        name: editProfile.name,
-        furigana: editProfile.furigana,
+        // name: editProfile.name,
+        // furigana: editProfile.furigana,
         username: editProfile.username,
-        gender: editProfile.gender,
-        password: editProfile.password
+        // gender: editProfile.gender,
+        // password: editProfile.password
+        place: editProfile.place,
       });
-      setProfile(editProfile);
+      setUserData(editProfile);
     }
 
     setIsEditing(false);
@@ -103,27 +100,27 @@ function Profile({ profile, setProfile }) {
         <label className='pro_item'>プロフィール画</label>
         <br />
         <div className='pro_content'>
-          <img src={image2} className='pro_img' />
+          <img src={auth.currentUser.photoURL} className='pro_img' />
         </div>
         <div className='line'></div>
 
         <label className='pro_item'>名前</label>
         <br />
         <div className='pro_content'>
-          {isEditing ? (
+          {/* {isEditing ? (
             <input
               type="text"
               name="name"
               value={editProfile.name}
               onChange={handleChange}
             />
-          ) : (
-            <div className='pro_input'>{profile.name}</div>
-          )}
+          ) : ( */}
+            <div className='pro_input'>{auth.currentUser.displayName}</div>
+          {/* )} */}
         </div>
         <div className='line'></div>
 
-        <label className='pro_item'>フリガナ</label>
+        {/* <label className='pro_item'>フリガナ</label>
         <br />
         <div className='pro_content'>
           {isEditing ? (
@@ -134,8 +131,24 @@ function Profile({ profile, setProfile }) {
               onChange={handleChange}
             />
           ) : (
-            <div className='pro_input'>{profile.furigana}</div>
+            <div className='pro_input'>{userData.furigana}</div>
           )}
+        </div>
+        <div className='line'></div> */}
+
+<label className='pro_item'>メールアドレス</label>
+        <br />
+        <div className='pro_content'>
+          {/* {isEditing ? (
+            <input
+              type='text'
+              name='tel'
+              value={editProfile.tel}
+              onChange={handleChange}
+            />
+          ) : ( */}
+            <div className='pro_input'>{auth.currentUser.email}</div>
+          {/* )} */}
         </div>
         <div className='line'></div>
 
@@ -150,12 +163,12 @@ function Profile({ profile, setProfile }) {
               onChange={handleChange}
             />
           ) : (
-            <div className='pro_input'>{profile.username}</div>
+            <div className='pro_input'>{userData.username}</div>
           )}
         </div>
         <div className='line'></div>
 
-        <label className='pro_item'>性別</label>
+        {/* <label className='pro_item'>性別</label>
         <br />
         <div className='pro_content'>
           {isEditing ? (
@@ -166,49 +179,28 @@ function Profile({ profile, setProfile }) {
               onChange={handleChange}
             />
           ) : (
-            <div className='pro_input'>{profile.gender}</div>
+            <div className='pro_input'>{userData.gender}</div>
           )}
         </div>
-        <div className='line'></div>
+        <div className='line'></div> */}
 
-        <label className='pro_item'>電話番号</label>
+        <label className='pro_item'>地域選択</label>
         <br />
         <div className='pro_content'>
           {isEditing ? (
             <input
-              type='text'
-              name='tel'
-              value={editProfile.tel}
+              name='place'
+              value={editProfile.place}
               onChange={handleChange}
             />
           ) : (
-            <div className='pro_input'>{profile.tel}</div>
-          )}
-        </div>
-        <div className='line'></div>
-
-        <label className='pro_item'>パスワード</label>
-        <br />
-        <div className='pro_content'>
-          {isEditing ? (
-            <input
-              type='password'
-              name='password'
-              value={editProfile.password}
-              onChange={handleChange}
-            />
-          ) : (
-            <div className='pro_input'>{profile.password}</div>
+            <div className='pro_input'>{userData.place}</div>
           )}
         </div>
         <div className='line'></div>
       </div>
-      
-      <button onClick={SignOutButton}>
-        <p>サインアウト</p>
-      </button>
 
-      <button className='logout_btn' onClick={logout}>ログアウト</button>
+      <button className='logout_btn' onClick={SignOutButton}>サインアウト</button>
     </div>
   );
 }

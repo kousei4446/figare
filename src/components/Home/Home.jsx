@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import image from './../img/sampleimg.png';
 import { IoMdChatbubbles, IoMdSearch, IoMdAdd } from 'react-icons/io';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { Timestamp, collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 
-function Home({ setActivePost, myInfo, setMyInfo }) {
+function Home({ myInfo, setMyInfo }) {
   const navigate = useNavigate();
-  const [place, setPlace] = useState("");
+
   const profilepage = () => {
     navigate("/login/home/profile");
   }
@@ -18,26 +18,75 @@ function Home({ setActivePost, myInfo, setMyInfo }) {
   const addPost = () => {
     navigate('/login/home/addpost/mono');
   };
-  const message = (post) => {
-    setActivePost({ ...post });
+
+  const message = async (post) => {
+    localStorage.setItem("postid", post.id);
     navigate('/login/home/finder');
+    const UID = localStorage.getItem("uid");
+    const docRef = doc(db, "userChats", UID);
+    const docSnap = await getDoc(docRef);
+    const userDocRef=doc(db,"googleusers",post.poster)
+    const userDocSnap=await getDoc(userDocRef)
+    const myUserInfo=userDocSnap.data()
+
+    if (docSnap.exists()) {
+      await updateDoc(docRef, {
+        [post.poster]: {
+          date: Timestamp.now(),
+          userInfo: {
+            photoURL: myUserInfo.photoURL,
+            uid: post.poster,
+            username: myUserInfo.username
+          }
+        }
+      });
+    } else {
+      await setDoc(docRef, {
+        [post.poster]: {
+          date: Timestamp.now(),
+          userInfo: {
+            photoURL: myUserInfo.photoURL,
+            uid: post.poster,
+            username: myUserInfo.username
+          }
+        }
+      });
+    }
+
+    const hisDocRef = doc(db, "userChats", post.poster);
+    const hisDocSnap = await getDoc(hisDocRef);
+    const hisUserDocRef=doc(db,"googleusers",UID)
+    const hisUserDocSnap=await getDoc(hisUserDocRef)
+    const hisUserInfo=hisUserDocSnap.data()
+    if (hisDocSnap.exists()) {
+      await updateDoc(hisDocRef, {
+        [UID]: {
+          date: Timestamp.now(),
+          userInfo: {
+            photoURL: hisUserInfo.photoURL,
+            uid: UID,
+            username: hisUserInfo.username
+          }
+        }
+      });
+    } else {
+      await setDoc(hisDocRef, {
+        [UID]: {
+          date: Timestamp.now(),
+          userInfo: {
+            photoURL: hisUserInfo.photoURL,
+            uid: UID,
+            username: hisUserInfo.username
+          }
+        }
+      });
+    }
   };
   const msgpage = () => {
     navigate('/login/home/message');
   };
 
   useEffect(() => {
-    // const fetchAllUserData = async () => {
-    //   const querySnapshot = await getDocs(collection(db, 'users'));
-    //   const userList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    //   const savedTel = JSON.parse(localStorage.getItem('電話番号'));
-    //   if (savedTel) {
-    //     const foundUser = userList.find((user) => user.tel === savedTel);
-    //     setPlace(foundUser);
-    //     setMyInfo({ ...myInfo, place: foundUser.place });
-    //   }
-    // };
-
     const fetchGoogleUserData = async () => {
       const querySnapshot = await getDocs(collection(db, 'googleusers'));
       const userList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -48,9 +97,8 @@ function Home({ setActivePost, myInfo, setMyInfo }) {
       }
     };
 
-    // fetchAllUserData();
     fetchGoogleUserData();
-  }, []);
+  }, [setMyInfo]);
 
   const [posts, setPosts] = useState([]);
   useEffect(() => {

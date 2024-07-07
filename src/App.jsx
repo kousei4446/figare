@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+// import Register from './components/newregester/Register';
 import Login from './components/Login/Login';
 import "./App.css";
 import Username from './components/newregester/Username';
@@ -74,19 +75,20 @@ function App() {
     animateBlocks();
   }, []);
 
-  const [activePost, setActivePost] = useState({});
-  const [myInfo, setMyInfo] = useState({ userName: "", place: "", photoURL: "" });
-  const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "", file: "", place: "", poster: "" });
+  /*const [activePost, setActivePost] = useState({})*/
+  const [myInfo, setMyInfo] = useState({userName: "",place: "",photoURL: "" });
+  const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" , file:"", place:"", poster:"" });
   const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false, time: null });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
   // const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "", username: "" ,place:""});
+
   return (
     <Router>
       <div className="container">
         <Navigation userData={userData} setProfile={setProfile} /*setRegister={setRegister}*//>
         <Routes>
-        <Route path="/login/home" element={<Home setActivePost={setActivePost} myInfo={myInfo} setMyInfo={setMyInfo} />} />
+        <Route path="/login/home" element={<Home /*setActivePost={setActivePost}*/ myInfo={myInfo} setMyInfo={setMyInfo}/>} />
         <Route path="/login" element={<Login />} />
           {/* <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} /> */}
           <Route path="/login/username" element={<Username />} />
@@ -99,7 +101,7 @@ function App() {
           <Route path="/login/password" element={<Password />} />
           <Route path="/login/usernamed" element={<LoginUsername />} />
           <Route path="/login/home/search" element={<Serch />} />
-          <Route path="/login/home/profile" element={<Profile profile={profile} setProfile={setProfile} />} />
+          <Route path="/login/home/profile" element={<Profile userData={userData} setUserData={setUserData} />} />
           <Route path="/login/home/addpost" element={<AddPost />} />
           <Route path="/login/home/addpost/hito" element={<Hito hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
           <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
@@ -109,7 +111,7 @@ function App() {
           <Route path="/login/home/addpost/mono/suremono" element={<SureMone disInfo={disInfo} setDisInfo={setDisInfo} myInfo={myInfo} />} />
           <Route path="/login/home/message" element={<Messeage />} />
           <Route path="/login/home/chat" element={<Chat />} />
-          <Route path="/login/home/finder" element={<LostDetail activePost={activePost} />} />
+          <Route path="/login/home/finder" element={<LostDetail /*activePost={activePost}*//>} />
         </Routes>
       </div>
     </Router>
