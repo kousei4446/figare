@@ -2,16 +2,44 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Profile.css";
 import image1 from "./../img/image.png";
+import image from "../img/profile-img.png";
 // import image2 from "./../img/profile-img.png";
 import { collection, doc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import {getAuth, signOut } from "firebase/auth";
-import { db, auth } from '../../firebase';
+import { db } from '../../firebase';
 
-function Profile({ userData, setUserData }) {
+function Profile({ prof, setProf }) {
+  
+  console.log(prof);
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editProfile, setEditProfile] = useState({ ...userData });
+  const [editProfile, setEditProfile] = useState(prof);
+
+  console.log(editProfile);
+
+  const regions = [
+    { label: '北海道', options: ['北海道'] },
+    { label: '東北', options: ['青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県'] },
+    { label: '関東', options: ['茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県'] },
+    { label: '中部', options: ['新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県'] },
+    { label: '近畿', options: ['三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県'] },
+    { label: '中国', options: ['鳥取県', '島根県', '岡山県', '広島県', '山口県'] },
+    { label: '四国', options: ['徳島県', '香川県', '愛媛県', '高知県'] },
+    { label: '九州', options: ['福岡県', '佐賀県', '大分県', '宮崎県', '長崎県', '熊本県', '鹿児島県', '沖縄県'] },
+    { label: 'その他', options: ['その他'] }
+  ];
+
+  const PhandleChange = (e) => {
+    const { value } = e.target;
+    setEditProfile(prevState => ({
+        ...prevState,
+        place: value
+      }));
+      
+    console.log(value);
+    console.log(editProfile);
+  };
 
   const back = () => {
     navigate("/login/home");
@@ -30,50 +58,59 @@ function Profile({ userData, setUserData }) {
   useEffect(() => {
     const fetchAllUserData = async () => {
       
-      // const querySnapshot = await getDocs(collection(db, "googleusers"));
-      // const userList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      // const UID = JSON.parse(localStorage.getItem("uid"));
-      // if (UID) {
-      //   const foundUser = userList.find(user => user.uid === UID);
-      //   setUserData(foundUser);
-      //   setEditProfile(foundUser);
-      // }
+      const querySnapshot = await getDocs(collection(db, "googleusers"));
+      const userList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const savedUid = localStorage.getItem('uid');
+      if (savedUid) {
+        const foundUser = userList.find((user) => user.uid === savedUid);
+        setProf({ 
+          place: foundUser.place, 
+          photoURL: foundUser.photoURL, 
+          displayname: foundUser.displayName,
+          email: foundUser.email,
+          username: foundUser.username,
+          uid: foundUser.uid });
+      }
     };
     fetchAllUserData();
-  }, [setUserData]);
+  }, [setProf]);
 
   useEffect(() => {
-    setEditProfile(userData);
-  }, [userData]);
+    setEditProfile(prof);
+  }, [prof]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEditProfile(prev => ({ ...prev, [name]: value }));
+    const { value } = e.target;
+    setEditProfile(prevState => ({
+      ...prevState,
+      username: value
+    }));
+    console.log(value);
+    console.log(editProfile);
   };
 
   const handleSave = async () => {
     console.log(editProfile);
-    const userDocRef = doc(db, "googleusers", userData.id);
+    const Uid = localStorage.getItem('uid');
+    const userDocRef = doc(db,"googleusers", Uid )
+    // console.log(editProfile);
+    // const userDocRef = doc(db, "googleusers", prof.id);
 
-    if (editProfile.uid !== userData.uid) {
-      const newInfo = editProfile.uid;
-      const newUserDocRef = doc(db, "googleusers", newInfo);
-      await setDoc(newUserDocRef, { ...editProfile, uid: newInfo });
-      await deleteDoc(userDocRef);
+    // if (editProfile.uid !== prof.uid) {
+    //   const newInfo = editProfile.uid;
+    //   const newUserDocRef = doc(db, "googleusers", newInfo);
+    //   await setDoc(newUserDocRef, { ...editProfile, uid: newInfo });
+    //   await deleteDoc(userDocRef);
 
-      setUserData(prev => ({ ...prev, id: newInfo, place: newInfo }));
-      localStorage.setItem("情報更新", JSON.stringify(newInfo));
-    } else {
-      await updateDoc(userDocRef, {
-        // name: editProfile.name,
-        // furigana: editProfile.furigana,
+    //   setProf(prev => ({ ...prev, id: newInfo, place: newInfo }));
+    //   localStorage.setItem("情報更新", JSON.stringify(newInfo));
+    // } else {
+      await updateDoc(userDocRef,{
         username: editProfile.username,
-        // gender: editProfile.gender,
-        // password: editProfile.password
         place: editProfile.place,
       });
-      setUserData(editProfile);
-    }
+      setProf(editProfile);
+    // }
 
     setIsEditing(false);
   };
@@ -100,55 +137,21 @@ function Profile({ userData, setUserData }) {
         <label className='pro_item'>プロフィール画</label>
         <br />
         <div className='pro_content'>
-          <img src={auth.currentUser.photoURL} className='pro_img' />
+          <img src={prof.photoURL || image} className='pro_img' />
         </div>
         <div className='line'></div>
 
         <label className='pro_item'>名前</label>
         <br />
         <div className='pro_content'>
-          {/* {isEditing ? (
-            <input
-              type="text"
-              name="name"
-              value={editProfile.name}
-              onChange={handleChange}
-            />
-          ) : ( */}
-            <div className='pro_input'>{auth.currentUser.displayName}</div>
-          {/* )} */}
+            <div className='pro_input'>{prof.displayname}</div>
         </div>
         <div className='line'></div>
-
-        {/* <label className='pro_item'>フリガナ</label>
-        <br />
-        <div className='pro_content'>
-          {isEditing ? (
-            <input
-              type='text'
-              name='furigana'
-              value={editProfile.furigana}
-              onChange={handleChange}
-            />
-          ) : (
-            <div className='pro_input'>{userData.furigana}</div>
-          )}
-        </div>
-        <div className='line'></div> */}
 
 <label className='pro_item'>メールアドレス</label>
         <br />
         <div className='pro_content'>
-          {/* {isEditing ? (
-            <input
-              type='text'
-              name='tel'
-              value={editProfile.tel}
-              onChange={handleChange}
-            />
-          ) : ( */}
-            <div className='pro_input'>{auth.currentUser.email}</div>
-          {/* )} */}
+            <div className='pro_input'>{prof.email}</div>
         </div>
         <div className='line'></div>
 
@@ -163,38 +166,30 @@ function Profile({ userData, setUserData }) {
               onChange={handleChange}
             />
           ) : (
-            <div className='pro_input'>{userData.username}</div>
+            <div className='pro_input'>{prof.username}</div>
           )}
         </div>
         <div className='line'></div>
-
-        {/* <label className='pro_item'>性別</label>
-        <br />
-        <div className='pro_content'>
-          {isEditing ? (
-            <input
-              type='text'
-              name='gender'
-              value={editProfile.gender}
-              onChange={handleChange}
-            />
-          ) : (
-            <div className='pro_input'>{userData.gender}</div>
-          )}
-        </div>
-        <div className='line'></div> */}
 
         <label className='pro_item'>地域選択</label>
         <br />
         <div className='pro_content'>
           {isEditing ? (
-            <input
+            <select
               name='place'
               value={editProfile.place}
-              onChange={handleChange}
-            />
+              onChange={PhandleChange}>
+              <option value="" disabled>選択してください</option>
+                {regions.map((region, index) => (
+                <optgroup key={index} label={region.label}>
+                  {region.options.map((option, idx) => (
+                <option key={idx} value={option}>{option}</option>
+            ))}
+          </optgroup>
+        ))}
+            </select>
           ) : (
-            <div className='pro_input'>{userData.place}</div>
+            <div className='pro_input'>{prof.place}</div>
           )}
         </div>
         <div className='line'></div>

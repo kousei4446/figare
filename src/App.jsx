@@ -64,7 +64,8 @@ function App() {
   }, []);
 
   /*const [activePost,setActivePost]=useState({})*/
-  const [myInfo,setMyInfo]=useState({userName:"",place:"",photoURL:""})
+  const [prof,setProf]=useState({displayName:"",email:"",username:"", photoURL:"",place:""});
+  const [myInfo,setMyInfo]=useState({userName:"",place:"",photoURL:""});
   const [disInfo, setDisInfo] = useState({ kind: "", text: "", img: "" ,file:"",place:"",poster:""});
   const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false,time:null });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
@@ -82,7 +83,7 @@ function App() {
           <Route path="/login/serchplace" element={<SerchPlace />} />
           {/* <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister}/>} /> */}
           <Route path="/login/home/search" element={<Serch />} />
-          <Route path="/login/home/profile" element={<Profile userData={userData} setUserData={setUserData} />} />
+          <Route path="/login/home/profile" element={<Profile  prof={prof} setProf={setProf} />} />
           <Route path="/login/home/addpost" element={<AddPost />} />
           <Route path="/login/home/addpost/mono" element={<Mono disInfo={disInfo} setDisInfo={setDisInfo} />} />
           <Route path="/login/home/addpost/mono/suremono" element={<SureMone disInfo={disInfo} setDisInfo={setDisInfo} myInfo={myInfo} />} />
@@ -122,7 +123,7 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
   }
 
   /* googleログイン */
-  function SignInButton() {
+  function SignInButton(prof, setProf) {
     const signInWithGoogle = () => {
       signInWithPopup(auth, provider)
       .then(async (result) => {
