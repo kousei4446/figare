@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { act, useEffect } from 'react'
 import './LostDetail.css';
 import { useState } from 'react';
 import { AiOutlinePicture } from "react-icons/ai";
@@ -26,7 +26,7 @@ const Tag = ({ activePost }) => { //関連するタグを表示
             <div className='lostdetail-tag-title'>関連するタグ</div>
             <ul className='lostdetail-tag-list'>
                 <li>{activePost.kind}</li>
-                <li>場所</li>
+                <li>{activePost.place}</li>
             </ul>
         </div>
     );
