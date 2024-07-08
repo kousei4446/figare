@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import './LostDetail.css';
 import { useState } from 'react';
-import logoImage from '../LostDetail/testpict.png';
 import { AiOutlinePicture } from "react-icons/ai";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { BsPlusLg } from "react-icons/bs";
@@ -10,21 +9,24 @@ import { db } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import { FaRegPaperPlane } from "react-icons/fa";
 
-const ChangePict = ({ newLogo, setLogo, activePost }) => { //写真を表示
-
-    setLogo(newLogo);
-
+const ChangePict = ({ activePost }) => { //写真を表示
+    const displayText = activePost.kind === "もの" ? "落としもの画像" : "探している人";
     return (
-        <img className='lostdetail-logo-image' src={activePost.file} alt="Logo" />
+        <div className="lostdetail-image-container">
+            <div className="lostdetail-title-text">{displayText}</div>
+            <br />
+            <img className='lostdetail-logo-image' src={activePost.file} alt="Logo" />
+        </div>
     );
 };
 
 const Tag = ({ activePost }) => { //関連するタグを表示
     return (
         <div className='lostdetail-tag-container'>
+            <div className='lostdetail-tag-title'>関連するタグ</div>
             <ul className='lostdetail-tag-list'>
                 <li>{activePost.kind}</li>
-                <li>tag</li>
+                <li>場所</li>
             </ul>
         </div>
     );
@@ -167,7 +169,7 @@ const Message = ({ activePost }) => { //メッセージを入力
 
 function App() {
     const [activePost, setActivePost] = useState({})
-    const [logo, setLogo] = useState(logoImage);
+    // const [logo, setLogo] = useState(logoImage);
     const [AddDet, setAddDet] = useState(false);
 
     useEffect(() => {
@@ -186,7 +188,7 @@ function App() {
         <div className='lostdetail-body'>
             <div className='lostdetail-container'>
                 <div className='lostdetail-box lostdetail-ctp lostdetail-top'>
-                    <ChangePict newLogo={logo} setLogo={setLogo} activePost={activePost} />
+                    <ChangePict activePost={activePost} />
                     <Tag activePost={activePost} />
                     <br />
                 </div>
