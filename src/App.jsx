@@ -1,32 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 // import Register from './components/newregester/Register';
-import Login from './components/Login/Login';
 import "./App.css";
 import Username from './components/newregester/Username';
 import SerchPlace from './components/SerchPlace/SerchPlace';
-import Namefuri from './components/Login/Namefuri';
-import Name from './components/Login/Name';
-import Gender from './components/Login/Gender';
-import TelNum from './components/Login/TelNum';
-import Password from './components/Login/Password';
-import LoginUsername from './components/Login/LoginUsername';
 import Home from './components/Home/Home';
 import Serch from './components/Home/Serch';
 import Profile from './components/Home/Profile';
 import AddPost from './components/Home/AddPost/AddPost';
-import Hito from './components/Home/AddPost/Hito';
-import SureHitoInfo from './components/Home/AddPost/SureHitoInfo';
 import Messeage from './components/Home/Message/Messeage';
 import Chat from './components/Home/Message/Chat';
-import Pet from './components/Home/AddPost/Pet';
-import SurePet from './components/Home/AddPost/SurePet';
 import Mono from './components/Home/AddPost/Mono';
 import LostDetail from "./components/LostDetail/LostDeatail";
 import SureMone from './components/Home/AddPost/SureMone';
-import { collection, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import { signInWithPopup } from "firebase/auth";
-// import { useAuthState} from "react-firebase-hooks/auth";
 import { db, auth, provider } from './firebase';
 import anime from 'animejs/lib/anime.es.js';
 
@@ -89,24 +77,13 @@ function App() {
         <Navigation userData={userData} setProfile={setProfile} /*setRegister={setRegister}*//>
         <Routes>
         <Route path="/login/home" element={<Home /*setActivePost={setActivePost}*/ myInfo={myInfo} setMyInfo={setMyInfo}/>} />
-        <Route path="/login" element={<Login />} />
           {/* <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} /> */}
           <Route path="/login/username" element={<Username />} />
           <Route path="/login/serchplace" element={<SerchPlace />} />
           {/* <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister}/>} /> */}
-          <Route path="/login/namekanji" element={<Name />} />
-          <Route path="/login/namefurigana" element={<Namefuri />} />
-          <Route path="/login/gender" element={<Gender />} />
-          <Route path="/login/telephonenumber" element={<TelNum />} />
-          <Route path="/login/password" element={<Password />} />
-          <Route path="/login/usernamed" element={<LoginUsername />} />
           <Route path="/login/home/search" element={<Serch />} />
           <Route path="/login/home/profile" element={<Profile userData={userData} setUserData={setUserData} />} />
           <Route path="/login/home/addpost" element={<AddPost />} />
-          <Route path="/login/home/addpost/hito" element={<Hito hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
-          <Route path="/login/home/addpost/hito/SureHitoInfo" element={<SureHitoInfo hitoInfo={hitoInfo} setHitoInfo={setHitoInfo} />} />
-          <Route path="/login/home/addpost/pet" element={<Pet petInfo={petInfo} setPetInfo={setPetInfo} />} />
-          <Route path="/login/home/addpost/pet/surepet" element={<SurePet petInfo={petInfo} setPetInfo={setPetInfo} />} />
           <Route path="/login/home/addpost/mono" element={<Mono disInfo={disInfo} setDisInfo={setDisInfo} />} />
           <Route path="/login/home/addpost/mono/suremono" element={<SureMone disInfo={disInfo} setDisInfo={setDisInfo} myInfo={myInfo} />} />
           <Route path="/login/home/message" element={<Messeage />} />
@@ -160,7 +137,13 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
         };
         localStorage.setItem("uid", user.uid);
         const docRef = doc(db, 'googleusers', user.uid);
-        await updateDoc(docRef, userData);
+        const docSnap=await getDoc(docRef);
+        if (docSnap.exists()){
+          await updateDoc(docRef, userData);
+        }else{
+          await setDoc(docRef, userData);
+        }
+        
       }).catch((error) => {
         console.log('signin error');
       });

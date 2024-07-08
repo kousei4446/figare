@@ -4,6 +4,8 @@
 body{
     margin: 0px;
     overflow: hidden;
+    overflow-y: auto; /* スクロールを有効にする */
+
 }
 
 .rogTitle {
