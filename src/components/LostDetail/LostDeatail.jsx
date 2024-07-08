@@ -1,32 +1,32 @@
 import React, { useEffect } from 'react'
 import './LostDetail.css';
 import { useState } from 'react';
-import logoImage from '../LostDetail/testpict.png';
 import { AiOutlinePicture } from "react-icons/ai";
 import { GoChevronDown, GoChevronUp } from "react-icons/go";
 import { BsPlusLg } from "react-icons/bs";
-// import { IoIosExpand } from 'react-icons/io';
 import { Timestamp, arrayUnion, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import { FaRegPaperPlane } from "react-icons/fa";
 
-
-const ChangePict = ({ newLogo, setLogo, activePost }) => { //写真を表示
-
-    setLogo(newLogo);
-
+const ChangePict = ({ activePost }) => { //写真を表示
+    const displayText = activePost.kind === "もの" ? "落としもの画像" : "探している人";
     return (
-        <img className='lostdetail-logo-image' src={activePost.file} alt="Logo" />
+        <div className="lostdetail-image-container">
+            <div className="lostdetail-title-text">{displayText}</div>
+            <br />
+            <img className='lostdetail-logo-image' src={activePost.file} alt="Logo" />
+        </div>
     );
 };
 
 const Tag = ({ activePost }) => { //関連するタグを表示
     return (
         <div className='lostdetail-tag-container'>
+            <div className='lostdetail-tag-title'>関連するタグ</div>
             <ul className='lostdetail-tag-list'>
                 <li>{activePost.kind}</li>
-                <li>tag</li>
+                <li>場所</li>
             </ul>
         </div>
     );
@@ -41,6 +41,9 @@ const DetDisp = ({ Add, setAdd, activePost }) => { //詳細を表示
     };
 
     const formatDateTime = (timestamp) => {
+        if (!timestamp) {
+            return 'N/A';
+        }
         const date = timestamp.toDate();
         const option = { year: 'numeric', month: 'long', day: 'numeric' };
         const formatD = date.toLocaleDateString('ja-JP', option);
@@ -51,8 +54,6 @@ const DetDisp = ({ Add, setAdd, activePost }) => { //詳細を表示
 
         return `${formatD} ${formatT}`;
     };
-
-    // const Plus = () => setOpen((prev) => !prev);
 
     return (
         <>
@@ -79,29 +80,17 @@ const DetDisp = ({ Add, setAdd, activePost }) => { //詳細を表示
                 <div className='lostdetail-section'>
                     <div className='lostdetail-title'>その他</div>
                     <div className='lostdetail-content'>
-
-                    </div>
-                </div>
-                <div className='lostdetail-section'>
-                    <div className='lostdetail-title'>その他</div>
-                    <div className='lostdetail-content'>
-                        d
+                        {/* その他の内容があればここに追加 */}
                     </div>
                 </div>
             </div>
-
-            {/* {Add && (
-                <div className='lostdetail-detail-content'>
-                    プロフィールが表示される．
-                </div>
-            )} */}
         </>
     );
 };
 
 const Plusalpha = () => { //入力のその他
     const Plus = () => {
-
+        // プラスアルファの操作を追加
     };
 
     return (
@@ -109,14 +98,13 @@ const Plusalpha = () => { //入力のその他
             <button className='lostdetail-plus-button' onClick={Plus}>
                 <BsPlusLg />
             </button>
-
         </>
     );
 };
 
 const Camera = () => { //画像を追加
     const cam = () => {
-
+        // カメラの操作を追加
     };
 
     return (
@@ -128,49 +116,62 @@ const Camera = () => { //画像を追加
 
 const Message = ({ activePost }) => { //メッセージを入力
     const [text, setText] = useState("")
-    const mess = () => {
+    const navigation = useNavigate();
 
-    };
-    const navigation = useNavigate()
     const chatpage = async () => {
-        const chatPairId = localStorage.getItem("uid") + activePost.poster;
+        const UID = localStorage.getItem("uid");
+        const chatPairId = UID + activePost.poster;
+        const chatPairIds = activePost.poster + UID;
         localStorage.setItem("chatpair", chatPairId);
         const docRef = doc(db, 'chats', chatPairId);
+        const docRefs = doc(db, 'chats', chatPairIds);
+
         const docSnap = await getDoc(docRef);
+        const docSnaps = await getDoc(docRefs);
 
-        if (!docSnap.exists()) {
-            await setDoc(docRef, {
-                message: [{ date: Timestamp.now(), sender: localStorage.getItem("uid"), text: text }]
-            });
-
-        } else {
+        if (docSnap.exists()) {
             await updateDoc(docRef, {
-                message: arrayUnion({ date: Timestamp.now(), sender: localStorage.getItem("uid"), text: text })
+                message: arrayUnion({ date: Timestamp.now(), sender: UID, text: text })
             });
+            localStorage.setItem("chatpair", chatPairId);
+        } else if (docSnaps.exists()) {
+            await updateDoc(docRefs, {
+                message: arrayUnion({ date: Timestamp.now(), sender: UID, text: text })
+            });
+            localStorage.setItem("chatpair", chatPairIds);
+        } else {
+            await setDoc(docRef, {
+                message: [{ date: Timestamp.now(), sender: UID, text: text }]
+            });
+            localStorage.setItem("chatpair", chatPairId);
         }
-        navigation("/login/home/chat");
-
+            navigation("/login/home/chat");
     };
+
     return (
         <>
             <input className='lostdetail-message-button' placeholder='メッセージを入力してください' onChange={(e) => setText(e.target.value)} />
-            <button onClick={chatpage}>送信</button>
-        </>
 
+            <button className='contbtn' onClick={chatpage}>
+                <FaRegPaperPlane />
+            </button>
+        </>
     );
 };
 
-const Contribution = () => {
-    return (<button className='contbtn'>
-        <FaRegPaperPlane />
-    </button>
-    )
-}
+// const Contribution = () => {
+//     return (
+//         <button className='contbtn'>
+//             <FaRegPaperPlane />
+//         </button>
+//     )
+// }
 
 function App() {
-    const [activePost,setActivePost]=useState({})
-    const [logo, setLogo] = useState(logoImage);
+    const [activePost, setActivePost] = useState({})
+    // const [logo, setLogo] = useState(logoImage);
     const [AddDet, setAddDet] = useState(false);
+
     useEffect(() => {
         const fetchPostData = async () => {
             const docRef = doc(db, "Posts", localStorage.getItem("postid"));
@@ -181,34 +182,30 @@ function App() {
             }
         };
         fetchPostData();
-    }, [setActivePost]);
+    }, []);
+
     return (
         <div className='lostdetail-body'>
             <div className='lostdetail-container'>
                 <div className='lostdetail-box lostdetail-ctp lostdetail-top'>
-                    <ChangePict newLogo={logo} setLogo={setLogo} activePost={activePost} />
+                    <ChangePict activePost={activePost} />
                     <Tag activePost={activePost} />
                     <br />
                 </div>
-
-
                 <div className='lostdetail-box lostdetail-detail-display'>
                     <DetDisp Add={AddDet} setAdd={setAddDet} activePost={activePost} />
                     <br />
                 </div>
-
                 <div className='lostdetail-box-ex lostdetail-inbtn'>
                     <div className='lostdetail-input'>
                         <Plusalpha />
                         <Camera />
                         <Message activePost={activePost} />
-                        <Contribution />
+                        {/* <Contribution /> */}
                     </div>
                 </div>
             </div>
         </div>
-
-
     );
 }
 

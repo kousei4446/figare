@@ -59,7 +59,7 @@ function Chat() {
         ))}
       </div>
       <div className='NyuuryokuRan'>
-        <input value={text} onChange={(e) => setText(e.target.value)} placeholder="メッセージを入力" />
+        <input value={text} onChange={(e) => setText(e.target.value)} placeholder="メッセージを入力"  required="required"/>
         <button onClick={handleClick}>送信</button>
       </div>
     </div>

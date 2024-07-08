@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
-import image from './../img/sampleimg.png';
+import image from "../img/profile-img.png";
 import { IoMdChatbubbles, IoMdSearch, IoMdAdd } from 'react-icons/io';
 import { Timestamp, collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
@@ -115,7 +115,7 @@ function Home({ myInfo, setMyInfo }) {
   return (
     <div>
       <div className='background'>
-        <img src={myInfo.photoURL || image} height='75px' className='Icon' onClick={profilepage} alt='Profile' />
+        <img src={myInfo.photoURL || image} height='75px'width="75px" className='Icon' onClick={profilepage} alt='Profile' />
         <h3 className='main-title'>{myInfo.place && `${myInfo.place}の検索一覧`}</h3>
         <IoMdSearch onClick={serchpage} size={35} className='search' />
       </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, orderBy, query } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import image from "../../img/image.png";
 import "./Message.css";
@@ -15,21 +15,37 @@ function Messeage() {
 
       if (UID) {
         const userChatDocRef = doc(db, 'userChats', UID);
+        // const q = query(collection(db, 'userChats'), orderBy('date', 'desc'));
         const userChatDocSnap = await getDoc(userChatDocRef);
         if (userChatDocSnap.exists()) {
           const userData = userChatDocSnap.data();
           const keyList = Object.keys(userData);
 
-          // 各ユーザーのusernameを取得して状態に保存
           const fetchedUsernames = [];
           for (const id of keyList) {
+            // console.log(id)
+            let chatDocRef = doc(db, "chats", id + localStorage.getItem("uid"));
+            let chatDocSnap = await getDoc(chatDocRef);
+            let lastMessage = "";
+
+            if (chatDocSnap.exists()) {
+              lastMessage = chatDocSnap.data().message[chatDocSnap.data().message.length - 1].text;
+            } else {
+              chatDocRef = doc(db, "chats", localStorage.getItem("uid") + id);
+              chatDocSnap = await getDoc(chatDocRef);
+              if (chatDocSnap.exists()) {
+                lastMessage = chatDocSnap.data().message[chatDocSnap.data().message.length - 1].text;
+              }
+            }
+
             const userDocRef = doc(db, 'googleusers', id);
             const userDocSnap = await getDoc(userDocRef);
             if (userDocSnap.exists()) {
               fetchedUsernames.push({
                 imgURL: userDocSnap.data().photoURL,
                 username: userDocSnap.data().username,
-                id: id
+                id: id,
+                text: lastMessage,
               });
             }
           }
@@ -70,10 +86,11 @@ function Messeage() {
       <div className='messages'>
         {documentIdList.map((user) => (
           <div onClick={() => chatpage(user.id)} className='msg-person' key={user.id}>
-            <img src={user.imgURL} alt={user.username} height="40px"style={{borderRadius:"50%"}} />
-            <p>
-              {user.username}
-            </p>
+            <img src={user.imgURL} alt={user.username} height="60px" style={{ borderRadius: "50%" }} />
+            <div className='msg-content'>
+              <strong>{user.username}</strong>
+              <p>{user.text}</p>
+            </div>
           </div>
         ))}
       </div>
