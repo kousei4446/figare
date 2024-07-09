@@ -9,14 +9,10 @@ import {getAuth, signOut } from "firebase/auth";
 import { db } from '../../firebase';
 
 function Profile({ prof, setProf }) {
-  
-  console.log(prof);
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
   const [editProfile, setEditProfile] = useState(prof);
-
-  console.log(editProfile);
 
   const regions = [
     { label: '北海道', options: ['北海道'] },
@@ -36,9 +32,6 @@ function Profile({ prof, setProf }) {
         ...prevState,
         place: value
       }));
-      
-    console.log(value);
-    console.log(editProfile);
   };
 
   const back = () => {
@@ -85,12 +78,9 @@ function Profile({ prof, setProf }) {
       ...prevState,
       username: value
     }));
-    console.log(value);
-    console.log(editProfile);
   };
 
   const handleSave = async () => {
-    console.log(editProfile);
     const Uid = localStorage.getItem('uid');
     const userDocRef = doc(db,"googleusers", Uid )
     // console.log(editProfile);

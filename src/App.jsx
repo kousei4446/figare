@@ -82,8 +82,8 @@ function App() {
           <Route path="/login/username" element={<Username />} />
           <Route path="/login/serchplace" element={<SerchPlace />} />
           {/* <Route path="/login/serchplace" element={<SerchPlace register={register} setRegister={setRegister}/>} /> */}
-          <Route path="/login/home/search" element={<Serch />} />
-          <Route path="/login/home/profile" element={<Profile  prof={prof} setProf={setProf} />} />
+          <Route path="/login/home/search" element={<Serch prof={prof} setProf={setProf}/>} />
+          <Route path="/login/home/profile" element={<Profile prof={prof} setProf={setProf} />} />
           <Route path="/login/home/addpost" element={<AddPost />} />
           <Route path="/login/home/addpost/mono" element={<Mono disInfo={disInfo} setDisInfo={setDisInfo} />} />
           <Route path="/login/home/addpost/mono/suremono" element={<SureMone disInfo={disInfo} setDisInfo={setDisInfo} myInfo={myInfo} />} />

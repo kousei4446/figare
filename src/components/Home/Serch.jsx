@@ -4,8 +4,10 @@ import image from "./../img/image.png";
 import "./Serch.css"
 import { Timestamp, collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { db } from '../../firebase';
+import SerchPlace from '../SerchPlace/SerchPlace';
 
-function Serch() {
+function Serch({ prof }) {
+    console.log(prof);
     const navigate=useNavigate()
     const back=()=>{
         navigate("/login/home")
@@ -14,19 +16,30 @@ function Serch() {
     const [posts, setPosts]=useState([]);
     useEffect(() => {
       const fetchFilteredPosts = async () => {
-          try {
-              const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
-              const querySnapshot = await getDocs(q);
-              const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-              const filterResult = filteredPosts.filter((item) => item.kind === serch);
-              setPosts(filterResult);
-          } catch (error) {
-              console.error('Error fetching filtered posts:', error);
-          }
-        };
-        fetchFilteredPosts();  
-      }, [serch]);
-  
+        try {
+          const prefRef = collection(db, "Posts");
+          const q = query(prefRef, where("place", "==", prof.place),/*orderBy('time','desc')*/);
+          const querySnapshot = await getDocs(q);
+          const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          const filterResult = filteredPosts.filter((item) => item.kind === serch);
+          setPosts(filterResult);
+
+            // const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
+            // const querySnapshot = await getDocs(q);
+            // const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            // const filterResult = filteredPosts.filter((item) => item.kind === serch);
+            // setPref(filterResult);
+        } catch (error) {
+            console.error('Error fetching filtered posts:', error);
+        }
+      };
+      fetchFilteredPosts();  
+    }, [serch]);
+
+    // useEffect(() => {
+    //   setPosts(pref);
+    // }, [pref]);
+
     const handleSerch = (type) => {
       setSerch(type === serch ? 'all' : type);
     };
@@ -53,7 +66,7 @@ function Serch() {
                   </div>
                   <div>
                     <p>{item.text}</p>
-                    <p>{item.time.toDate().toLocaleString()}</p>
+                    {/* <p>{item.time.toDate().toLocaleString()}</p> */}
                   </div>
                 </div>
               </div>
