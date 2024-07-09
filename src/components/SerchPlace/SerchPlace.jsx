@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Search.css";
 import { db } from '../../firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import anime from 'animejs/lib/anime.es.js';
 
 function SerchPlace() {
   const [selectedRegion, setSelectedRegion] = useState('');
@@ -59,6 +60,30 @@ function SerchPlace() {
     }
   };
 
+  useEffect(() => {
+    const placeContainer = document.querySelector('.circleContainer');
+    if (placeContainer) {
+      for (let i = 0; i <= 20; i++) {
+        const circles = document.createElement('div');
+        circles.classList.add('circle');
+        placeContainer.appendChild(circles);
+      }
+    }
+
+    const animateCircles = () => {
+      anime({
+        targets: '.circle',
+        translateX: () => anime.random(-400, 400),
+        translateY: () => anime.random(-300, 800),
+        scale: () => anime.random(5,7),
+        duration: 10000,
+        delay: anime.stagger(100),
+      });
+    };
+
+    animateCircles();
+  }, []);
+
 
   return (
     <div className='searchPlace'>
@@ -77,8 +102,9 @@ function SerchPlace() {
           </optgroup>
         ))}
       </select>
+      <div className='circleContainer'></div>
       <br />
-      <button className='searchDecision' onClick={comp} style={{ marginTop: "265px" }}>決定</button>
+      <button className='searchDecision' onClick={comp} >決定</button>
     </div>
   );
 }

@@ -1,47 +1,77 @@
 
-/*地区選択*/
+/* 地区選択 */
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
 
 .searchPlace {
     background-color: rgb(88, 151, 234);
     color: #fff;
-    min-height: 100vh;
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-  }
-
-.find{
-    margin-bottom: -35px;
-    margin-top: 40%;
+    justify-content: center;
+    padding-top: 20px;
 }
 
-.or{
-    margin-bottom: -35px;
+.find {
     text-align: center;
+    padding-top: 20%;
+    margin-bottom: -15px;
+    position: relative;
+    z-index: 2;
 }
 
-.pulldown{
+.or {
+    text-align: center;
+    margin-bottom: -10px;
+    position: relative;
+    z-index: 2;
+}
+
+.detect {
+    text-align: center;
+    margin-bottom: 40%;
+    position: relative;
+    z-index: 2;
+}
+
+.pulldown {
     display: flex;
-    margin: auto;
+    align-items: center;
+    justify-content: center;
     width: 250px;
     height: 45px;
-    margin-top: 50px;
+    position: relative;
+    z-index: 2;
 }
 
-.searchDecision{
-    margin-bottom: 20%;
+.circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 25%;
+    background-color: rgb(108, 162, 232);
+    position: absolute;
+}
+
+.searchDecision {
+    margin-top: 70%;
+    margin-bottom: 1000px;
     width: 150px;
-    height: 40px;
+    height: 45px;
     border: 1px solid #333;
     border-radius: 5px;
     background-color: rgb(250, 252, 186);
     cursor: pointer;
-    box-shadow: 0 3px 0 0 rgb(100, 100, 100)
+    box-shadow: 0 3px 0 0 rgb(100, 100, 100);
+    position: relative;
+    z-index: 2;
 }
 
-.searchDecision:hover{
+.searchDecision:hover {
     box-shadow: none;
-    transform:matrix();
-    -webkit-transform: translateY(3px);
+    transform: translateY(3px);
 }
