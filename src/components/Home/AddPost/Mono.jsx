@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import image from "../../img/image.png";
 import "./Mono.css";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { storage, db } from '../../../firebase';
 
 function Mono({ disInfo, setDisInfo }) {
   const navigate = useNavigate();
 
-  // デフォルトで"もの"を選択するための初期値設定
   useEffect(() => {
     setDisInfo(prevState => ({
       ...prevState,
@@ -24,11 +25,23 @@ function Mono({ disInfo, setDisInfo }) {
 
   const upload = async (e) => {
     const file = e.target.files[0];
-    setDisInfo(prevState => ({
-      ...prevState,
-      img: URL.createObjectURL(file),
-      file: file
-    }));
+    if (!file) {
+      console.error("ファイルが選択されていません");
+      return;
+    }
+    const storageRef = ref(storage, `uploads/${file.name}`);
+    try {
+      await uploadBytes(storageRef, file); // ファイルをアップロード
+      const downloadURL = await getDownloadURL(storageRef); // アップロード後にURLを取得
+      setDisInfo(prevState => ({
+        ...prevState,
+        img: downloadURL,
+        file: file,
+        storagePath: storageRef.fullPath,
+      }));
+    } catch (error) {
+      console.error("ファイルのアップロード中にエラーが発生しました:", error);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -96,7 +109,6 @@ function Mono({ disInfo, setDisInfo }) {
             value={disInfo.text}
             onChange={handleInputChange}
             placeholder="※特徴や情報などご記載ください。(任意)"
-            
           />
         </div>
         <div className='okbtn-posi'>

@@ -6,7 +6,7 @@ import { db, storage } from '../../../firebase';
 import { Timestamp, collection, doc, setDoc } from 'firebase/firestore';
 import "./SureMono.css";
 
-function SureMone({ disInfo, setDisInfo, myInfo }) {
+function SureMono({ disInfo, setDisInfo, myInfo }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -17,12 +17,19 @@ function SureMone({ disInfo, setDisInfo, myInfo }) {
   const ok = async () => {
     setLoading(true);
     try {
-      const storageRef = ref(storage, 'images/' + disInfo.file.name);
+      const storageRef = ref(storage, disInfo.storagePath);
       await uploadBytes(storageRef, disInfo.file); // ファイルをまずアップロード
       const url = await getDownloadURL(storageRef); // その後にURLを取得
-      console.log("File available at:", url);
+
       const docRef = doc(collection(db, 'Posts')); // 'Post'はコレクション名
-      const newDisInfo = { ...disInfo, file: url, time: Timestamp.now(), poster: localStorage.getItem("uid"), place: myInfo.place,id:docRef.id }; // URLを含めて新しいオブジェクトを作成
+      const newDisInfo = {
+        ...disInfo,
+        file: url,
+        time: Timestamp.now(),
+        poster: localStorage.getItem("uid"),
+        place: myInfo.place,
+        id: docRef.id
+      }; // URLを含めて新しいオブジェクトを作成
       await setDoc(docRef, newDisInfo); // Firestoreに新しいオブジェクトを保存
 
       setDisInfo({ kind: "", text: "", img: "", file: "", time: "" });
@@ -35,10 +42,11 @@ function SureMone({ disInfo, setDisInfo, myInfo }) {
   };
 
   return (
-    <div>
+    <>
       {loading ? (
-        <div className='loading'>
-          <p>送信中...</p>
+        <div className='load'>
+            <h1>送信中</h1>
+            <div className='loader'></div>
         </div>
       ) : (
         <>
@@ -57,8 +65,8 @@ function SureMone({ disInfo, setDisInfo, myInfo }) {
           </div>
         </>
       )}
-    </div>
+    </>
   );
 }
 
-export default SureMone;
+export default SureMono;
