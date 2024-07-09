@@ -273,6 +273,7 @@
     /* border: 3px outset var(--color-detailborder); */
     border-radius: 10px;
     font-size: 16px;
+    align-items: center;
 }
 
 .lostdetail-detail-display::before {
@@ -294,7 +295,6 @@
     position: absolute;
     display: inline-block;
     top: -13px;
-    left: 198px;
     padding: 5px 10px;
     line-height: 1;
     font-size: 19px;
@@ -341,7 +341,7 @@
 .lostdetail-input {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     width: 100%;
     justify-content: space-between;
 }
@@ -353,7 +353,7 @@
     background-color: var(--color-primary);
     color: var(--color-white);
     border: none;
-    padding: 10px;
+    padding: 13px;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -362,7 +362,7 @@
     background-color: var(--color-primary);
     color: var(--color-white);
     border: none;
-    padding: 10px;
+    padding: 13px;
     border-radius: 30px;
     cursor: pointer;
 }
