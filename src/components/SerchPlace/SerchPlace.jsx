@@ -4,7 +4,7 @@ import "./Search.css";
 import { db } from '../../firebase';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
-function SerchPlace() {
+function SerchPlace({ setProf }) {
   const [selectedRegion, setSelectedRegion] = useState('');
   const navigate = useNavigate();
 
@@ -27,6 +27,7 @@ function SerchPlace() {
   const comp = async (e) => {
     if (selectedRegion) {
       console.log(selectedRegion);
+      setProf({place: selectedRegion})
       
       const UID = localStorage.getItem("uid")
       const docRef = doc(db, "googleusers", UID )
