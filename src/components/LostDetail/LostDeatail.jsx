@@ -8,6 +8,8 @@ import { Timestamp, arrayUnion, collection, doc, getDoc, setDoc, updateDoc } fro
 import { db } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import { FaRegPaperPlane } from "react-icons/fa";
+import { FaTag } from "react-icons/fa";
+
 
 const ChangePict = ({ activePost }) => { //写真を表示
     const displayText = activePost.kind === "もの" ? "落としもの画像" : "探している人";
@@ -23,10 +25,10 @@ const ChangePict = ({ activePost }) => { //写真を表示
 const Tag = ({ activePost }) => { //関連するタグを表示
     return (
         <div className='lostdetail-tag-container'>
-            <div className='lostdetail-tag-title'>関連するタグ</div>
+            <div className='lostdetail-tag-title'>基本情報</div>
             <ul className='lostdetail-tag-list'>
-                <li>{activePost.kind}</li>
-                <li>{activePost.place}</li>
+                <li><FaTag /> {activePost.kind}</li>
+                <li><FaTag /> {activePost.place}</li>
             </ul>
         </div>
     );
@@ -189,6 +191,7 @@ function App() {
             <div className='lostdetail-container'>
                 <div className='lostdetail-box lostdetail-ctp lostdetail-top'>
                     <ChangePict activePost={activePost} />
+                    <div className='lostdetail-separator'></div>
                     <Tag activePost={activePost} />
                     <br />
                 </div>
