@@ -31,8 +31,9 @@ function Serch() {
       setSerch(type === serch ? 'all' : type);
     };
 
-    const handleClick=()=>{
-      navigate("/login/home/finder/${itemId}");
+    const handleClick=(item)=>{
+      localStorage.setItem("postid", item.id);
+      navigate("/login/home/finder");
     };
     
   return (
