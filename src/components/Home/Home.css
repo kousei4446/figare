@@ -23,6 +23,7 @@
     height: 14%;
     background-color: rgb(180, 250, 250);
     border-bottom: 3px solid #333;
+    z-index:20;
 }
 
 .main-title {
@@ -31,6 +32,7 @@
 }
 
 .main-post {
+    position: relative;
     margin-top: 130px;
     margin-bottom: 120px;
     height: 50%;
@@ -48,6 +50,7 @@
     background-color: white;
     box-shadow: 0 0 15px -5px #777777;
     border-radius: 10px;
+    z-index:10;
 }
 
 .main-foot {
@@ -60,6 +63,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 20;
 }
 
 .add-postbtn {
@@ -102,9 +106,18 @@
     width: 90%;
 }
 
-.palce-and-toku .place {
-    border: 1px solid black;
+.palce-and-toku{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.place {
+    position: absolute;
+    top:15px;
+    right:60px;
+    font-size: 20px;
+    border: 1px solid black;
+}
+.text{
+    display: flex;
 }

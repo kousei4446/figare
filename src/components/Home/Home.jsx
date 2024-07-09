@@ -154,7 +154,7 @@ const Home = ({ myInfo, setMyInfo }) => {
                   <div>
                     <p className='place'>{post.place}</p>
                   </div>
-                  <p>{post.text}</p>
+                  <p class Name='text'>{post.text}</p>
                 </div>
               </div>
               <div>
