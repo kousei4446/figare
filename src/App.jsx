@@ -17,6 +17,7 @@ import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/fi
 import { signInWithPopup } from "firebase/auth";
 import { db, auth, provider } from './firebase';
 import anime from 'animejs/lib/anime.es.js';
+import PastPost from './components/Home/PastPost/PastPost';
 
 function App() {
   const [userData, setUserData] = useState([]);
@@ -88,6 +89,7 @@ function App() {
           <Route path="/login/home/addpost/mono/suremono" element={<SureMone disInfo={disInfo} setDisInfo={setDisInfo} myInfo={myInfo} />} />
           <Route path="/login/home/message" element={<Messeage />} />
           <Route path="/login/home/chat" element={<Chat />} />
+          <Route path='/login/home/profile/pastpost' element={<PastPost/>}/>
           <Route path="/login/home/finder" element={<LostDetail /*activePost={activePost}*//>} />
         </Routes>
       </div>

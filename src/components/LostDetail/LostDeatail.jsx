@@ -198,9 +198,15 @@ function App() {
                 </div>
                 <div className='lostdetail-box-ex lostdetail-inbtn'>
                     <div className='lostdetail-input'>
-                        <Plusalpha />
-                        <Camera />
-                        <Message activePost={activePost} />
+                        {/* <Message activePost={activePost} /> */}
+                        {JSON.parse(localStorage.getItem("isMyPost")) ? null : (
+                            <>
+                                <Plusalpha />
+                                <Camera />
+                                <Message activePost={activePost} />
+                            </>
+                        )
+                        }
                         {/* <Contribution /> */}
                     </div>
                 </div>
