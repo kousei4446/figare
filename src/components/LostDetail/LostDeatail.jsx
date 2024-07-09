@@ -204,8 +204,8 @@ function App() {
                         {/* <Message activePost={activePost} /> */}
                         {JSON.parse(localStorage.getItem("isMyPost")) ? null : (
                             <>
-                                <Plusalpha />
-                                <Camera />
+                                {/* <Plusalpha />
+                                <Camera /> */}
                                 <Message activePost={activePost} />
                             </>
                         )
