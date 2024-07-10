@@ -37,7 +37,16 @@ function Profile({ prof, setProf }) {
   const back = () => {
     navigate("/login/home");
   };
-  
+
+  const openbtn = () => {
+    dialog.showModal();
+  }
+
+  const closebtn = () => {
+    dialog.close();
+  }
+   const dialog = document.getElementById("dialog");
+
   function SignOutButton(){
     const auth = getAuth();
     signOut(auth).then(() => {
@@ -184,8 +193,16 @@ function Profile({ prof, setProf }) {
         </div>
         <div className='line'></div>
       </div>
-
-      <button className='logout_btn' onClick={SignOutButton}>サインアウト</button>
+    
+      <dialog id = "dialog" className="dialog">
+        <h2>このアカウントからサインアウトしますか？</h2>
+        <div className = "diabtn">
+          <button onClick={SignOutButton} className='logout_btn'>はい</button>
+          <button onClick={closebtn} className='logout_btn'>いいえ</button>
+        </div>
+        
+      </dialog>
+      <button className='logout_btn' onClick={openbtn}>サインアウト</button>
     </div>
   );
 }
