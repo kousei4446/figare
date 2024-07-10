@@ -74,3 +74,11 @@
     cursor: pointer;
     margin-top: 30px;
 }
+.dialog{
+    border: 3px solid #777777;
+}
+.diabtn{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
