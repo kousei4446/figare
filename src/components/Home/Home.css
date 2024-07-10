@@ -9,8 +9,8 @@
     top: 20px;
     right: 5px;
     border-radius: 50%;
-    border: 1px solid #333;
-    background-color: white;
+    border: 3px solid black;
+    background-color: rgb(88, 151, 234);
 }
 
 .background {
@@ -21,7 +21,7 @@
     top: 0;
     width: 100%;
     height: 14%;
-    background-color: rgb(180, 250, 250);
+    background-color: rgb(88, 151, 234);
     border-bottom: 3px solid #333;
     z-index:20;
 }
@@ -29,6 +29,7 @@
 .main-title {
     margin-top: 30px;
     margin-right: 40px;
+    color: white;
 }
 
 .main-post {
@@ -57,7 +58,7 @@
     width: 100%;
     height: 10%;
     border-top: 3px solid black;
-    background-color: beige;
+    background-color: rgb(250, 252, 186);
     position: fixed;
     bottom: 0;
     display: flex;

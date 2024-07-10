@@ -3,9 +3,6 @@
 
 body{
     margin: 0px;
-    overflow: hidden;
-    overflow-y: auto; /* スクロールを有効にする */
-
 }
 
 .rogTitle {
@@ -23,7 +20,8 @@ body{
     font-family:sans-serif;
     border: 3px solid white;
     border-radius: 50px;
-    width: 170px;
+    width: 200px;
+    height: 60px;
     margin-top: 450px;
     z-index: 1;
     position: relative;
