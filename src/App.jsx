@@ -101,27 +101,13 @@ function App() {
 function Navigation(/*{ userData, setProfile, setRegister }*/) {
   const location = useLocation();
   const navigate = useNavigate();
-  // const [tel, setTel] = useState("");
-  // const [password, setPassword] = useState("");
-
-  // const [user] = useAuthState(auth);
-
-  // const login = () => {
-  //   const user = userData.find(user => user.tel === tel && user.password === password);
-  //   if (user) {
-  //     // console.log(user.name)
-  //     navigate('/login/serchplace');
-  //     localStorage.setItem("電話番号", JSON.stringify(user.tel));
-  //     setRegister( {tel: user.tel, password: user.password, gender: user.gender, name: user.name, furigana: user.furigana, username: user.username ,place:user.place})
-  //     setProfile({ name: user.name, furigana: user.furigana, gender: user.gender, password: user.password, tel: user.tel });
-  //   } else {
-  //     window.alert("正しくないです");
-  //   }
-  // };
 
   // /login パス以降の場合はナビゲーションを表示しない
   if (location.pathname.startsWith('/login')) {
     return null;
+  }
+  if (localStorage.getItem("uid")){
+    navigate("/login/home")
   }
 
   /* googleログイン */

@@ -12,10 +12,12 @@ function PastPost() {
     const [confirm, setConfirm] = useState(false);
     const [id, setId] = useState("");
     const [storagePath, setStoragePath] = useState("");
-    const navigation=useNavigate()
+    const [loading, setLoading] = useState(false)
+    const navigation = useNavigate()
 
     useEffect(() => {
         const fetchMyPost = async () => {
+            setLoading(true)
             try {
                 const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
                 const querySnapshot = await getDocs(q);
@@ -24,6 +26,9 @@ function PastPost() {
                 setMyPostList(myPost);
             } catch (error) {
                 console.error("Error fetching posts: ", error);
+            }
+            finally {
+                setLoading(false)
             }
         };
 
@@ -48,44 +53,58 @@ function PastPost() {
     };
 
     return (
-        <div className='past-post-container'>
-            {confirm && <DeleteModal setConfirm={setConfirm} deleteBtn={deleteBtn} id={id} storagePath={storagePath} />}
-            <div className='background'>
-                <h3 style={{ textAlign: "center" }}>過去の投稿一覧</h3>
-            </div>
-            <div>
-                <div className='pastpostcard'>
-                    <p onClick={()=>navigation("/login/home")}style={{ display: "flex", alignItems: "center" }}><IoMdArrowRoundBack size="20px" />戻る</p>
-                </div>
-                <div className='pastpost'>
-                    {myPostList.map((post) => (
-                        <div key={post.id} className='post-item'>
-                            <div className='post-main'>
-                                <img src={post.file} width='130px' alt='Post' className='postimg' />
-                                <div className='place-and-toku'>
-                                    <div>
-                                        <p className='place'>{post.place}</p>
-                                    </div>
-                                    <p>{post.text}</p>
-                                </div>
-                            </div>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0px 10px" }}>
-                                <p>{post.time.toDate().toLocaleString()}</p>
-                                <div>
-                                    <button onClick={() => {
-                                        setConfirm(true);
-                                        setId(post.id);
-                                        setStoragePath(post.storagePath); // ここで正しい画像パスを設定します
-                                    }}>削除</button>
-                                    <button onClick={() => editBtn()}>編集</button>
-                                </div>
-                            </div>
+        <>
+            {loading ?
+                <>
+                    <div className='background'>
+                        <h3 style={{ textAlign: "center" }}>過去の投稿一覧</h3>
+                    </div>
+                    <div className='load'>
+                        <h3>データを取得中</h3>
+                        <div className='loader'></div>
+                    </div>
+                </>
+                :
+                <div className='past-post-container'>
+                    {confirm && <DeleteModal setConfirm={setConfirm} deleteBtn={deleteBtn} id={id} storagePath={storagePath} />}
+                    <div className='background'>
+                        <h3 style={{ textAlign: "center" }}>過去の投稿一覧</h3>
+                    </div>
+                    <div>
+                        <div className='pastpostcard'>
+                            <p onClick={() => navigation("/login/home")} style={{ display: "flex", alignItems: "center" }}><IoMdArrowRoundBack size="20px" />戻る</p>
                         </div>
-                    ))}
-                    <br />
+                        <div className='pastpost'>
+                            {myPostList.map((post) => (
+                                <div key={post.id} className='post-item'>
+                                    <div className='post-main'>
+                                        <img src={post.file} width='130px' alt='Post' className='postimg' />
+                                        <div className='place-and-toku'>
+                                            <div>
+                                                <p className='place'>{post.place}</p>
+                                            </div>
+                                            <p>{post.text}</p>
+                                        </div>
+                                    </div>
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0px 10px" }}>
+                                        <p>{post.time.toDate().toLocaleString()}</p>
+                                        <div>
+                                            <button onClick={() => {
+                                                setConfirm(true);
+                                                setId(post.id);
+                                                setStoragePath(post.storagePath); // ここで正しい画像パスを設定します
+                                            }}>削除</button>
+                                            <button onClick={() => editBtn()}>編集</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            <br />
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            }
+        </>
     );
 }
 
