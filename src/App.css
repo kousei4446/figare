@@ -1,49 +1,87 @@
 
 /* ログインページ　*/
-
-body{
-    margin: 0px;
+@media (max-width: 600px){
+    .rogTitle {
+        color:white;
+        font-size: 90px;
+        text-align: center;
+        position: absolute;
+        padding-bottom: 400px;
+        z-index: 1;
+      }
+    
+    .rogButton {
+        background-color:rgb(250, 252, 186);
+        color: black;
+        font-family:sans-serif;
+        border: 3px solid white;
+        border-radius: 50px;
+        width: 200px;
+        height: 60px;
+        margin-top: 450px;
+        z-index: 1;
+        position: relative;
+    }
+    
+    .rogContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgb(88, 151, 234);
+    }
+    
+    .block {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgb(115, 235, 161);
+        position: fixed;
+        z-index: 0;
+      }
 }
 
-.rogTitle {
-    color:white;
-    font-size: 90px;
-    text-align: center;
-    position: absolute;
-    padding-bottom: 400px;
-    z-index: 1;
-  }
-
-.rogButton {
-    background-color:rgb(250, 252, 186);
-    color: black;
-    font-family:sans-serif;
-    border: 3px solid white;
-    border-radius: 50px;
-    width: 200px;
-    height: 60px;
-    margin-top: 450px;
-    z-index: 1;
-    position: relative;
+@media (min-width: 600px){
+    .rogTitle {
+        color:white;
+        font-size: 120px;
+        text-align: center;
+        position: absolute;
+        padding-bottom: 200px;
+        z-index: 1;
+      }
+    
+    .rogButton {
+        background-color:rgb(250, 252, 186);
+        color: black;
+        font-family:sans-serif;
+        border: 3px solid white;
+        border-radius: 50px;
+        width: 180px;
+        height: 50px;
+        margin-top: 280px;
+        z-index: 1;
+        position: relative;
+    }
+    
+    .rogContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        height: 100vh;
+        width: 100vw;
+        background-color: rgb(88, 151, 234);
+    }
+    
+    .block {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: rgb(115, 235, 161);
+        position: fixed;
+        z-index: 0;
+      }
 }
-
-.rogContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-    background-color: rgb(88, 151, 234);
-    margin-bottom: 80px;
-}
-
-.block {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: rgb(115, 235, 161);
-    position: absolute;
-    z-index: 0;
-  }
-  
