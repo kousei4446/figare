@@ -6,7 +6,7 @@
 
 .search {
     position: relative;
-    top: 25px;
+    top: 20px;
     right: 5px;
     border-radius: 50%;
     border: 1px solid #333;
@@ -32,7 +32,6 @@
 }
 
 .main-post {
-    position: relative;
     margin-top: 130px;
     margin-bottom: 120px;
     height: 50%;
@@ -43,6 +42,7 @@
 }
 
 .main-postcard {
+    position: relative;
     border: 1px solid black;
     border-radius: 5px;
     height: 20%;
@@ -113,8 +113,8 @@
 }
 .place {
     position: absolute;
-    top:15px;
-    right:60px;
+    top:0px;
+    right:20px;
     font-size: 20px;
     border: 1px solid black;
 }
