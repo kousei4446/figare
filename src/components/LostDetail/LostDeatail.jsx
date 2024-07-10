@@ -122,6 +122,66 @@ const Message = ({ activePost }) => { //メッセージを入力
 
     const chatpage = async () => {
         const UID = localStorage.getItem("uid");
+        const userDocRef = doc(db, "googleusers", activePost.poster);
+        const userDocSnap = await getDoc(userDocRef);
+        const myUserInfo = userDocSnap.data();
+    
+        const docRefss = doc(db, "userChats", UID);
+        const docSnapss = await getDoc(docRefss);
+    
+        if (docSnapss.exists()) {
+          await updateDoc(docRefss, {
+            [activePost.poster]: {
+              date: Timestamp.now(),
+              userInfo: {
+                photoURL: myUserInfo.photoURL,
+                uid: activePost.poster,
+                username: myUserInfo.username,
+              },
+            },
+          });
+        } else {
+          await setDoc(docRef, {
+            [activePost.poster]: {
+              date: Timestamp.now(),
+              userInfo: {
+                photoURL: myUserInfo.photoURL,
+                uid: activePost.poster,
+                username: myUserInfo.username,
+              },
+            },
+          });
+        }
+    
+        const hisDocRef = doc(db, "userChats", activePost.poster);
+        const hisDocSnap = await getDoc(hisDocRef);
+        const hisUserDocRef = doc(db, "googleusers", UID);
+        const hisUserDocSnap = await getDoc(hisUserDocRef);
+        const hisUserInfo = hisUserDocSnap.data();
+    
+        if (hisDocSnap.exists()) {
+          await updateDoc(hisDocRef, {
+            [UID]: {
+              date: Timestamp.now(),
+              userInfo: {
+                photoURL: hisUserInfo.photoURL,
+                uid: UID,
+                username: hisUserInfo.username,
+              },
+            },
+          });
+        } else {
+          await setDoc(hisDocRef, {
+            [UID]: {
+              date: Timestamp.now(),
+              userInfo: {
+                photoURL: hisUserInfo.photoURL,
+                uid: UID,
+                username: hisUserInfo.username,
+              },
+            },
+          });
+        }
         const chatPairId = UID + activePost.poster;
         const chatPairIds = activePost.poster + UID;
         localStorage.setItem("chatpair", chatPairId);
