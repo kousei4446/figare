@@ -148,10 +148,10 @@ function Profile({ prof, setProf }) {
         </div>
         <div className='line'></div>
 
-<label className='pro_item'>メールアドレス</label>
+        <label className='pro_item'>メールアドレス</label>
         <br />
         <div className='pro_content'>
-            <div className='pro_input'>{prof.email}</div>
+          <div className='pro_input'>{prof.email}</div>
         </div>
         <div className='line'></div>
 
@@ -179,14 +179,14 @@ function Profile({ prof, setProf }) {
               name='place'
               value={editProfile.place}
               onChange={PhandleChange}>
-              <option value="" disabled>選択してください</option>
+                <option value="" disabled>選択してください</option>
                 {regions.map((region, index) => (
                 <optgroup key={index} label={region.label}>
                   {region.options.map((option, idx) => (
-                <option key={idx} value={option}>{option}</option>
-            ))}
-          </optgroup>
-        ))}
+                    <option key={idx} value={option}>{option}</option>
+                  ))}
+                </optgroup>
+                ))}
             </select>
           ) : (
             <div className='pro_input'>{prof.place}</div>
@@ -200,8 +200,7 @@ function Profile({ prof, setProf }) {
         <div className = "diabtn">
           <button onClick={SignOutButton} className='logout_btn'>はい</button>
           <button onClick={closebtn} className='logout_btn'>いいえ</button>
-        </div>
-        
+        </div>  
       </dialog>
       <button className='logout_btn' onClick={openbtn}>サインアウト</button>
     </div>
