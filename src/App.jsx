@@ -21,7 +21,6 @@ import PastPost from './components/Home/PastPost/PastPost';
 
 function App() {
   const [userData, setUserData] = useState([]);
-
   useEffect(() => {
     const fetchAllUserData = async () => {
       try {
@@ -35,33 +34,6 @@ function App() {
       }
     };
     fetchAllUserData();
-
-    const container = document.querySelector('.rogContainer');
-    if (container) {
-      for (let i = 0; i <= 50; i++) {
-        const blocks = document.createElement('div');
-        blocks.classList.add('block');
-        container.appendChild(blocks);
-      }
-    }
-
-    const animateBlocks = () => {
-      anime({
-        targets: '.block',
-        translateX: () => anime.random(-400, 400),
-        translateY: () => anime.random(-700, 700),
-        scale: () => anime.random(1, 7),
-        duration: 5000,
-        delay: anime.stagger(10, { start: 1000 }),
-        direction: 'alternate',
-        easing: 'easeInOutQuad',
-        complete: () => {
-          setTimeout(animateBlocks, 2000);
-        },
-      });
-    };
-
-    animateBlocks();
   }, []);
 
   /*const [activePost,setActivePost]=useState({})*/
@@ -101,6 +73,36 @@ function App() {
 function Navigation(/*{ userData, setProfile, setRegister }*/) {
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const container = document.querySelector('.rogContainer');
+    if (container) {
+      for (let i = 0; i <= 50; i++) {
+        const blocks = document.createElement('div');
+        blocks.classList.add('block');
+        container.appendChild(blocks);
+      }
+    }
+
+    const animateBlocks = () => {
+      anime({
+        targets: '.block',
+        translateX: () => anime.random(-600, 600),
+        translateY: () => anime.random(-700, 700),
+        scale: () => anime.random(1, 7),
+        duration: 5000,
+        delay: anime.stagger(10, { start: 1000 }),
+        direction: 'alternate',
+        easing: 'easeInOutQuad',
+        complete: () => {
+          setTimeout(animateBlocks, 2000);
+        },
+      });
+    };
+    animateBlocks();
+    
+  }, [location.pathname]);
+
   // const [tel, setTel] = useState("");
   // const [password, setPassword] = useState("");
 
@@ -123,7 +125,7 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
   if (location.pathname.startsWith('/login')) {
     return null;
   }
-
+  
   /* googleログイン */
   function SignInButton(prof, setProf) {
     const signInWithGoogle = () => {

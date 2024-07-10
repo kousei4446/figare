@@ -62,27 +62,27 @@ function SerchPlace({ setProf }) {
   };
 
   useEffect(() => {
-    const placeContainer = document.querySelector('.circleContainer');
+    const placeContainer = document.querySelector('.squareasContainer');
     if (placeContainer) {
-      for (let i = 0; i <= 20; i++) {
-        const circles = document.createElement('div');
-        circles.classList.add('circle');
-        placeContainer.appendChild(circles);
+      for (let j = 0; j <= 20; j++) {
+        const squareas = document.createElement('div');
+        squareas.classList.add('squarea');
+        placeContainer.appendChild(squareas);
       }
     }
 
-    const animateCircles = () => {
+    const animateSquareas = () => {
       anime({
-        targets: '.circle',
-        translateX: () => anime.random(-400, 400),
-        translateY: () => anime.random(-300, 800),
+        targets: '.squarea',
+        translateX: () => anime.random(-500, 500),
+        translateY: () => anime.random(-500, 550),
         scale: () => anime.random(5,7),
-        duration: 10000,
-        delay: anime.stagger(100),
+        duration: 30000,
+        delay: anime.stagger(20, { start: 1000 }),
       });
-    };
+    }
 
-    animateCircles();
+    animateSquareas();
   }, []);
 
 
@@ -103,7 +103,7 @@ function SerchPlace({ setProf }) {
           </optgroup>
         ))}
       </select>
-      <div className='circleContainer'></div>
+      <div className='squareasContainer'></div>
       <br />
       <button className='searchDecision' onClick={comp} >決定</button>
     </div>
