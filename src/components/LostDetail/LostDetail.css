@@ -73,6 +73,25 @@
     /* padding: auto; */
 }
 
+.lostdetail-backbtn {
+    background-color: white;
+    color: #000;
+    border: none;
+    /* padding: 5px 5px; */
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    /* display: flex; */
+    align-items: center;
+    gap: 5px;
+    width: 50px;
+    height: 20px;
+}
+
+
+
+
+
 /* inbtnのためのスタイル */
 .lostdetail-box-ex {
     padding: 1em;

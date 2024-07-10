@@ -9,6 +9,9 @@ import { db } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import { FaRegPaperPlane } from "react-icons/fa";
 import { FaTag } from "react-icons/fa";
+import { IoMdArrowRoundBack } from "react-icons/io";
+
+
 
 
 const ChangePict = ({ activePost }) => { //写真を表示
@@ -125,62 +128,62 @@ const Message = ({ activePost }) => { //メッセージを入力
         const userDocRef = doc(db, "googleusers", activePost.poster);
         const userDocSnap = await getDoc(userDocRef);
         const myUserInfo = userDocSnap.data();
-    
+
         const docRefss = doc(db, "userChats", UID);
         const docSnapss = await getDoc(docRefss);
-    
+
         if (docSnapss.exists()) {
-          await updateDoc(docRefss, {
-            [activePost.poster]: {
-              date: Timestamp.now(),
-              userInfo: {
-                photoURL: myUserInfo.photoURL,
-                uid: activePost.poster,
-                username: myUserInfo.username,
-              },
-            },
-          });
+            await updateDoc(docRefss, {
+                [activePost.poster]: {
+                    date: Timestamp.now(),
+                    userInfo: {
+                        photoURL: myUserInfo.photoURL,
+                        uid: activePost.poster,
+                        username: myUserInfo.username,
+                    },
+                },
+            });
         } else {
-          await setDoc(docRef, {
-            [activePost.poster]: {
-              date: Timestamp.now(),
-              userInfo: {
-                photoURL: myUserInfo.photoURL,
-                uid: activePost.poster,
-                username: myUserInfo.username,
-              },
-            },
-          });
+            await setDoc(docRef, {
+                [activePost.poster]: {
+                    date: Timestamp.now(),
+                    userInfo: {
+                        photoURL: myUserInfo.photoURL,
+                        uid: activePost.poster,
+                        username: myUserInfo.username,
+                    },
+                },
+            });
         }
-    
+
         const hisDocRef = doc(db, "userChats", activePost.poster);
         const hisDocSnap = await getDoc(hisDocRef);
         const hisUserDocRef = doc(db, "googleusers", UID);
         const hisUserDocSnap = await getDoc(hisUserDocRef);
         const hisUserInfo = hisUserDocSnap.data();
-    
+
         if (hisDocSnap.exists()) {
-          await updateDoc(hisDocRef, {
-            [UID]: {
-              date: Timestamp.now(),
-              userInfo: {
-                photoURL: hisUserInfo.photoURL,
-                uid: UID,
-                username: hisUserInfo.username,
-              },
-            },
-          });
+            await updateDoc(hisDocRef, {
+                [UID]: {
+                    date: Timestamp.now(),
+                    userInfo: {
+                        photoURL: hisUserInfo.photoURL,
+                        uid: UID,
+                        username: hisUserInfo.username,
+                    },
+                },
+            });
         } else {
-          await setDoc(hisDocRef, {
-            [UID]: {
-              date: Timestamp.now(),
-              userInfo: {
-                photoURL: hisUserInfo.photoURL,
-                uid: UID,
-                username: hisUserInfo.username,
-              },
-            },
-          });
+            await setDoc(hisDocRef, {
+                [UID]: {
+                    date: Timestamp.now(),
+                    userInfo: {
+                        photoURL: hisUserInfo.photoURL,
+                        uid: UID,
+                        username: hisUserInfo.username,
+                    },
+                },
+            });
         }
         const chatPairId = UID + activePost.poster;
         const chatPairIds = activePost.poster + UID;
@@ -234,6 +237,20 @@ function App() {
     // const [logo, setLogo] = useState(logoImage);
     const [AddDet, setAddDet] = useState(false);
 
+    const navigate = useNavigate();
+
+
+
+    const Backbtn = () => {
+        const back = () => {
+            navigate("/login/home");
+        }
+        return (
+            <button className="lostdetail-backbtn" onClick={back}><IoMdArrowRoundBack /></button>
+        )
+    }
+
+
     useEffect(() => {
         const fetchPostData = async () => {
             const docRef = doc(db, "Posts", localStorage.getItem("postid"));
@@ -247,8 +264,10 @@ function App() {
     }, []);
 
     return (
+
         <div className='lostdetail-body'>
             <div className='lostdetail-container'>
+                <Backbtn />
                 <div className='lostdetail-box lostdetail-ctp lostdetail-top'>
                     <ChangePict activePost={activePost} />
                     <div className='lostdetail-separator'></div>
