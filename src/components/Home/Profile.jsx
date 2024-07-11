@@ -201,7 +201,7 @@ function Profile({ prof, setProf }) {
       </div>
     
       <dialog id = "dialog" className="dialog">
-        <h2>このアカウントからサインアウトしますか？</h2>
+        <h2 className='diatext'>このアカウントからサインアウトしますか？</h2>
         <div className = "diabtn">
           <button onClick={SignOutButton} className='logout_btn'>はい</button>
           <button onClick={closebtn} className='logout_btn'>いいえ</button>
