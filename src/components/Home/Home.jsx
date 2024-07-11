@@ -56,6 +56,26 @@ const Home = ({ myInfo, setMyInfo }) => {
       fetchAllPosts();
     }
   }, [myInfo.place]);
+  useEffect(() => {
+    if (myInfo.place) {
+      const fetchAllPosts = async () => {
+        const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const postList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const newPost = postList.filter(post => post.place === myInfo.place);
+
+        const updatedPosts = await Promise.all(newPost.map(async post => {
+          const userDocRef = doc(db, "googleusers", post.poster);
+          const userDocSnap = await getDoc(userDocRef);
+          const userInfo = userDocSnap.data();
+          return { ...post, username: userInfo.username, userImg: userInfo.photoURL };
+        }));
+
+        setPosts(updatedPosts);
+      };
+      fetchAllPosts();
+    }
+  }, []);
 
   const profilepage = () => navigate("/login/home/profile");
   const serchpage = () => navigate("/login/home/search");
