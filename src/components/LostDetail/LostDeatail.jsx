@@ -262,6 +262,11 @@ function App() {
         };
         fetchPostData();
     }, []);
+    useEffect(()=>{
+        if (!localStorage.getItem("uid")){
+          navigate("/")
+        }
+      },[])
 
     return (
 

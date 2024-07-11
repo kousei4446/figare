@@ -16,7 +16,11 @@ const Home = ({ myInfo, setMyInfo }) => {
       localStorage.setItem("isMyPost", false)
     }
   }, [])
-
+  useEffect(()=>{
+    if (!localStorage.getItem("uid")){
+      navigate("/")
+    }
+  },[])
   useEffect(() => {
     const fetchGoogleUserData = async () => {
       const savedUid = localStorage.getItem('uid');

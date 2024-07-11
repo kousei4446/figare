@@ -39,6 +39,7 @@ function Profile({ prof, setProf }) {
   function SignOutButton(){
     const auth = getAuth();
     signOut(auth).then(() => {
+      localStorage.setItem("uid","")
       navigate("/");
       console.log('signout');
     }).catch((error) => {
@@ -109,7 +110,11 @@ function Profile({ prof, setProf }) {
   const handleEditToggle = () => {
     setIsEditing(prev => !prev);
   };
-
+  useEffect(()=>{
+    if (!localStorage.getItem("uid")){
+      navigate("/")
+    }
+  },[])
   return (
     <div>
       <img src={image1} className='back_btn' onClick={back} />

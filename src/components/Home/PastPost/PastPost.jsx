@@ -34,6 +34,11 @@ function PastPost() {
 
         fetchMyPost();
     }, []);
+    useEffect(()=>{
+        if (!localStorage.getItem("uid")){
+          navigate("/")
+        }
+      },[])
 
     const deleteBtn = async (id, storagePath) => {
         try {
@@ -94,7 +99,7 @@ function PastPost() {
                                                 setId(post.id);
                                                 setStoragePath(post.storagePath); // ここで正しい画像パスを設定します
                                             }}>削除</button>
-                                            <button onClick={() => editBtn()}>編集</button>
+                                            <button onClick={() => editBtn()}></button>
                                         </div>
                                     </div>
                                 </div>

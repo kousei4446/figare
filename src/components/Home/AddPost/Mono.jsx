@@ -99,7 +99,6 @@ function Mono({ disInfo, setDisInfo }) {
           <input
             type="file"
             accept="image/*"
-            capture="environment"
             onChange={upload}
           />
         </div>

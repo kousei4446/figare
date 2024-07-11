@@ -35,6 +35,11 @@ function Serch({ prof }) {
       };
       fetchFilteredPosts();  
     }, [serch]);
+    useEffect(()=>{
+      if (!localStorage.getItem("uid")){
+        navigate("/")
+      }
+    },[])
 
     // useEffect(() => {
     //   setPosts(pref);

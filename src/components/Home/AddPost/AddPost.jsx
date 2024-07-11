@@ -17,6 +17,11 @@ function AddPost() {
     const monopage = () => {
         navigation("/login/home/addpost/mono")
     }
+    useEffect(()=>{
+        if (!localStorage.getItem("uid")){
+          navigation("/")
+        }
+      },[])
     return (
         <div className='addpost'>
             <div className='blue'></div>

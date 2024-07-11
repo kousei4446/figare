@@ -18,6 +18,7 @@ import { signInWithPopup } from "firebase/auth";
 import { db, auth, provider } from './firebase';
 import anime from 'animejs/lib/anime.es.js';
 import PastPost from './components/Home/PastPost/PastPost';
+import PrivateModeWarning from './PrivateModeWarning';
 
 function App() {
   const [userData, setUserData] = useState([]);
@@ -77,6 +78,7 @@ function App() {
     <Router>
       <div className="container">
         <Navigation userData={userData} setProfile={setProfile} /*setRegister={setRegister}*//>
+        <PrivateModeWarning />
         <Routes>
         <Route path="/login/home" element={<Home /*setActivePost={setActivePost}*/ myInfo={myInfo} setMyInfo={setMyInfo}/>} />
           {/* <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} /> */}
