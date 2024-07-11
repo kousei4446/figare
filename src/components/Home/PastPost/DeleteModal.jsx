@@ -11,7 +11,7 @@ function DeleteModal({ setConfirm, deleteBtn, id, storagePath }) {
                         deleteBtn(id, storagePath);
                         setConfirm(false);
                     }}>はい</button>
-                    <button onClick={() => setConfirm(false)}>いいえ</button>
+                    <button onClick={() => setConfirm(false)}style={{backgroundColor:" white",color:"black",border:"1px solid black"}}>いいえ</button>
                 </div>
             </div>
         </div>

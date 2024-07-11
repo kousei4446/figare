@@ -6,7 +6,7 @@ import { IoMdSearch, IoMdAdd } from 'react-icons/io';
 import { Timestamp, collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { FaCommentDots } from "react-icons/fa";
-
+import { IoEyeSharp } from "react-icons/io5";
 
 const Home = ({ myInfo, setMyInfo }) => {
   const [posts, setPosts] = useState([]);
@@ -110,7 +110,7 @@ const Home = ({ myInfo, setMyInfo }) => {
 
       <div className='main-foot'>
         <FaCommentDots onClick={msgpage} className='main-msg-btn' />
-        <button onClick={()=>navigate("/login/home/profile/pastpost")}>過去の投稿を見る</button>
+        <IoEyeSharp onClick={()=>navigate("/login/home/profile/pastpost")} className='past-btn'/>
         <IoMdAdd onClick={addPost} className='add-postbtn' />
       </div>
     </div>
