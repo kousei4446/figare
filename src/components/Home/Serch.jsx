@@ -56,22 +56,24 @@ function Serch({ prof }) {
     
   return (
     <div className='select-BackGround'>
-        <img src={image} className='select-Back' onClick={back} />
+          <img src={image} className='select-Back' onClick={back} />
           <h2 className='serch-Title'>絞り込み検索</h2>
-          <button onClick={()=>handleSerch('人')}>人</button>
-          <button onClick={()=>handleSerch('ペット')}>ペット</button>
-          <button onClick={()=>handleSerch('もの')}>もの</button>
+          <div className='S-btn'>
+            <button onClick={()=>handleSerch('人')} className='Select-btn'>人</button>
+            <button onClick={()=>handleSerch('ペット')} className='Select-btn'>ペット</button>
+            <button onClick={()=>handleSerch('もの')} className='Select-btn'>もの</button>
+          </div>
           <div>
             {posts.map((item, index)=>(
-              <div key={index}>
-                <div onClick={()=>handleClick(item)}>
+              <div key={index} className='Spost-Main'>
+                <div onClick={()=>handleClick(item)} className='Spost-card'>
                   <strong>{item.kind}</strong>
-                  <div>
-                    <img src={item.file} width='50%' alt='Post' />
+                  <div className='Spost-body'>
+                    <img src={item.file} width='130px' alt='Post' className='Spost-img'/>
+                    <p className='Spost-text'>{item.text}</p>
                   </div>
                   <div>
-                    <p>{item.text}</p>
-                    {/* <p>{item.time.toDate().toLocaleString()}</p> */}
+                    <p>{item.time.toDate().toLocaleString()}</p>
                   </div>
                 </div>
               </div>
