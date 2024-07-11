@@ -94,42 +94,45 @@ const Home = ({ myInfo, setMyInfo, setProf }) => {
   return (
     <div className="home-container">
       <div className='background'>
-        <img src={myInfo.photoURL || image} height='75px' width="75px" className='Icon' onClick={profilepage} alt='Profile' />
+        <img src={myInfo.photoURL || image}  className='Icon' onClick={profilepage} alt='Profile' />
         <h3 className='main-title'>{myInfo.place && `${myInfo.place}の検索一覧`}</h3>
-        <IoMdSearch onClick={serchpage} size={35} className='search' />
+        <IoMdSearch onClick={serchpage} className='search' />
       </div>
 
-      <div className='main-content'>
-        {posts.map((post, index) => (
-          <div className='main-post' key={index}>
-            <div onClick={() => {
-              if (post.poster === localStorage.getItem("uid")) {
-                message(post, post.poster === localStorage.getItem("uid"));
-              } else {
-                message(post, post.poster === localStorage.getItem("uid"));
-              }
-            }} className='main-postcard'>
-              <div className='post-username'>
-                <p>{post.userImg && <img src={post.userImg} width="40px" height="40px" alt="User" />}</p>
-                <strong>@{post.username}</strong>
-              </div>
-              <div className='post-main'>
-                <img src={post.file} width='130px' alt='Post' className='postimg' />
-                <div className='palce-and-toku'>
-                  <div>
-                    <p className='place'>{post.place}</p>
+      <div className='home-background'>
+        <div className='main-content'>
+          {posts.map((post, index) => (
+            <div className='main-post' key={index}>
+              <div onClick={() => {
+                if (post.poster === localStorage.getItem("uid")) {
+                  message(post, post.poster === localStorage.getItem("uid"));
+                } else {
+                  message(post, post.poster === localStorage.getItem("uid"));
+                }
+              }} className='main-postcard'>
+                <div className='post-username'>
+                  <p>{post.userImg && <img src={post.userImg} width="40px" height="40px" alt="User" />}</p>
+                  <strong>@{post.username}</strong>
+                </div>
+                <div className='post-main'>
+                  <img src={post.file} width='130px' alt='Post' className='postimg' />
+                  <div className='palce-and-toku'>
+                    <div>
+                      <p className='place'>{post.place}</p>
+                    </div>
+                    <p class Name='text'>{post.text}</p>
                   </div>
-                  <p class Name='text'>{post.text}</p>
+                </div>
+                <div>
+                  <p>{post.time.toDate().toLocaleString()}</p>
+                  {/* <p>{post.poster === localStorage.getItem("uid") && "※これは自分の投稿です"}</p> */}
                 </div>
               </div>
-              <div>
-                <p>{post.time.toDate().toLocaleString()}</p>
-                {/* <p>{post.poster === localStorage.getItem("uid") && "※これは自分の投稿です"}</p> */}
-              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+      
 
       <div className='main-foot'>
         <FaCommentDots onClick={msgpage} className='main-msg-btn' />
