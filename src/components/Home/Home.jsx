@@ -16,7 +16,11 @@ const Home = ({ myInfo, setMyInfo }) => {
       localStorage.setItem("isMyPost", false)
     }
   }, [])
-
+  useEffect(()=>{
+    if (!localStorage.getItem("uid")){
+      navigate("/")
+    }
+  },[])
   useEffect(() => {
     const fetchGoogleUserData = async () => {
       const savedUid = localStorage.getItem('uid');
@@ -62,68 +66,6 @@ const Home = ({ myInfo, setMyInfo }) => {
     localStorage.setItem("postid", post.id);
     navigate('/login/home/finder');
     localStorage.setItem("isMyPost", isMyPost);
-
-    const UID = localStorage.getItem("uid");
-    const userDocRef = doc(db, "googleusers", post.poster);
-    const userDocSnap = await getDoc(userDocRef);
-    const myUserInfo = userDocSnap.data();
-
-    const docRef = doc(db, "userChats", UID);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      await updateDoc(docRef, {
-        [post.poster]: {
-          date: Timestamp.now(),
-          userInfo: {
-            photoURL: myUserInfo.photoURL,
-            uid: post.poster,
-            username: myUserInfo.username,
-          },
-        },
-      });
-    } else {
-      await setDoc(docRef, {
-        [post.poster]: {
-          date: Timestamp.now(),
-          userInfo: {
-            photoURL: myUserInfo.photoURL,
-            uid: post.poster,
-            username: myUserInfo.username,
-          },
-        },
-      });
-    }
-
-    const hisDocRef = doc(db, "userChats", post.poster);
-    const hisDocSnap = await getDoc(hisDocRef);
-    const hisUserDocRef = doc(db, "googleusers", UID);
-    const hisUserDocSnap = await getDoc(hisUserDocRef);
-    const hisUserInfo = hisUserDocSnap.data();
-
-    if (hisDocSnap.exists()) {
-      await updateDoc(hisDocRef, {
-        [UID]: {
-          date: Timestamp.now(),
-          userInfo: {
-            photoURL: hisUserInfo.photoURL,
-            uid: UID,
-            username: hisUserInfo.username,
-          },
-        },
-      });
-    } else {
-      await setDoc(hisDocRef, {
-        [UID]: {
-          date: Timestamp.now(),
-          userInfo: {
-            photoURL: hisUserInfo.photoURL,
-            uid: UID,
-            username: hisUserInfo.username,
-          },
-        },
-      });
-    }
   };
 
   return (

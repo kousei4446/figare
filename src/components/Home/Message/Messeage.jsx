@@ -8,7 +8,11 @@ import "./Message.css";
 function Messeage() {
   const [documentIdList, setDocumentIdList] = useState([]);
   const navigate = useNavigate();
-
+  useEffect(()=>{
+    if (!localStorage.getItem("uid")){
+      navigate("/")
+    }
+  },[])
   useEffect(() => {
     const fetchDocumentIdAndUsername = async () => {
       const UID = localStorage.getItem("uid");
