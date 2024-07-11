@@ -62,9 +62,11 @@ function Mono({ disInfo, setDisInfo }) {
         </div>
       </div>
       <div>
+        <br/>
         <div className="kind-item">
           種類：
         </div>
+        <br/>
         <div className="kind-select">
           <input
             type='radio'
