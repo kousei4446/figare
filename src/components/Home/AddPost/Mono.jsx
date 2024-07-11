@@ -98,8 +98,8 @@ function Mono({ disInfo, setDisInfo }) {
           {disInfo.img && <img src={disInfo.img} width="50%" alt="Preview" />}  
           <input
             type="file"
-            accept="image/*"
             onChange={upload}
+            accept=".jpg,.jpeg,.png"
           />
         </div>
         <div className='characteristic'>
