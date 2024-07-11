@@ -14,6 +14,7 @@ function Serch({ prof }) {
     }
     const [serch, setSerch]=useState('');
     const [posts, setPosts]=useState([]);
+    const [cnt, setCnt]=useState(0);
     useEffect(() => {
       const fetchFilteredPosts = async () => {
         try {
@@ -23,6 +24,7 @@ function Serch({ prof }) {
           const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
           const filterResult = filteredPosts.filter((item) => item.kind === serch);
           setPosts(filterResult);
+          setCnt(filterResult.length);
 
             // const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
             // const querySnapshot = await getDocs(q);
@@ -64,6 +66,7 @@ function Serch({ prof }) {
             <button onClick={()=>handleSerch('もの')} className='Select-btn'>もの</button>
           </div>
           <div>
+            <a>検索結果：{cnt}件</a>
             {posts.map((item, index)=>(
               <div key={index} className='Spost-Main'>
                 <div onClick={()=>handleClick(item)} className='Spost-card'>
