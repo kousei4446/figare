@@ -52,7 +52,7 @@ function App() {
         <Navigation userData={userData} setProfile={setProfile} /*setRegister={setRegister}*//>
         <PrivateModeWarning />
         <Routes>
-        <Route path="/login/home" element={<Home /*setActivePost={setActivePost}*/ myInfo={myInfo} setMyInfo={setMyInfo}/>} />
+        <Route path="/login/home" element={<Home /*setActivePost={setActivePost}*/ myInfo={myInfo} setMyInfo={setMyInfo} setProf={setProf}/>} />
           {/* <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} /> */}
           <Route path="/login/username" element={<Username />} />
           <Route path="/login/serchplace" element={<SerchPlace setProf={setProf}/>} />

@@ -8,7 +8,7 @@ import { db } from '../../firebase';
 import { FaCommentDots } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
 
-const Home = ({ myInfo, setMyInfo }) => {
+const Home = ({ myInfo, setMyInfo, setProf }) => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -58,7 +58,10 @@ const Home = ({ myInfo, setMyInfo }) => {
   }, [myInfo.place]);
 
   const profilepage = () => navigate("/login/home/profile");
-  const serchpage = () => navigate("/login/home/search");
+  const serchpage = () => {
+    setProf({place: myInfo.place});
+    navigate("/login/home/search");
+  }
   const addPost = () => navigate('/login/home/addpost/mono');
   const msgpage = () => navigate('/login/home/message');
 
