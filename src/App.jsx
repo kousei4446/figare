@@ -14,7 +14,7 @@ import Mono from './components/Home/AddPost/Mono';
 import LostDetail from "./components/LostDetail/LostDeatail";
 import SureMone from './components/Home/AddPost/SureMone';
 import { collection, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider  } from "firebase/auth";
 import { db, auth, provider } from './firebase';
 import anime from 'animejs/lib/anime.es.js';
 import PastPost from './components/Home/PastPost/PastPost';
@@ -131,6 +131,10 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
 
   /* googleログイン */
   function SignInButton(prof, setProf) {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: 'select_account',
+    });
     const signInWithGoogle = () => {
       signInWithPopup(auth, provider)
       .then(async (result) => {
