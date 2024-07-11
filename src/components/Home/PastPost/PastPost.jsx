@@ -34,11 +34,11 @@ function PastPost() {
 
         fetchMyPost();
     }, []);
-    useEffect(()=>{
-        if (!localStorage.getItem("uid")){
-          navigate("/")
+    useEffect(() => {
+        if (!localStorage.getItem("uid")) {
+            navigate("/")
         }
-      },[])
+    }, [])
 
     const deleteBtn = async (id, storagePath) => {
         try {
@@ -53,9 +53,9 @@ function PastPost() {
         }
     };
 
-    const editBtn = () => {
-        // 編集ボタンの機能をここに実装します
-    };
+    // const editBtn = () => {
+    //     // 編集ボタンの機能をここに実装します
+    // };
 
     return (
         <>
@@ -72,12 +72,14 @@ function PastPost() {
                 :
                 <div className='past-post-container'>
                     {confirm && <DeleteModal setConfirm={setConfirm} deleteBtn={deleteBtn} id={id} storagePath={storagePath} />}
-                    <div className='background'>
-                        <h3 style={{ textAlign: "center" }}>過去の投稿一覧</h3>
+                    <div className='background' style={{justifyContent:"space-beteen"}}>
+                        <p onClick={() => navigation("/login/home")} style={{ display: "flex", alignItems: "center" ,color:"white"}}><IoMdArrowRoundBack size="20px" />戻る</p>
+                        <h3 style={{color:"white" }}>過去の投稿一覧</h3>
+                        <div></div>
+                        <div></div>
                     </div>
                     <div>
                         <div className='pastpostcard'>
-                            <p onClick={() => navigation("/login/home")} style={{ display: "flex", alignItems: "center" }}><IoMdArrowRoundBack size="20px" />戻る</p>
                         </div>
                         <div className='pastpost'>
                             {myPostList.map((post) => (
@@ -94,12 +96,12 @@ function PastPost() {
                                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0px 10px" }}>
                                         <p>{post.time.toDate().toLocaleString()}</p>
                                         <div>
-                                            <button onClick={() => {
+                                            <button className='delbtn' onClick={() => {
                                                 setConfirm(true);
                                                 setId(post.id);
                                                 setStoragePath(post.storagePath); // ここで正しい画像パスを設定します
                                             }}>削除</button>
-                                            <button onClick={() => editBtn()}></button>
+                                            {/* <button onClick={() => editBtn()}></button> */}
                                         </div>
                                     </div>
                                 </div>

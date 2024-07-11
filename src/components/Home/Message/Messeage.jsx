@@ -8,54 +8,63 @@ import "./Message.css";
 function Messeage() {
   const [documentIdList, setDocumentIdList] = useState([]);
   const navigate = useNavigate();
-  useEffect(()=>{
-    if (!localStorage.getItem("uid")){
+  const [loading, setLoading] = useState(false)
+  useEffect(() => {
+    if (!localStorage.getItem("uid")) {
       navigate("/")
     }
-  },[])
+  }, [])
   useEffect(() => {
     const fetchDocumentIdAndUsername = async () => {
-      const UID = localStorage.getItem("uid");
+      setLoading(true)
+      try {
+        const UID = localStorage.getItem("uid");
 
-      if (UID) {
-        const userChatDocRef = doc(db, 'userChats', UID);
-        // const q = query(collection(db, 'userChats'), orderBy('date', 'desc'));
-        const userChatDocSnap = await getDoc(userChatDocRef);
-        if (userChatDocSnap.exists()) {
-          const userData = userChatDocSnap.data();
-          const keyList = Object.keys(userData);
+        if (UID) {
+          const userChatDocRef = doc(db, 'userChats', UID);
+          // const q = query(collection(db, 'userChats'), orderBy('date', 'desc'));
+          const userChatDocSnap = await getDoc(userChatDocRef);
+          if (userChatDocSnap.exists()) {
+            const userData = userChatDocSnap.data();
+            const keyList = Object.keys(userData);
 
-          const fetchedUsernames = [];
-          for (const id of keyList) {
-            // console.log(id)
-            let chatDocRef = doc(db, "chats", id + localStorage.getItem("uid"));
-            let chatDocSnap = await getDoc(chatDocRef);
-            let lastMessage = "";
+            const fetchedUsernames = [];
+            for (const id of keyList) {
+              // console.log(id)
+              let chatDocRef = doc(db, "chats", id + localStorage.getItem("uid"));
+              let chatDocSnap = await getDoc(chatDocRef);
+              let lastMessage = "";
 
-            if (chatDocSnap.exists()) {
-              lastMessage = chatDocSnap.data().message[chatDocSnap.data().message.length - 1].text;
-            } else {
-              chatDocRef = doc(db, "chats", localStorage.getItem("uid") + id);
-              chatDocSnap = await getDoc(chatDocRef);
               if (chatDocSnap.exists()) {
                 lastMessage = chatDocSnap.data().message[chatDocSnap.data().message.length - 1].text;
+              } else {
+                chatDocRef = doc(db, "chats", localStorage.getItem("uid") + id);
+                chatDocSnap = await getDoc(chatDocRef);
+                if (chatDocSnap.exists()) {
+                  lastMessage = chatDocSnap.data().message[chatDocSnap.data().message.length - 1].text;
+                }
+              }
+
+              const userDocRef = doc(db, 'googleusers', id);
+              const userDocSnap = await getDoc(userDocRef);
+              if (userDocSnap.exists()) {
+                fetchedUsernames.push({
+                  imgURL: userDocSnap.data().photoURL,
+                  username: userDocSnap.data().username,
+                  id: id,
+                  text: lastMessage,
+                });
               }
             }
-
-            const userDocRef = doc(db, 'googleusers', id);
-            const userDocSnap = await getDoc(userDocRef);
-            if (userDocSnap.exists()) {
-              fetchedUsernames.push({
-                imgURL: userDocSnap.data().photoURL,
-                username: userDocSnap.data().username,
-                id: id,
-                text: lastMessage,
-              });
-            }
+            setDocumentIdList(fetchedUsernames);
           }
-          setDocumentIdList(fetchedUsernames);
         }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setLoading(false)
       }
+
     };
 
     fetchDocumentIdAndUsername();
@@ -83,21 +92,32 @@ function Messeage() {
 
   return (
     <div>
-      <div className='msg-head'>
-        <img src={image} height="50px" className='back-btn' onClick={back} alt="Back" />
-        <h1>メッセージ一覧</h1>
-      </div>
-      <div className='messages'>
-        {documentIdList.map((user) => (
-          <div onClick={() => chatpage(user.id)} className='msg-person' key={user.id}>
-            <img src={user.imgURL} alt={user.username} height="60px" style={{ borderRadius: "50%" }} />
-            <div className='msg-content'>
-              <strong>{user.username}</strong>
-              <p>{user.text}</p>
-            </div>
+      {loading ? (
+        <>
+          <div className='load'>
+            <h3>メッセージデータを取得中</h3>
+            <div className='loader'></div>
           </div>
-        ))}
-      </div>
+        </>
+      ) : (
+        <>
+          <div className='msg-head'>
+            <img src={image} height="40px" className='back-btn' onClick={back} alt="Back" />
+            <h3>メッセージ一覧</h3>
+          </div>
+          <div className='messages'>
+            {documentIdList.map((user) => (
+              <div onClick={() => chatpage(user.id)} className='msg-person' key={user.id}>
+                <img src={user.imgURL} alt={user.username} height="60px" style={{ borderRadius: "50%" }} />
+                <div className='msg-content'>
+                  <strong>{user.username}</strong>
+                  <p>{user.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 }

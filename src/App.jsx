@@ -134,7 +134,7 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
     const signInWithGoogle = () => {
       signInWithPopup(auth, provider)
       .then(async (result) => {
-        navigate('/login/serchplace');
+        // navigate('/login/serchplace');
         // console.log('signin', result.user);
         const user = result.user;
         const userData = {
@@ -150,6 +150,15 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
           await updateDoc(docRef, userData);
         }else{
           await setDoc(docRef, userData);
+        }
+        const UID = localStorage.getItem("uid")
+        const docRefw = doc(db, "googleusers", UID )
+        const docSnapw=await getDoc(docRefw);
+        let data=docSnapw.data();
+        if (data.place){
+          navigate('/login/home');
+        }else{
+          navigate("/login/serchplace")
         }
         
       }).catch((error) => {
