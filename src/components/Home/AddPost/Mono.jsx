@@ -4,6 +4,7 @@ import image from "../../img/image.png";
 import "./Mono.css";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage, db } from '../../../firebase';
+import { v4 as uuidv4 } from 'uuid';
 
 function Mono({ disInfo, setDisInfo }) {
   const navigate = useNavigate();
@@ -29,7 +30,8 @@ function Mono({ disInfo, setDisInfo }) {
       console.error("ファイルが選択されていません");
       return;
     }
-    const storageRef = ref(storage, `uploads/${file.name}`);
+    const uniqueFileName = `${uuidv4()}-${file.name}`;
+    const storageRef = ref(storage, `uploads/${uniqueFileName}`);
     try {
       await uploadBytes(storageRef, file); // ファイルをアップロード
       const downloadURL = await getDownloadURL(storageRef); // アップロード後にURLを取得

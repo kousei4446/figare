@@ -30,11 +30,11 @@ function App() {
         };
         fetchPostData();
     }, []);
-    useEffect(()=>{
-        if (!localStorage.getItem("uid")){
-          navigate("/")
+    useEffect(() => {
+        if (!localStorage.getItem("uid")) {
+            navigate("/")
         }
-      },[])
+    }, [])
 
     //元画面遷移
     const Backbtn = () => {
@@ -199,21 +199,21 @@ function App() {
     const Message = ({ activePost }) => {
         const [text, setText] = useState("")
         const navigation = useNavigate();
-
         const chatpage = async () => {
             const UID = localStorage.getItem("uid");
             const userDocRef = doc(db, "googleusers", activePost.poster);
             const userDocSnap = await getDoc(userDocRef);
             const myUserInfo = userDocSnap.data();
-
+        
             const docRefss = doc(db, "userChats", UID);
             const docSnapss = await getDoc(docRefss);
-
+        
             if (docSnapss.exists()) {
                 await updateDoc(docRefss, {
-                    [activePost.poster]: {
+                    [activePost.id]: {
                         date: Timestamp.now(),
                         userInfo: {
+                            postIcon: activePost.file,
                             photoURL: myUserInfo.photoURL,
                             uid: activePost.poster,
                             username: myUserInfo.username,
@@ -221,10 +221,11 @@ function App() {
                     },
                 });
             } else {
-                await setDoc(docRef, {
-                    [activePost.poster]: {
+                await setDoc(docRefss, {
+                    [activePost.id]: {
                         date: Timestamp.now(),
                         userInfo: {
+                            postIcon: activePost.file,
                             photoURL: myUserInfo.photoURL,
                             uid: activePost.poster,
                             username: myUserInfo.username,
@@ -232,18 +233,19 @@ function App() {
                     },
                 });
             }
-
+        
             const hisDocRef = doc(db, "userChats", activePost.poster);
             const hisDocSnap = await getDoc(hisDocRef);
             const hisUserDocRef = doc(db, "googleusers", UID);
             const hisUserDocSnap = await getDoc(hisUserDocRef);
             const hisUserInfo = hisUserDocSnap.data();
-
+        
             if (hisDocSnap.exists()) {
                 await updateDoc(hisDocRef, {
-                    [UID]: {
+                    [activePost.id]: {
                         date: Timestamp.now(),
                         userInfo: {
+                            postIcon: activePost.file,
                             photoURL: hisUserInfo.photoURL,
                             uid: UID,
                             username: hisUserInfo.username,
@@ -252,9 +254,10 @@ function App() {
                 });
             } else {
                 await setDoc(hisDocRef, {
-                    [UID]: {
+                    [activePost.id]: {
                         date: Timestamp.now(),
                         userInfo: {
+                            postIcon: activePost.file,
                             photoURL: hisUserInfo.photoURL,
                             uid: UID,
                             username: hisUserInfo.username,
@@ -262,33 +265,37 @@ function App() {
                     },
                 });
             }
-            const chatPairId = UID + activePost.poster;
-            const chatPairIds = activePost.poster + UID;
+        
+            const chatPairId = activePost.id + UID + activePost.poster;
+            const chatPairIds = activePost.id + activePost.poster + UID;
             localStorage.setItem("chatpair", chatPairId);
+        
             const docRef = doc(db, 'chats', chatPairId);
             const docRefs = doc(db, 'chats', chatPairIds);
-
+        
             const docSnap = await getDoc(docRef);
             const docSnaps = await getDoc(docRefs);
-
+        
             if (docSnap.exists()) {
                 await updateDoc(docRef, {
-                    message: arrayUnion({ date: Timestamp.now(), sender: UID, text: text })
+                    message: arrayUnion({ date: Timestamp.now(), sender: UID, text: text, checked: false })
                 });
                 localStorage.setItem("chatpair", chatPairId);
             } else if (docSnaps.exists()) {
                 await updateDoc(docRefs, {
-                    message: arrayUnion({ date: Timestamp.now(), sender: UID, text: text })
+                    message: arrayUnion({ date: Timestamp.now(), sender: UID, text: text, checked: false })
                 });
                 localStorage.setItem("chatpair", chatPairIds);
             } else {
                 await setDoc(docRef, {
-                    message: [{ date: Timestamp.now(), sender: UID, text: text }]
+                    message: [{ date: Timestamp.now(), sender: UID, text: text, checked: false }]
                 });
                 localStorage.setItem("chatpair", chatPairId);
             }
+        
             navigation("/login/home/chat");
         };
+        
 
         return (
             <>
