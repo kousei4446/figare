@@ -4,6 +4,7 @@ import "./Mono.css";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage, db } from '../../../firebase';
 import { v4 as uuidv4 } from 'uuid';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 
 function Mono({ disInfo, setDisInfo }) {
   const navigate = useNavigate();
