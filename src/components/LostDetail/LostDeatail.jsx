@@ -199,10 +199,10 @@ function App() {
             const userDocRef = doc(db, "googleusers", activePost.poster);
             const userDocSnap = await getDoc(userDocRef);
             const myUserInfo = userDocSnap.data();
-        
+
             const docRefss = doc(db, "userChats", UID);
             const docSnapss = await getDoc(docRefss);
-        
+
             if (docSnapss.exists()) {
                 await updateDoc(docRefss, {
                     [activePost.id]: {
@@ -228,13 +228,13 @@ function App() {
                     },
                 });
             }
-        
+
             const hisDocRef = doc(db, "userChats", activePost.poster);
             const hisDocSnap = await getDoc(hisDocRef);
             const hisUserDocRef = doc(db, "googleusers", UID);
             const hisUserDocSnap = await getDoc(hisUserDocRef);
             const hisUserInfo = hisUserDocSnap.data();
-        
+
             if (hisDocSnap.exists()) {
                 await updateDoc(hisDocRef, {
                     [activePost.id]: {
@@ -260,17 +260,17 @@ function App() {
                     },
                 });
             }
-        
+
             const chatPairId = activePost.id + UID + activePost.poster;
             const chatPairIds = activePost.id + activePost.poster + UID;
             localStorage.setItem("chatpair", chatPairId);
-        
+
             const docRef = doc(db, 'chats', chatPairId);
             const docRefs = doc(db, 'chats', chatPairIds);
-        
+
             const docSnap = await getDoc(docRef);
             const docSnaps = await getDoc(docRefs);
-        
+
             if (docSnap.exists()) {
                 await updateDoc(docRef, {
                     message: arrayUnion({ date: Timestamp.now(), sender: UID, text: text, checked: false })
@@ -287,10 +287,10 @@ function App() {
                 });
                 localStorage.setItem("chatpair", chatPairId);
             }
-        
+
             navigation("/login/home/chat");
         };
-        
+
 
         return (
             <>
@@ -321,11 +321,10 @@ function App() {
                     <ChangePict activePost={activePost} />
                     <div className='lostdetail-separator'></div>
                     <Tag activePost={activePost} />
-                    <br />
                 </div>
                 <div className='lostdetail-box lostdetail-detail-display'>
                     <DetDisp Add={AddDet} setAdd={setAddDet} activePost={activePost} />
-                    <br />
+                    {/* <br /> */}
                 </div>
                 <div className='lostdetail-box-ex lostdetail-inbtn'>
                     {/* <Message activePost={activePost} /> */}
