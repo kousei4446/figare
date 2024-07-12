@@ -57,9 +57,9 @@ function Username() {
   return (
     <div className='searchPlace'>
       <div className='searchtitle'>
-        <h1 className='find'>ユーザーネームユーザーネームを書いてください</h1>
+        <h1 className='user-user'>ユーザーネームを</h1>
+        <h1 className='user-write'>登録してください</h1>
       </div>
-      <br />
       <br />
       <div>
         <input
