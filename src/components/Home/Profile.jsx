@@ -83,23 +83,20 @@ function Profile({ prof, setProf }) {
   const max_length=10;
   const handleChange = (e) => {
     const { value } = e.target;
-    setEditProfile(prevState => ({
-      ...prevState,
-      username: value
-    }));
+    if(value.length <= max_length){
+      setEditProfile(prevState => ({
+        ...prevState,
+        username: value
+      }));
+    }
+    //const { value } = e.target;
+    //setEditProfile(prevState => ({
+    //  ...prevState,
+    //  username: value
+    //}));
     // console.log(value);
     // console.log(editProfile);
   };
-
-  const nameOverLength = (text, maxlength) => {
-    if(text.length > maxlength){
-      return text.substring(0, maxlength) + '...';
-    } else{
-      return text;
-    }
-    // return text.length > maxlength ? text.substring(0, maxlength) + '...' : text;
-  };
-
   const handleSave = async () => {
     // console.log(editProfile);
     const Uid = localStorage.getItem('uid');
@@ -176,7 +173,7 @@ function Profile({ prof, setProf }) {
               onChange={handleChange}
              />
           ) : (
-            <div className='pro_input'>{nameOverLength(prof.username, max_length)}</div>
+            <div className='pro_input'>{prof.username}</div>
           )}
         </div>
         <div className='line'></div>
@@ -206,7 +203,7 @@ function Profile({ prof, setProf }) {
       </div>
     
       <dialog id = "dialog" className="dialog">
-        <h2 className='diatext'>このアカウントからサインアウトしますか？</h2>
+        <h2 className='Diatext'>このアカウントからサインアウトしますか？</h2>
         <div className = "diabtn">
           <button onClick={SignOutButton} className='logout_btn'>はい</button>
           <button onClick={closebtn} className='logout_btn'>いいえ</button>

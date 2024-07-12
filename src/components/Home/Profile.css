@@ -110,9 +110,9 @@
     top:50%;
     left:50%;
     transform: translate(-50%, -50%);
-    width:400px;
-    height: 110;
-    max-width: 400px;
+    width: 300px;
+    height: 110px;
+    max-width: 300px;
     max-height: 110px;
     border: 3px solid #777777;
     padding:10px;
@@ -122,6 +122,7 @@
     justify-content: space-around;
     text-align: center;
 }
-.diatext{
-    font-size: 18px;
+.Diatext{
+    text-align: center;
+    font-size: 14px;
 }
