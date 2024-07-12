@@ -57,7 +57,7 @@
     /* padding: 5px 5px; */
     border-radius: 50%;
     cursor: pointer;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     /* display: flex; */
     /* align-items: center; */
     gap: 5px;
@@ -94,6 +94,7 @@
     margin-bottom: 25px;
     align-items: flex-start;
     position: relative;
+    padding-bottom: 10px;
 }
 
 /* overflow: visible; */
@@ -148,11 +149,15 @@ align-items: center; */
     flex-direction: column;
     align-items: flex-start;
     align-items: center;
+    margin-bottom: 0;
 }
 
 .lostdeital-image-container>div,
 .lostdetail-tag-container>div {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .lostdetail-title-text {
@@ -168,20 +173,9 @@ align-items: center; */
     font-size: 1.2em;
     font-weight: bold;
     border-bottom: none;
-    margin-bottom: 15px;
+    margin-bottom: 3px;
     align-self: flex-start;
 }
-
-.lostdetail-title-text::after {
-    content: '';
-    position: absolute;
-    left: 7px;
-    right: 7px;
-    bottom: -4px;
-    height: 4px;
-    background-color: #000;
-}
-
 
 /* position: relative;
     top: -65px;
@@ -309,10 +303,12 @@ align-items: center; */
     /* position: absolute; */
     /* left: 50%;
     transform: translateX(-50%); */
-    width: 40%;
+    width: 10%;
     height: 2px;
     background-color: #000;
     margin-left: 10%;
+    margin: 5px 0;
+    align-self: center;
     /* margin-left: 5px;
     margin-top: 60px; */
 }
@@ -339,6 +335,11 @@ align-items: center; */
 .lostdetail-tag-list {
     align-self: center;
     padding-left: 0;
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
     /* list-style-type: disc;
     padding-left: 0;
     display: flex;
@@ -347,17 +348,20 @@ align-items: center; */
 }
 
 .lostdetail-tag-list li {
+    margin: 0;
     position: relative;
     display: inline-block;
-    margin: 0em .6em .6em;
-    padding: .6em .9em .6em 1em;
+    margin: 0.3em 0.4em 0.3em;
+    padding: 0.4em 0.6em 0.4em 0.7em;
     line-height: 1;
     color: #000;
     text-decoration: none;
     background-color: var(--color-tagmark);
     border-radius: 50px;
     border: 2px solid #000;
+    font-size: 0.9em;
 }
+
 
 
 /* DetailDisplayセクションのスタイル */
