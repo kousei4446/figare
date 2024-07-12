@@ -95,10 +95,8 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
         duration: 5000,
         delay: anime.stagger(10, { start: 1000 }),
         direction: 'alternate',
+        loop: true,
         easing: 'easeInOutQuad',
-        complete: () => {
-          setTimeout(animateBlocks, 2000);
-        },
       });
     };
     animateBlocks();
@@ -126,9 +124,9 @@ function Navigation(/*{ userData, setProfile, setRegister }*/) {
   if (location.pathname.startsWith('/login')) {
     return null;
   }
-  if (localStorage.getItem("uid")){
-    navigate("/login/home")
-  }
+  // if (localStorage.getItem("uid")){
+  //   navigate("/login/home")
+  // }
 
   /* googleログイン */
   function SignInButton(prof, setProf) {
