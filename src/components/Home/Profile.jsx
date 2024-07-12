@@ -80,14 +80,21 @@ function Profile({ prof, setProf }) {
     setEditProfile(prof);
   }, [prof]);
 
+  const max_length=10;
   const handleChange = (e) => {
     const { value } = e.target;
-    setEditProfile(prevState => ({
-      ...prevState,
-      username: value
-    }));
+    if(value.length<=max_length){
+      setEditProfile(prevState => ({
+        ...prevState,
+        username: value
+      }));
+    }
     // console.log(value);
     // console.log(editProfile);
+  };
+
+  const nameOverLength = (text, maxlength) => {
+    return text.length > maxlength ? text.substring(0, maxlength) + '...' : text;
   };
 
   const handleSave = async () => {
@@ -125,7 +132,7 @@ function Profile({ prof, setProf }) {
     }
   },[])
   return (
-    <div>
+    <div className='Background-Color'>
       <img src={image1} className='back_btn' onClick={back} />
       <h2 className='pro_title'>プロフィール</h2>
       <div className='profile_checker'>
@@ -164,9 +171,9 @@ function Profile({ prof, setProf }) {
               name='username'
               value={editProfile.username}
               onChange={handleChange}
-            />
+             />
           ) : (
-            <div className='pro_input'>{prof.username}</div>
+            <div className='pro_input'>{nameOverLength(prof.username, max_length)}</div>
           )}
         </div>
         <div className='line'></div>
@@ -208,7 +215,10 @@ function Profile({ prof, setProf }) {
             <button className='Save_or_Cancel' onClick={handleSave}>保存</button>
             <button className='Save_or_Cancel' onClick={handleEditToggle}>キャンセル</button>
           </>
-        ) : (
+        ) : ''}
+      </div>
+      <div className='Logout_btn'>
+        {isEditing ? '' : (
           <button className='logout_btn' onClick={openbtn}>サインアウト</button>
         )}
       </div>

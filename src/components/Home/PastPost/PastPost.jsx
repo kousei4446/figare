@@ -6,6 +6,8 @@ import './PastPost.css';
 import DeleteModal from './DeleteModal';
 import { deleteObject, getStorage, ref } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+
 
 function PastPost() {
     const [myPostList, setMyPostList] = useState([]);
@@ -61,8 +63,11 @@ function PastPost() {
         <>
             {loading ?
                 <>
-                    <div className='background'>
-                        <h3 style={{ textAlign: "center" }}>過去の投稿一覧</h3>
+                    <div className='background' style={{ justifyContent: "space-beteen" }}>
+                        <p onClick={() => navigation("/login/home")} style={{ display: "flex", alignItems: "center", color: "white" }}><IoMdArrowRoundBack size="20px" />戻る</p>
+                        <h3 style={{ color: "white" }}>過去の投稿一覧</h3>
+                        <div></div>
+                        <div></div>
                     </div>
                     <div className='load'>
                         <h3>データを取得中</h3>
@@ -72,9 +77,9 @@ function PastPost() {
                 :
                 <div className='past-post-container'>
                     {confirm && <DeleteModal setConfirm={setConfirm} deleteBtn={deleteBtn} id={id} storagePath={storagePath} />}
-                    <div className='background' style={{justifyContent:"space-beteen"}}>
-                        <p onClick={() => navigation("/login/home")} style={{ display: "flex", alignItems: "center" ,color:"white"}}><IoMdArrowRoundBack size="20px" />戻る</p>
-                        <h3 style={{color:"white" }}>過去の投稿一覧</h3>
+                    <div className='background' style={{ justifyContent: "space-beteen" }}>
+                        <p onClick={() => navigation("/login/home")} style={{ display: "flex", alignItems: "center", color: "white" }}><IoMdArrowRoundBack size="20px" />戻る</p>
+                        <h3 style={{ color: "white" }}>過去の投稿一覧</h3>
                         <div></div>
                         <div></div>
                     </div>
@@ -83,7 +88,7 @@ function PastPost() {
                         </div>
                         <div className='pastpost'>
                             {myPostList.map((post) => (
-                                <div key={post.id} className='post-item'>
+                                <div key={uuidv4()} className='post-item'>
                                     <div className='post-main'>
                                         <img src={post.file} width='130px' alt='Post' className='postimg' />
                                         <div className='place-and-toku'>
