@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import image from "../../img/image.png";
 import "./Mono.css";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage, db } from '../../../firebase';
+import { CiTextAlignCenter } from 'react-icons/ci';
+import { IoMdArrowRoundBack } from 'react-icons/io';
 
 function Mono({ disInfo, setDisInfo }) {
   const navigate = useNavigate();
@@ -53,15 +54,15 @@ function Mono({ disInfo, setDisInfo }) {
   };
 
   return (
-    <div>
-      <div className='mono-blue'>figare</div>
-      <div className='mono-head'>
-        <img src={image} height='50px' className='back-btn' onClick={back} alt='戻る' />
-        <div style={{ textAlign: "center", width: "100vw" }}>
-          <p className='mono-title'>＜詳細情報を入力してね＞</p>
-        </div>
+    <div className='mono'>
+      <div className='mono-blue'>
+        <div className="mono-back" onClick={back} alt="戻る"><IoMdArrowRoundBack className='mono-back-icon'/>戻る</div>
+        <div className='mono-title'>＜詳細情報を入力＞</div>
+        <div></div>
+        <div></div>
       </div>
-      <div>
+
+      <div className='mono-main'>
         <div className="kind-item">
           種類：
         </div>
@@ -73,7 +74,7 @@ function Mono({ disInfo, setDisInfo }) {
             checked={disInfo.kind === "もの"}
             onChange={handleInputChange}
           />
-          <label>もの</label>
+          <label className='kind-mono'>　もの</label>
           <input
             type='radio'
             name='kind'
@@ -81,7 +82,7 @@ function Mono({ disInfo, setDisInfo }) {
             checked={disInfo.kind === "ペット"}
             onChange={handleInputChange}
           />
-          <label>ペット</label>
+          <label className='kind-pet'>　ペット</label>
           <input
             type='radio'
             name='kind'
@@ -89,7 +90,7 @@ function Mono({ disInfo, setDisInfo }) {
             checked={disInfo.kind === "人"}
             onChange={handleInputChange}
           />
-          <label>人</label>
+          <label>　人</label>
         </div>
         <div className='file-item'>
           写真：
