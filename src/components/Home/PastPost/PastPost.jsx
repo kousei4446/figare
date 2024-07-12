@@ -8,18 +8,17 @@ import { deleteObject, getStorage, ref } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-
 function PastPost() {
     const [myPostList, setMyPostList] = useState([]);
     const [confirm, setConfirm] = useState(false);
     const [id, setId] = useState("");
     const [storagePath, setStoragePath] = useState("");
-    const [loading, setLoading] = useState(false)
-    const navigation = useNavigate()
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchMyPost = async () => {
-            setLoading(true)
+            setLoading(true);
             try {
                 const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
                 const querySnapshot = await getDocs(q);
@@ -28,24 +27,24 @@ function PastPost() {
                 setMyPostList(myPost);
             } catch (error) {
                 console.error("Error fetching posts: ", error);
-            }
-            finally {
-                setLoading(false)
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchMyPost();
     }, []);
+
     useEffect(() => {
         if (!localStorage.getItem("uid")) {
-            navigate("/")
+            navigate("/");
         }
-    }, [])
+    }, [navigate]);
 
     const deleteBtn = async (id, storagePath) => {
         try {
             const storage = getStorage();
-            const desertRef = ref(storage, storagePath); // ここでファイルパスを指定します
+            const desertRef = ref(storage, storagePath);
             await deleteObject(desertRef);
             const delDocRef = doc(db, "Posts", id);
             await deleteDoc(delDocRef);
@@ -55,18 +54,15 @@ function PastPost() {
         }
     };
 
-    // const editBtn = () => {
-    //     // 編集ボタンの機能をここに実装します
-    // };
-
     return (
         <>
             {loading ?
                 <>
-                    <div className='background' style={{ justifyContent: "space-beteen" }}>
-                        <p onClick={() => navigation("/login/home")} style={{ display: "flex", alignItems: "center", color: "white" }}><IoMdArrowRoundBack size="20px" />戻る</p>
+                    <div className='background' style={{ justifyContent: "space-between" }}>
+                        <p onClick={() => navigate("/login/home")} style={{ display: "flex", alignItems: "center", color: "white" }}>
+                            <IoMdArrowRoundBack size="20px" />戻る
+                        </p>
                         <h3 style={{ color: "white" }}>過去の投稿一覧</h3>
-                        <div></div>
                         <div></div>
                     </div>
                     <div className='load'>
@@ -77,15 +73,15 @@ function PastPost() {
                 :
                 <div className='past-post-container'>
                     {confirm && <DeleteModal setConfirm={setConfirm} deleteBtn={deleteBtn} id={id} storagePath={storagePath} />}
-                    <div className='background' style={{ justifyContent: "space-beteen" }}>
-                        <p onClick={() => navigation("/login/home")} style={{ display: "flex", alignItems: "center", color: "white" }}><IoMdArrowRoundBack size="20px" />戻る</p>
+                    <div className='background' style={{ justifyContent: "space-between" }}>
+                        <p onClick={() => navigate("/login/home")} style={{ display: "flex", alignItems: "center", color: "white" }}>
+                            <IoMdArrowRoundBack size="20px" />戻る
+                        </p>
                         <h3 style={{ color: "white" }}>過去の投稿一覧</h3>
-                        <div></div>
                         <div></div>
                     </div>
                     <div>
-                        <div className='pastpostcard'>
-                        </div>
+                        <div className='pastpostcard'></div>
                         <div className='pastpost'>
                             {myPostList.map((post) => (
                                 <div key={uuidv4()} className='post-item'>
@@ -104,9 +100,8 @@ function PastPost() {
                                             <button className='delbtn' onClick={() => {
                                                 setConfirm(true);
                                                 setId(post.id);
-                                                setStoragePath(post.storagePath); // ここで正しい画像パスを設定します
+                                                setStoragePath(post.storagePath);
                                             }}>削除</button>
-                                            {/* <button onClick={() => editBtn()}></button> */}
                                         </div>
                                     </div>
                                 </div>
@@ -121,3 +116,4 @@ function PastPost() {
 }
 
 export default PastPost;
+    
