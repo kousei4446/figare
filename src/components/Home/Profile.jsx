@@ -92,7 +92,12 @@ function Profile({ prof, setProf }) {
   };
 
   const nameOverLength = (text, maxlength) => {
-    return text.length > maxlength ? text.substring(0, maxlength) + '...' : text;
+    if(text.length > maxlength){
+      return text.substring(0, maxlength) + '...';
+    } else{
+      return text;
+    }
+    // return text.length > maxlength ? text.substring(0, maxlength) + '...' : text;
   };
 
   const handleSave = async () => {
