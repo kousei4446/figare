@@ -3,7 +3,7 @@ import "./DeleteModal.css";
 
 function DeleteModal({ setConfirm, deleteBtn, id, storagePath }) {
     return (
-        <div className="overlay">
+        <div className="overlaysss">
             <div className="content" onClick={(e) => e.stopPropagation()}>
                 <p>本当に削除してよろしいでしょうか</p>
                 <div>
