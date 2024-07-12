@@ -1,158 +1,303 @@
-.mono-blue {
-    width: 100%;
-    height: 45px;
-    background-color: rgb(180, 250, 250);
-    position: fixed;
-    font-family: 'Sacramento', cursive;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.back-btn {
-    margin-left: 3px;
-    margin-top: 50px;
-}
-
-.mono-title {
-    font-size: 25px;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.kind-item {
-    margin-left: 30px;
-}
-
-.kind-select {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: -47px;
-    min-height: 10vh;
-}
-
-.file-item {
-    margin-bottom: 10px;
-    margin-left: 30px;
-}
-
-.mono-file {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-textarea {
-    width: 90%;
-    height: 200px;
-}
-
-.characteristic {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-}
-
-.ok-btn{
-    color: white;
-    font-size: 20px;
-    background-color: rgb(88, 151, 234);
-    height: 2.5rem;
-    width: 5rem;
-    border-radius: 10px;
-    /* border: 1px solid black; */
-    border: none;
-}
-
-.okbtn-posi {
-    margin-top: 40px;
-}
-
-.ok-btn{
-    color: white;
-    font-size: 20px;
-    background-color: rgb(45, 102, 227);
-    height: 2.5rem;
-    width: 5rem;
-    border-radius: 8px;
-    /* border: 1px solid black; */
-    border: none;
+@media (max-width: 600px) {
+    .mono-blue {
+        width: 100%;
+        height: 14vh;
+        background-color: rgb(88, 151, 234);
+        color: white;
+        border-bottom: 3px solid rgb(63, 63, 63);
+        position: fixed;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1;
+    }
+    
+    .mono-back-icon {
+        font-size: 20px;
+        margin-left: 5px;
+    }
+    
+    .mono-back {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+    }
+    
+    .mono-title {
+        font-weight: bold;
+        text-align: center;
+        font-size: 20px;
+    }
+    
+    .mono-main {
+        width: 100%;
+        padding-top: 20vh;
+        padding-bottom: 10vh;
+        background-color: rgb(229, 227, 227);
+    }
+    
+    .kind-item {
+        margin-left: 4vh;
+        margin-bottom: 1vh;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    .kind-select {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: -2vh;
+        min-height: 10vh;
+        font-weight: bold;
+    }
+    
+    .kind-mono {
+        margin-right: 4vh;
+    }
+    
+    .kind-pet {
+        margin-right: 4vh;
+    }
+    
+    .file-item {
+        margin-top: 2vh;
+        margin-bottom: 3vh;
+        margin-left: 4vh;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    .mono-file {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    textarea {
+        width: 90%;
+        height: 30vh;
+        border-radius: 3%;
+    }
+    
+    textarea::placeholder {
+        padding-top: 0.5vh;
+        padding-left: 0.5vh;
+        color: #bababa;
+        text-align: left;
+    }  
+    
+    .characteristic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 8vh;
+    }
+    
+    .ok-btn{
+        color: black;
+        font-size: 20px;
+        background-color: rgb(250, 252, 186);
+        height: 6vh;
+        width: 30vw;
+        border-radius: 10px;
+        border: 1.5px solid rgb(100, 100, 100);
+    }
+    
+    .okbtn-posi {
+        margin-top: 6vh;
+        display: flex;
+        justify-content: center;
+    }
+    
+    
+    .con-btn{
+        font-size: 16px;
+        background-color: white;
+        height: 3rem;
+        width: 6rem;
+        border-radius: 8px;
+        border: 1px solid black;
+    }
+    
+    .dis-head{
+        display: flex;
+        height: 50px;
+        align-items: center;
+    }
+    .inputran{
+        height: 34px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .dis-info{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .dis-info div textarea{
+        width: 100%;
+        height: 130px;
+    }
+    
+    
+    .dis-info div input{
+        width:50%;
+        margin-right: 8%;
+    }
+    
+    .name{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    .name label{
+        flex: 10%;
+        margin-left: 6%;
+    }
+    .tokuryou{
+        width: 80%;
+    }
+    .maigoimg{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    .con-text{
+        display: flex;
+        margin-left: 20px;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .con-text p{
+        font-size: 20px;
+        margin: 0px;
+    }
+    
     
 }
-.con-btn{
-    font-size: 16px;
-    background-color: white;
-    height: 3rem;
-    width: 6rem;
-    border-radius: 8px;
-    border: 1px solid black;
-}
-
-.dis-head{
-    display: flex;
-    height: 50px;
-    align-items: center;
-}
-.inputran{
-    height: 34px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.dis-info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.dis-info div textarea{
-    width: 100%;
-    height: 130px;
-}
 
 
-.dis-info div input{
-    width:50%;
-    margin-right: 8%;
+@media (min-width: 600px) {
+    .mono-blue {
+        width: 100%;
+        height: 15vh;
+        background-color: rgb(88, 151, 234);
+        color: white;
+        border-bottom: 2px solid rgb(63, 63, 63);
+        position: fixed;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1;
+    }
+    
+    .mono-back-icon {
+        font-size: 7vh;
+        margin-left: 5vh;
+        margin-right: 3vh;
+    }
+    
+    .mono-back {
+        display: flex;
+        align-items: center;
+        font-size: 7vh;
+    }
+    
+    .mono-title {
+        font-weight: bold;
+        text-align: center;
+        font-size: 9vh;
+    }
+    
+    .mono-main {
+        width: 100%;
+        padding-top: 18vh;
+        padding-bottom: 10vh;
+        background-color: rgb(229, 227, 227);
+    }
+    
+    .kind-item {
+        margin-left: 20vh;
+        margin-bottom: 1vh;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    .kind-select {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: -5vh;
+        min-height: 10vh;
+        font-weight: bold;
+    }
+    
+    .kind-mono {
+        margin-right: 15vh;
+    }
+    
+    .kind-pet {
+        margin-right: 15vh;
+    }
+    
+    .file-item {
+        margin-top: 2vh;
+        margin-bottom: 1vh;
+        margin-left: 20vh;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    .mono-file {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: -2vh;
+    }
+    
+    textarea {
+        width: 85%;
+        height: 30vh;
+        border-radius: 3%;
+    }
+    
+    textarea::placeholder {
+        padding-top: 1vh;
+        padding-left: 1vh;
+        color: #bababa;
+        text-align: left;
+    }  
+    
+    .characteristic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5vh;
+    }
+    
+    .ok-btn{
+        color: black;
+        font-size: 20px;
+        background-color: rgb(250, 252, 186);
+        height: 10vh;
+        width: 30vw;
+        border-radius: 10px;
+        border: 1.5px solid rgb(100, 100, 100);
+    }
+    
+    .okbtn-posi {
+        margin-top: 5vh;
+        display: flex;
+        justify-content: center;
+    }
 }
-
-.name{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-.name label{
-    flex: 10%;
-    margin-left: 6%;
-}
-.tokuryou{
-    width: 80%;
-}
-.maigoimg{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.okbtn-posi{
-    display: flex;
-    justify-content: right;
-    margin-right: 10%;
-}
-
-.con-text{
-    display: flex;
-    margin-left: 20px;
-    flex-direction: column;
-    justify-content: center;
-}
-.con-text p{
-    font-size: 20px;
-    margin: 0px;
-}
-

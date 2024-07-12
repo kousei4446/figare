@@ -130,12 +130,7 @@ function Profile({ prof, setProf }) {
       <h2 className='pro_title'>プロフィール</h2>
       <div className='profile_checker'>
       <div className='edit_save_btn'>
-        {isEditing ? (
-          <>
-            <button className='pro_savebtn' onClick={handleSave}>保存</button>
-            <button className='pro_cancelbtn' onClick={handleEditToggle}>キャンセル</button>
-          </>
-        ) : (
+        {isEditing ? '' : (
           <button className='pro_editbtn' onClick={handleEditToggle}>編集</button>
         )}
       </div>
@@ -207,7 +202,16 @@ function Profile({ prof, setProf }) {
           <button onClick={closebtn} className='logout_btn'>いいえ</button>
         </div>  
       </dialog>
-      <button className='logout_btn' onClick={openbtn}>サインアウト</button>
+      <div className='save_cancel_btn'>
+        {isEditing ? (
+          <>
+            <button className='Save_or_Cancel' onClick={handleSave}>保存</button>
+            <button className='Save_or_Cancel' onClick={handleEditToggle}>キャンセル</button>
+          </>
+        ) : (
+          <button className='logout_btn' onClick={openbtn}>サインアウト</button>
+        )}
+      </div>
     </div>
   );
 }
