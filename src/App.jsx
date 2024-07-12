@@ -44,6 +44,7 @@ function App() {
   const [profile, setProfile] = useState({ name: "", furigana: "", gender: "", password: "", tel: "", auth: false,time:null });
   const [hitoInfo, setHitoInfo] = useState({ name: "", age: "", time: "", gender: "", place: "", tokutyou: "" });
   const [petInfo, setPetInfo] = useState({ name: "", time: "", place: "", tokutyou: "" });
+  const [serch, setSerch]=useState('');
   // const [register, setRegister] = useState({ tel: "", password: "", gender: "", name: "", furigana: "", username: "" ,place:""});
 
   return (
@@ -52,7 +53,7 @@ function App() {
         <Navigation userData={userData} setProfile={setProfile} /*setRegister={setRegister}*//>
         <PrivateModeWarning />
         <Routes>
-        <Route path="/login/home" element={<Home /*setActivePost={setActivePost}*/ myInfo={myInfo} setMyInfo={setMyInfo} setProf={setProf}/>} />
+        <Route path="/login/home" element={<Home /*setActivePost={setActivePost}*/ myInfo={myInfo} setMyInfo={setMyInfo} setProf={setProf} serch={serch} setSerch={setSerch}/>} />
           {/* <Route path="/login/register" element={<Register register={register} setRegister={setRegister} />} /> */}
           <Route path="/login/username" element={<Username />} />
           <Route path="/login/serchplace" element={<SerchPlace setProf={setProf}/>} />
