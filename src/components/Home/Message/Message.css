@@ -16,3 +16,17 @@
 .msg-content p{
     margin-top: 0px;
 }
+.msg-num{
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 20px;
+    background-color: rgb(255, 109, 109);
+    width: 40px;
+    height: 40px;
+}

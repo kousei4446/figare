@@ -10,8 +10,8 @@ function Message() {
   const [documentIdList, setDocumentIdList] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  let senderId=""
-  let time=""
+  let senderId = ""
+  let time = ""
   useEffect(() => {
     const uid = localStorage.getItem("uid");
     if (!uid) {
@@ -68,8 +68,8 @@ function Message() {
                 console.log(`Messages from chatDocSnap: ${messages}`);
                 if (messages && messages.length > 0) {
                   lastMessage = messages[messages.length - 1].text;
-                  senderId= messages[messages.length - 1].sender;
-                  time=messages[messages.length - 1].date;
+                  senderId = messages[messages.length - 1].sender;
+                  time = messages[messages.length - 1].date;
                   messages.forEach((msg) => {
                     if (msg.checked === false) {
                       count += 1;
@@ -81,8 +81,8 @@ function Message() {
                 console.log(`Messages from chatDocSnaps: ${messages}`);
                 if (messages && messages.length > 0) {
                   lastMessage = messages[messages.length - 1].text;
-                  senderId= messages[messages.length - 1].sender;
-                  time=messages[messages.length - 1].date;
+                  senderId = messages[messages.length - 1].sender;
+                  time = messages[messages.length - 1].date;
                   messages.forEach((msg) => {
                     if (msg.checked === false) {
                       if (msg.sender != UID) {
@@ -95,7 +95,7 @@ function Message() {
               console.log(count)
               const messagee = chatDocSnaps.exists() && chatDocSnaps.data() ? chatDocSnaps.data().message : [];
               fetchedUsernames.push({
-                time:time,
+                time: time,
                 tokutyou: postData.text,
                 postid: id,
                 senderId: senderId,
@@ -106,7 +106,7 @@ function Message() {
               });
             }
           }
-          
+
           setDocumentIdList(fetchedUsernames);
         } else {
           console.log(`User chat document with ID ${UID} does not exist`);
@@ -165,8 +165,13 @@ function Message() {
                   {user.count > 0 && user.senderId !== localStorage.getItem("uid") ?
                     <h6>新着メッセージ{user.count}件あります</h6> :
                     <p>{user.text}</p>}
-                    {/* <p>{user.time.toDate().toLocaleString()}</p> */}
+                  {/* <p>{user.time.toDate().toLocaleString()}</p> */}
                 </div>
+                {user.count > 0 && (
+                  <div className='msg-num'>
+                    <p>{user.count}</p>
+                  </div>
+                )}
               </div>
             ))}
           </div>
