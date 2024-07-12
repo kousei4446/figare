@@ -15,7 +15,6 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 function App() {
 
     const [activePost, setActivePost] = useState({})
-    // const [logo, setLogo] = useState(logoImage);
     const [AddDet, setAddDet] = useState(false);
     const navigate = useNavigate();
 
@@ -30,11 +29,11 @@ function App() {
         };
         fetchPostData();
     }, []);
-    useEffect(()=>{
-        if (!localStorage.getItem("uid")){
-          navigate("/")
+    useEffect(() => {
+        if (!localStorage.getItem("uid")) {
+            navigate("/")
         }
-      },[])
+    }, [])
 
     //元画面遷移
     const Backbtn = () => {
@@ -42,7 +41,9 @@ function App() {
             navigate("/login/home");
         }
         return (
-            <button className="lostdetail-backbtn" onClick={back}><IoMdArrowRoundBack /></button>
+            <button className="lostdetail-backbtn" onClick={back}>
+                <IoMdArrowRoundBack />
+            </button>
         )
     }
 
@@ -66,20 +67,14 @@ function App() {
             };
         }, []);
 
-        const openbtn = () => {
-            const dialog = document.getElementById("picture");
-            dialog.showModal();
-        }
+        const openbtn = () => document.getElementById("picture").showModal();
 
-        const closebtn = () => {
-            const dialog = document.getElementById("picture");
-            dialog.close();
-        }
+        const closebtn = () => document.getElementById("picture").close();
 
         return (
             <div className="lostdetail-image-container">
                 <div className="lostdetail-title-text">{displayText}</div>
-                <br />
+                {/* <br /> */}
                 <button onClick={openbtn} className='lostdetail-logo-btn'>
                     <img className='lostdetail-logo-image' src={activePost.file} alt="Logo" />
                 </button>
@@ -103,7 +98,7 @@ function App() {
     const Tag = ({ activePost }) => { //関連するタグを表示
         return (
             <div className='lostdetail-tag-container'>
-                <div className='lostdetail-tag-title'>基本情報</div>
+                <div className='lostdetail-title-text'>基本情報</div>
                 <ul className='lostdetail-tag-list'>
                     <li><FaTag /> {activePost.kind}</li>
                     <li><FaTag /> {activePost.place}</li>
@@ -315,7 +310,7 @@ function App() {
         <div className='lostdetail-body'>
             <div className='lostdetail-container'>
                 <Backbtn />
-                <div className='lostdetail-box lostdetail-ctp lostdetail-top'>
+                <div className='lostdetail-box lostdetail-ctp '>
                     <ChangePict activePost={activePost} />
                     <div className='lostdetail-separator'></div>
                     <Tag activePost={activePost} />
@@ -326,18 +321,16 @@ function App() {
                     <br />
                 </div>
                 <div className='lostdetail-box-ex lostdetail-inbtn'>
-                    <div className='lostdetail-input'>
-                        {/* <Message activePost={activePost} /> */}
-                        {JSON.parse(localStorage.getItem("isMyPost")) ? null : (
-                            <>
-                                {/* <Plusalpha />
+                    {/* <Message activePost={activePost} /> */}
+                    {JSON.parse(localStorage.getItem("isMyPost")) ? null : (
+                        <>
+                            {/* <Plusalpha />
                                 <Camera /> */}
-                                <Message activePost={activePost} />
-                            </>
-                        )
-                        }
-                        {/* <Contribution /> */}
-                    </div>
+                            <Message activePost={activePost} />
+                        </>
+                    )
+                    }
+                    {/* <Contribution /> */}
                 </div>
             </div>
         </div>

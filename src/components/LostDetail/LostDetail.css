@@ -3,7 +3,7 @@
     --color-white: #edf5ff;
     --color-light-gray: #ffffff;
     --color-dark-gray: rgba(55, 55, 55, 0.934);
-    --color-primary: #0c6dffc9;
+    --color-primary: #0c6dff;
     --color-primary-dark: #043ed1;
     --color-section-background: #f9f9f9fe;
     --color-section-title: #198a771e;
@@ -50,29 +50,20 @@
     overflow: hidden;
 }
 
-.lostdetail-ctp {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-    /* overflow: visible; */
-    /* position: relative; */
-    border-radius: 5px;
-    align-items: center;
+.lostdetail-backbtn {
+    background-color: white;
+    color: #000;
+    border: none;
+    /* padding: 5px 5px; */
+    border-radius: 50%;
+    cursor: pointer;
+    margin-bottom: 10px;
+    /* display: flex; */
+    /* align-items: center; */
+    gap: 5px;
+    width: 25px;
+    height: 25px;
 }
-
-/* display: flex;
-
-margin-bottom: 20px;
-width: 100%;
-box-sizing: border-box;
-height: 350px;
-overflow: visible;
-position: relative;
-border-radius: 10px;
-font-size: 16px;
-align-items: center; */
 
 /* 基本的なスタイル */
 .lostdetail-box {
@@ -91,21 +82,35 @@ align-items: center; */
     /* padding: auto; */
 }
 
-.lostdetail-backbtn {
-    background-color: white;
-    color: #000;
-    border: none;
-    /* padding: 5px 5px; */
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px;
-    /* display: flex; */
+
+.lostdetail-ctp {
+    display: flex;
+    /* justify-content: space-between; */
+    flex-direction: column;
     align-items: center;
-    gap: 5px;
-    width: 50px;
-    height: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    align-items: flex-start;
+    position: relative;
 }
 
+/* overflow: visible; */
+/* position: relative; */
+
+
+/* display: flex;
+
+margin-bottom: 20px;
+width: 100%;
+box-sizing: border-box;
+height: 350px;
+overflow: visible;
+position: relative;
+border-radius: 10px;
+font-size: 16px;
+align-items: center; */
 
 
 
@@ -129,11 +134,25 @@ align-items: center; */
     /* position: relative; */
     text-align: center;
     color: rgb(0, 0, 0);
+    width: 100%;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+
+.lostdeital-image-container,
+.lostdetail-tag-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     align-items: center;
-    justify-content: center;
+}
 
+.lostdeital-image-container>div,
+.lostdetail-tag-container>div {
+    width: 100%;
 }
 
 .lostdetail-title-text {
@@ -141,30 +160,45 @@ align-items: center; */
     top: 5px;
     left: 50%;
     transform: translateX(-50%); */
-    padding: 1px 5px;
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+    padding: 1% 7px;
     border-radius: 4px;
     font-size: 1.2em;
     font-weight: bold;
-    border-bottom: 4px solid #000;
+    border-bottom: none;
+    margin-bottom: 15px;
+    align-self: flex-start;
 }
 
-.lostdetail-tag-title {
-    /* position: relative;
+.lostdetail-title-text::after {
+    content: '';
+    position: absolute;
+    left: 7px;
+    right: 7px;
+    bottom: -4px;
+    height: 4px;
+    background-color: #000;
+}
+
+
+/* position: relative;
     top: -65px;
     left: 50%;
     transform: translateX(-50%); */
-    /* background-color: rgba(0, 0, 0, 0.5); */
-    width: 120%;
+/* background-color: rgba(0, 0, 0, 0.5); */
+/* width: 120%;
     padding: 2px 5px;
-    border-radius: 4px;
-    font-size: 1.2em;
     font-weight: bold;
     color: black;
     border-bottom: 4px solid #000;
+    border-radius: 4px;
+
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
-}
+} */
 
 /* 詳細情報の枠組み */
 .lostdetail-collapse {
@@ -229,21 +263,15 @@ align-items: center; */
     color: var(--color-dark-gray);
 }
 
-/* Topセクションのスタイル */
-.lostdetail-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 25px;
-}
 
 .lostdetail-logo-btn {
     max-width: 300px;
-    width: 100%;
+    width: auto;
     height: auto;
-    border-radius: 8px;
-    margin-right: 10px;
-    border: 0px solid;
+    padding: 0;
+    background: none;
+    border: none;
+    align-items: center;
 }
 
 
@@ -268,21 +296,25 @@ align-items: center; */
 
 /* 写真のためのスタイル */
 .lostdetail-logo-image {
-    max-width: 300px;
-    width: 100%;
+    max-width: 200px;
+    width: auto;
+    max-height: 200px;
     height: auto;
     border-radius: 8px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    object-fit: contain;
 }
 
 .lostdetail-separator {
-    width: 2px;
+    /* position: absolute; */
+    /* left: 50%;
+    transform: translateX(-50%); */
+    width: 40%;
+    height: 2px;
     background-color: #000;
-    /* 線の色を設定 */
-    height: 100%;
-    /* 線の高さを設定 */
-    margin: 0 0;
-    /* 線の左右の余白を設定 */
+    margin-left: 10%;
+    /* margin-left: 5px;
+    margin-top: 60px; */
 }
 
 
@@ -292,24 +324,26 @@ align-items: center; */
     /* border-radius: 20px; */
     /* padding: 5px; */
     background-color: var(--color-light-gray);
-    flex: 1;
-    margin-left: 10px;
+    /* flex: 1; */
+    /* margin-left: 25px; */
     text-align: center;
-
-
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    width: 100%;
+    /* justify-content: center; */
+    /* max-width: 50%; */
 }
 
 /* タグをリスト形式に表示 */
 .lostdetail-tag-list {
-    list-style-type: disc;
+    align-self: center;
+    padding-left: 0;
+    /* list-style-type: disc;
     padding-left: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
 }
 
 .lostdetail-tag-list li {
@@ -402,15 +436,12 @@ align-items: center; */
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
-
-/* 入力ボタンの位置スタイル */
-.lostdetail-input {
-    display: flex;
-    align-items: center;
     gap: 20px;
-    width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* ボタンすべての配色など */
@@ -439,8 +470,6 @@ align-items: center; */
     text-align: center;
 }
 
-.lostdetail-plus-button:hover,
-.lostdetail-camera-button:hover,
 .contbtn:hover {
     background-color: var(--color-primary-dark);
 }
