@@ -149,7 +149,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       closeModal();
       setModal(false);
      } 
-   
+    console.log(modal);
   }
   const closeModal = () => {
     document.getElementById('search').style.display = 'none';
@@ -216,25 +216,34 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         <IoMdSearch onClick={serchpage} className='search' />
       </div>
       <a className='serchresult'>検索結果：{cnt}件</a>
-      <div id = "overlay" className='overlay'></div>
-      <div id = "search" className='diasearch'>
-        <h3 className='diatext'>絞り込み検索</h3>
-        <button 
-          onClick = {()=>{changeHF(),handleSerch('人')}}
-          className ={HF? 'selected' : 'Select-btn'}
-        >人
-        </button>
-        <button 
-          onClick = {()=>{changePF(),handleSerch('ペット')}}  
-          className ={PF? 'selected' : 'Select-btn'}
-        >ペット
-        </button>
-        <button 
-          onClick = {()=>{changeMF(),handleSerch('もの')}}  
-          className ={MF? 'selected' : 'Select-btn'}
-        >もの
-        </button><br/>
-      </div>
+      {modal?(
+        <div>
+          <div id = "overlay" className='overlay'></div>
+          <div id = "search" className='diasearch'>
+            <h3 className='diatext'>絞り込み検索</h3>
+            <button 
+              onClick = {()=>{changeHF(),handleSerch('人')}}
+              className ={HF? 'selected' : 'Select-btn'}
+            >人
+            </button>
+            <button 
+              onClick = {()=>{changePF(),handleSerch('ペット')}}  
+              className ={PF? 'selected' : 'Select-btn'}
+            >ペット
+            </button>
+            <button 
+              onClick = {()=>{changeMF(),handleSerch('もの')}}  
+              className ={MF? 'selected' : 'Select-btn'}
+            >もの
+            </button><br/>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div id = "overlay"/> <div id = "search"/>
+        </div>
+      )}
+      
       <div className='home-background'>
         <div className='main-content'>
           {posts.map((post, index) => (
