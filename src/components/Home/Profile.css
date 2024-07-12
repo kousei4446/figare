@@ -1,3 +1,7 @@
+.Background-Color{
+    background-color: rgb(255, 255, 255);
+}
+
 .back_btn {
     margin-left: 10px;
     margin-top: 20px;
@@ -16,7 +20,7 @@
 }
 
 .pro_editbtn {
-    margin-left: 80%;
+    margin-left: 75%;
     margin-bottom: 5px;
     border: 1px solid #333;
     border-radius: 5px;
@@ -67,10 +71,14 @@
 
 }
 
+.Logout_btn{
+    display: flex;
+    margin-left: 70%;
+    margin-bottom: 50vh;
+}
+
 .logout_btn {
-    display: block;
-    margin: auto;
-    width: 150px;
+    width: 100px;
     height: 40px;
     font-weight: bold;
     border: 1px solid #333;
