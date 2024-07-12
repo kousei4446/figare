@@ -6,16 +6,16 @@ import { IoMdSearch, IoMdAdd } from 'react-icons/io';
 import { Timestamp, collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { FaCommentDots } from "react-icons/fa";
-import { IoEyeSharp } from "react-icons/io5";
+import { FaRegListAlt } from "react-icons/fa";
 
 const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
   const [posts, setPosts] = useState([]);
 
-  const [HF,setHF] = useState(false);
-  const [PF,setPF] = useState(false);
-  const [MF,setMF] = useState(false);
+  const [HF, setHF] = useState(false);
+  const [PF, setPF] = useState(false);
+  const [MF, setMF] = useState(false);
   const [modal, setModal] = useState(false);
-  const [cnt, setCnt]=useState(0);
+  const [cnt, setCnt] = useState(0);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -23,11 +23,11 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       localStorage.setItem("isMyPost", false)
     }
   }, [name])
-  useEffect(()=>{
-    if (!localStorage.getItem("uid")){
+  useEffect(() => {
+    if (!localStorage.getItem("uid")) {
       navigate("/")
     }
-  },[name])
+  }, [name])
   useEffect(() => {
     const fetchGoogleUserData = async () => {
       const savedUid = localStorage.getItem('uid');
@@ -44,121 +44,121 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
   }, [setMyInfo]);
 
   useEffect(() => {
-      const fetchAllPosts = async () => {
-        if(!serch || serch == "all"){
-          const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
-          const querySnapshot = await getDocs(q);
-          const postList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          const newPost = postList.filter(post => post.place === myInfo.place);
+    const fetchAllPosts = async () => {
+      if (!serch || serch == "all") {
+        const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const postList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const newPost = postList.filter(post => post.place === myInfo.place);
 
-          const updatedPosts = await Promise.all(newPost.map(async post => {
-            const userDocRef = doc(db, "googleusers", post.poster);
-            const userDocSnap = await getDoc(userDocRef);
-            const userInfo = userDocSnap.data();
-            return { ...post, username: userInfo.username, userImg: userInfo.photoURL };
-          }));
-          setPosts(updatedPosts);
-          setCnt(newPost.length);
-        }
-        else{
-          console.log("filter")
-          const prefRef = collection(db, "Posts");
-          const q = query(prefRef, where("place", "==", myInfo.place)/*orderBy('time','desc')*/);
-          const querySnapshot = await getDocs(q);
-          const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          const filterResult = filteredPosts.filter((item) => item.kind === serch);
+        const updatedPosts = await Promise.all(newPost.map(async post => {
+          const userDocRef = doc(db, "googleusers", post.poster);
+          const userDocSnap = await getDoc(userDocRef);
+          const userInfo = userDocSnap.data();
+          return { ...post, username: userInfo.username, userImg: userInfo.photoURL };
+        }));
+        setPosts(updatedPosts);
+        setCnt(newPost.length);
+      }
+      else {
+        console.log("filter")
+        const prefRef = collection(db, "Posts");
+        const q = query(prefRef, where("place", "==", myInfo.place)/*orderBy('time','desc')*/);
+        const querySnapshot = await getDocs(q);
+        const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const filterResult = filteredPosts.filter((item) => item.kind === serch);
 
-          const updatedPosts = await Promise.all(filterResult.map(async post => {
-            const userDocRef = doc(db, "googleusers", post.poster);
-            const userDocSnap = await getDoc(userDocRef);
-            const userInfo = userDocSnap.data();
-            return { ...post, username: userInfo.username, userImg: userInfo.photoURL };
-          }));
-          setPosts(updatedPosts);
-          setCnt(filterResult.length);
-          if(serch === "人"){
-            setHF(true)
-          }
-          else if(serch === "ペット"){
-            setPF(true)
-          }
-          else if(serch === "もの"){
-            setMF(true)
-          }
+        const updatedPosts = await Promise.all(filterResult.map(async post => {
+          const userDocRef = doc(db, "googleusers", post.poster);
+          const userDocSnap = await getDoc(userDocRef);
+          const userInfo = userDocSnap.data();
+          return { ...post, username: userInfo.username, userImg: userInfo.photoURL };
+        }));
+        setPosts(updatedPosts);
+        setCnt(filterResult.length);
+        if (serch === "人") {
+          setHF(true)
         }
-      };
-      fetchAllPosts();
-  }, [myInfo.place],[serch]);
+        else if (serch === "ペット") {
+          setPF(true)
+        }
+        else if (serch === "もの") {
+          setMF(true)
+        }
+      }
+    };
+    fetchAllPosts();
+  }, [myInfo.place], [serch]);
 
   useEffect(() => {
-      const fetchAllPosts = async () => {
-        if(!serch || serch == "all"){
-          console.log('no filter')
-          const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
-          const querySnapshot = await getDocs(q);
-          const postList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          const newPost = postList.filter(post => post.place === myInfo.place);
+    const fetchAllPosts = async () => {
+      if (!serch || serch == "all") {
+        console.log('no filter')
+        const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
+        const querySnapshot = await getDocs(q);
+        const postList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const newPost = postList.filter(post => post.place === myInfo.place);
 
-          const updatedPosts = await Promise.all(newPost.map(async post => {
-            const userDocRef = doc(db, "googleusers", post.poster);
-            const userDocSnap = await getDoc(userDocRef);
-            const userInfo = userDocSnap.data();
-            return { ...post, username: userInfo.username, userImg: userInfo.photoURL };
-          }));
-          setPosts(updatedPosts);
-          setCnt(newPost.length);
-        }
-        else{
-          console.log("filter")
-          const prefRef = collection(db, "Posts");
-          const q = query(prefRef, where("place", "==", myInfo.place)/*,orderBy('time','desc')*/);
-          const querySnapshot = await getDocs(q);
-          const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          const filterResult = filteredPosts.filter((item) => item.kind === serch);
+        const updatedPosts = await Promise.all(newPost.map(async post => {
+          const userDocRef = doc(db, "googleusers", post.poster);
+          const userDocSnap = await getDoc(userDocRef);
+          const userInfo = userDocSnap.data();
+          return { ...post, username: userInfo.username, userImg: userInfo.photoURL };
+        }));
+        setPosts(updatedPosts);
+        setCnt(newPost.length);
+      }
+      else {
+        console.log("filter")
+        const prefRef = collection(db, "Posts");
+        const q = query(prefRef, where("place", "==", myInfo.place)/*,orderBy('time','desc')*/);
+        const querySnapshot = await getDocs(q);
+        const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const filterResult = filteredPosts.filter((item) => item.kind === serch);
 
-          const updatedPosts = await Promise.all(filterResult.map(async post => {
-            const userDocRef = doc(db, "googleusers", post.poster);
-            const userDocSnap = await getDoc(userDocRef);
-            const userInfo = userDocSnap.data();
-            return { ...post, username: userInfo.username, userImg: userInfo.photoURL };
-          }));
-          setPosts(updatedPosts);
-          setCnt(filterResult.length);
-          if(serch === "人"){
-            setHF(true)
-          }
-          else if(serch === "ペット"){
-            setPF(true)
-          }
-          else if(serch === "もの"){
-            setMF(true)
-          }
+        const updatedPosts = await Promise.all(filterResult.map(async post => {
+          const userDocRef = doc(db, "googleusers", post.poster);
+          const userDocSnap = await getDoc(userDocRef);
+          const userInfo = userDocSnap.data();
+          return { ...post, username: userInfo.username, userImg: userInfo.photoURL };
+        }));
+        setPosts(updatedPosts);
+        setCnt(filterResult.length);
+        if (serch === "人") {
+          setHF(true)
         }
-      };
-      fetchAllPosts();
+        else if (serch === "ペット") {
+          setPF(true)
+        }
+        else if (serch === "もの") {
+          setMF(true)
+        }
+      }
+    };
+    fetchAllPosts();
   }, [serch]);
 
   const serchpage = () => {
-    if(modal === false){
-      setProf({place: myInfo.place});
+    if (modal === false) {
+      setProf({ place: myInfo.place });
       openModal();
       setModal(true);
-       // navigate("/login/home/search");
+      // navigate("/login/home/search");
     }
-     else{
+    else {
       closeModal();
       setModal(false);
-     } 
+    }
     console.log(modal);
   }
   const closeModal = () => {
     document.getElementById('search').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
   }
-  const openModal = () =>{
+  const openModal = () => {
     document.getElementById('search').style.display = 'block';
     document.getElementById('overlay').style.display = 'block';
-  } 
+  }
 
   const handleSerch = (type) => {
     setSerch(type === serch ? 'all' : type);
@@ -166,33 +166,33 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
   };
 
   const changeHF = () => {
-    if(HF === false){
+    if (HF === false) {
       setHF(true);
       setPF(false);
       setMF(false);
     }
-    else{
+    else {
       setHF(false);
     }
   };
 
   const changePF = () => {
-    if(PF === false){
+    if (PF === false) {
       setHF(false);
       setPF(true);
       setMF(false);
     }
-    else{
+    else {
       setPF(false);
     }
   };
   const changeMF = () => {
-    if(MF === false){
+    if (MF === false) {
       setHF(false);
       setPF(false);
       setMF(true);
     }
-    else{
+    else {
       setMF(false);
     }
   };
@@ -209,41 +209,41 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
 
   return (
     <div className="home-container">
-      
+
       <div className='background'>
-        <img src={myInfo.photoURL || image}  className='Icon' onClick={profilepage} alt='Profile' />
+        <img src={myInfo.photoURL || image} className='Icon' onClick={profilepage} alt='Profile' />
         <h3 className='main-title'>{myInfo.place && `${myInfo.place}の検索一覧`}</h3>
         <IoMdSearch onClick={serchpage} className='search' />
       </div>
       <a className='serchresult'>検索結果：{cnt}件</a>
-      {modal?(
+      {modal ? (
         <div>
-          <div id = "overlay" className='overlay'></div>
-          <div id = "search" className='diasearch'>
+          <div id="overlay" className='overlay'></div>
+          <div id="search" className='diasearch'>
             <h3 className='diatext'>絞り込み検索</h3>
-            <button 
-              onClick = {()=>{changeHF(),handleSerch('人')}}
-              className ={HF? 'selected' : 'Select-btn'}
+            <button
+              onClick={() => { changeHF(), handleSerch('人') }}
+              className={HF ? 'selected' : 'Select-btn'}
             >人
             </button>
-            <button 
-              onClick = {()=>{changePF(),handleSerch('ペット')}}  
-              className ={PF? 'selected' : 'Select-btn'}
+            <button
+              onClick={() => { changePF(), handleSerch('ペット') }}
+              className={PF ? 'selected' : 'Select-btn'}
             >ペット
             </button>
-            <button 
-              onClick = {()=>{changeMF(),handleSerch('もの')}}  
-              className ={MF? 'selected' : 'Select-btn'}
+            <button
+              onClick={() => { changeMF(), handleSerch('もの') }}
+              className={MF ? 'selected' : 'Select-btn'}
             >もの
-            </button><br/>
+            </button><br />
           </div>
         </div>
       ) : (
         <div>
-          <div id = "overlay"/> <div id = "search"/>
+          <div id="overlay" /> <div id="search" />
         </div>
       )}
-      
+
       <div className='home-background'>
         <div className='main-content'>
           {posts.map((post, index) => (
@@ -277,11 +277,11 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
           ))}
         </div>
       </div>
-      
+
 
       <div className='main-foot'>
         <FaCommentDots onClick={msgpage} className='main-msg-btn' />
-        <IoEyeSharp onClick={()=>navigate("/login/home/profile/pastpost")} className='past-btn'/>
+        <FaRegListAlt onClick={() => navigate("/login/home/profile/pastpost")} className='past-btn' />
         <IoMdAdd onClick={addPost} className='add-postbtn' />
       </div>
     </div>
