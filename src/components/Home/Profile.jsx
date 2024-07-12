@@ -83,12 +83,10 @@ function Profile({ prof, setProf }) {
   const max_length=10;
   const handleChange = (e) => {
     const { value } = e.target;
-    if(value.length<=max_length){
-      setEditProfile(prevState => ({
-        ...prevState,
-        username: value
-      }));
-    }
+    setEditProfile(prevState => ({
+      ...prevState,
+      username: value
+    }));
     // console.log(value);
     // console.log(editProfile);
   };
