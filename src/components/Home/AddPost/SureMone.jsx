@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import image from "../../img/image.png";
 import { useNavigate } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../../../firebase';
 import { Timestamp, collection, doc, setDoc } from 'firebase/firestore';
 import "./SureMono.css";
+import { IoMdArrowRoundBack } from 'react-icons/io';
 
 function SureMono({ disInfo, setDisInfo, myInfo }) {
   const navigate = useNavigate();
@@ -42,30 +42,35 @@ function SureMono({ disInfo, setDisInfo, myInfo }) {
   };
 
   return (
-    <>
+    <div mono-check-background>
       {loading ? (
         <div className='load'>
             <h1>送信中</h1>
             <div className='loader'></div>
         </div>
       ) : (
-        <>
-          <div className='mono-blue'>figare</div>
-          <img src={image} height="50px" className='back-btn' onClick={back} alt="戻る" />
-          <div className='mono-sure'>＜情報を確認してね＞​</div>
-          <div className='con-text'>
-            <div className='kind-check'>種類 : {disInfo.kind}</div>
+        <div className='mono-check'>
+          <div className='mono-blue'>
+            <div className="mono-back" onClick={back} alt="戻る"><IoMdArrowRoundBack className='mono-back-icon'/>戻る</div>
+            <div className='mono-title'>＜入力情報を確認＞</div>
+            <div></div>
+            <div></div>
+          </div>
+
+          <div className='mono-check-main'>
+            <div className='kind-check'>種類 : 　{disInfo.kind}</div>
+            <div className='kind'></div>
             <div className='picture-check'>写真 :</div>
             <div className='preview-check'><img src={disInfo.img ? disInfo.img : {}} height="200px" alt="プレビュー" /></div>
             <div className='text-check'>記述 :</div>
             <div className='context-check'>{disInfo.text}</div>
+            <div className="con-btn-posi">
+              <button onClick={ok} className='con-btn'>投稿</button>
+            </div>
           </div>
-          <div className="con-btn-posi">
-            <button onClick={ok} className='con-btn'>確定する</button>
-          </div>
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 }
 

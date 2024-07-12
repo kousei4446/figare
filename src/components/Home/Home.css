@@ -1,4 +1,9 @@
 @media (max-width: 600px){
+
+    body {
+        background-color: #dfe2eb;
+    }
+
     .Icon {
         border-radius: 50%;
         /* border: 2px solid #333; */
@@ -31,7 +36,7 @@
     }
     
     .main-title {
-        font-size: 2.8vh;
+        font-size: 2vh;
         margin-top: 2vh;
         margin-right: 4vh;
         color: white;
@@ -45,11 +50,10 @@
         justify-content: center;
         align-items: center;
     }
-    
+
     .home-background {
-        background-color: #bababa;
-        padding-top: 10vh;
-        padding-bottom: 40vh;
+        padding-top: 8vh;
+        padding-bottom: 15vh;
     }
     
     .main-postcard {
@@ -98,9 +102,11 @@
     
     .post-username {
         height: 60px;
+        font-size: 2vh;
         display: flex;
         justify-content: left;
         align-items: center;
+        overflow: hidden;
     }
     
     .post-username img {
@@ -131,7 +137,7 @@
         position: absolute;
         top: 1.5vh;
         right: 2vh;
-        font-size: 20px;
+        font-size: 1.5vh;
         border: 1px solid black;
         padding: 3px;
         background-color:rgb(221, 252, 221);
@@ -142,6 +148,11 @@
 }
 
 @media (min-width: 600px){
+
+    body {
+        background-color: #bababa;
+    }
+
     .Icon {
         border-radius: 50%;
         /* border: 2px solid #333; */
@@ -153,7 +164,7 @@
     .search {
         position: relative;
         font-size: 8vh;
-        top: 2vh;
+        top: 1.5vh;
         right: 2vh;
         border-radius: 50%;
         border: 2px solid black;
@@ -190,8 +201,7 @@
     }
 
     .home-background {
-        background-color: #bababa;
-        padding-bottom: 40vh;
+        padding-bottom: 20vh;
     }
     
     .main-postcard {
@@ -240,9 +250,11 @@
     
     .post-username {
         height: 60px;
+        font-size: 6vh;
         display: flex;
         justify-content: left;
         align-items: center;
+        overflow: hidden;
     }
     
     .post-username img {
@@ -271,9 +283,9 @@
     }
     .place {
         position: absolute;
-        top: 1.5vh;
-        right: 2vh;
-        font-size: 20px;
+        top: 5vh;
+        right: 5vh;
+        font-size: 4vh;
         border: 1px solid black;
         padding: 3px;
         background-color:rgb(221, 252, 221);
