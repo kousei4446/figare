@@ -7,6 +7,7 @@ import { Timestamp, collection, doc, getDoc, getDocs, orderBy, query, setDoc, up
 import { db } from '../../firebase';
 import { FaCommentDots } from "react-icons/fa";
 import { FaRegListAlt } from "react-icons/fa";
+import { regions } from '../../RegionData';
 
 const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
   const [posts, setPosts] = useState([]);
@@ -202,6 +203,13 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
     localStorage.setItem("isMyPost", isMyPost);
   };
 
+  const placeChange = (e) => {
+    const { value } = e.target;
+    setMyInfo(prevState => ({
+        ...prevState,
+        place: value
+      }));
+  }
   return (
     <div className="home-container">
       <div className='background'>
@@ -231,7 +239,22 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
               onClick={() => { changeMF(), handleSerch('もの') }}
               className={MF ? 'selected' : 'Select-btn'}
             >もの
-            </button><br />
+            </button><br/><br/>
+            <div>
+              <select
+                name='place'
+                value={myInfo.place}
+                onChange={placeChange}>
+                  <option value="" disabled>選択してください</option>
+                  {regions.map((region, index) => (
+                  <optgroup key={index} label={region.label}>
+                    {region.options.map((option, idx) => (
+                      <option key={idx} value={option}>{option}</option>
+                    ))}
+                  </optgroup>
+                  ))}
+              </select>
+            </div>
           </div>
         </div>
       ) : (
