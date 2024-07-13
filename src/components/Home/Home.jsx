@@ -61,7 +61,6 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         setCnt(newPost.length);
       }
       else {
-        console.log("filter")
         const prefRef = collection(db, "Posts");
         const q = query(prefRef, where("place", "==", myInfo.place)/*orderBy('time','desc')*/);
         const querySnapshot = await getDocs(q);
@@ -93,7 +92,6 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
   useEffect(() => {
     const fetchAllPosts = async () => {
       if (!serch || serch == "all") {
-        console.log('no filter')
         const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
         const querySnapshot = await getDocs(q);
         const postList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -109,7 +107,6 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         setCnt(newPost.length);
       }
       else {
-        console.log("filter")
         const prefRef = collection(db, "Posts");
         const q = query(prefRef, where("place", "==", myInfo.place)/*,orderBy('time','desc')*/);
         const querySnapshot = await getDocs(q);
@@ -149,7 +146,6 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       closeModal();
       setModal(false);
     }
-    console.log(modal);
   }
   const closeModal = () => {
     document.getElementById('search').style.display = 'none';
@@ -162,7 +158,6 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
 
   const handleSerch = (type) => {
     setSerch(type === serch ? 'all' : type);
-    console.log(serch)
   };
 
   const changeHF = () => {
@@ -209,13 +204,14 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
 
   return (
     <div className="home-container">
-
       <div className='background'>
         <img src={myInfo.photoURL || image} className='Icon' onClick={profilepage} alt='Profile' />
         <h3 className='main-title'>{myInfo.place && `${myInfo.place}の検索一覧`}</h3>
         <IoMdSearch onClick={serchpage} className='search' />
+      </div><br/>
+      <div className='backsr'>
+        <div className='serchresult'>検索結果：{cnt}件</div>
       </div>
-      <a className='serchresult'>検索結果：{cnt}件</a>
       {modal ? (
         <div>
           <div id="overlay" className='overlay'></div>
