@@ -225,7 +225,7 @@
     }
 
     .main-title {
-        font-size: 5vh;
+        font-size: 6.5vh;
         margin-top: 2vh;
         margin-right: 8vh;
         color: white;
@@ -275,7 +275,7 @@
     
     .add-postbtn {
         margin-right: 8vh;
-        width: 3.5vw;
+        width: 3.9vw;
         height: auto;
         color: rgb(88, 151, 234);
         border-radius: 50%;
