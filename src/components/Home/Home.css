@@ -345,7 +345,7 @@
     max-width: 200px;
     max-height: 150px;
     pointer-events: auto;
-    z-index: 11;
+    z-index: 20;
 }
 .overlay{
     display: none;
