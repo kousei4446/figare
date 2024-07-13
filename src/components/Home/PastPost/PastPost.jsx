@@ -74,10 +74,11 @@ function PastPost() {
                 <div className='past-post-container'>
                     {confirm && <DeleteModal setConfirm={setConfirm} deleteBtn={deleteBtn} id={id} storagePath={storagePath} />}
                     <div className='background' style={{ justifyContent: "space-between" }}>
-                        <p onClick={() => navigate("/login/home")} style={{ display: "flex", alignItems: "center", color: "white" }}>
-                            <IoMdArrowRoundBack size="20px" />戻る
+                        <p onClick={() => navigate("/login/home")} className='pastpost-back'>
+                            <IoMdArrowRoundBack className='pastpost-back-icon' />戻る
                         </p>
-                        <h3 style={{ color: "white" }}>過去の投稿一覧</h3>
+                        <h3 className='pastpost-title'>過去の投稿一覧</h3>
+                        <div></div>
                         <div></div>
                     </div>
                     <div>
