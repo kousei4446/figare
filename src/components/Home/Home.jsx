@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
-import image from "../img/profile-img.png";
+import image from "../img/profile.jpeg";
 import { IoMdSearch, IoMdAdd } from 'react-icons/io';
 import { Timestamp, collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc, where } from 'firebase/firestore';
 import { db } from '../../firebase';
