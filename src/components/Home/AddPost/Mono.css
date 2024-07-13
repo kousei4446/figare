@@ -77,15 +77,17 @@
     }
     
     textarea {
-        width: 90%;
-        height: 30vh;
+        width: 88.5%;
+        height: 28.5vh;
         border-radius: 3%;
+        font-size: 2vh;
+        padding-top: 1.5vh;
+        padding-left: 1.5vh;
     }
     
     textarea::placeholder {
-        padding-top: 0.5vh;
-        padding-left: 0.5vh;
-        color: #bababa;
+        font-size: 2vh;
+        color: #969696;
         text-align: left;
     }  
     
@@ -269,12 +271,14 @@
         width: 85%;
         height: 30vh;
         border-radius: 3%;
+        font-size: 6vh;
+        padding-left: 3vh;
+        padding-top: 3vh;
     }
     
     textarea::placeholder {
-        padding-top: 1vh;
-        padding-left: 1vh;
-        color: #bababa;
+        font-size: 6vh;
+        color: #969696;
         text-align: left;
     }  
     
