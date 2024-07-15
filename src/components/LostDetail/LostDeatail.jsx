@@ -74,22 +74,27 @@ function App() {
         return (
             <div className="lostdetail-image-container">
                 <div className="lostdetail-title-text">{displayText}</div>
-                {/* <br /> */}
-                <button onClick={openbtn} className='lostdetail-logo-btn'>
-                    <img className='lostdetail-logo-image' src={activePost.file} alt="Logo" />
-                </button>
+                <div>
+                    <button onClick={openbtn} className='lostdetail-logo-btn'>
+                        <img className='lostdetail-logo-image' src={activePost.file} alt="Logo" />
+                    </button>
 
-                <dialog id="picture" className="lostdetail-picture">
-                    <div id="dialogcls">
-                        <h2></h2>
-                        <div className="diabtn">
-                            <img className='lostdetail-logo-epict' src={activePost.file} alt="Logo" />
-                            {/* <button onClick={closebtn} className='lostdetail-logo-expand'>
+                    <dialog id="picture" className="lostdetail-picture">
+                        <div id="dialogcls">
+                            <div className="diabtn">
+                                <img className='lostdetail-logo-epict' src={activePost.file} alt="Logo" />
+                                {/* <button onClick={closebtn} className='lostdetail-logo-expand'>
                                 
                             </button> */}
+                            </div>
                         </div>
-                    </div>
-                </dialog>
+                    </dialog>
+                </div>
+                <div className='lostdetail-modalexp'>
+                    <button onClick={openbtn} className='lostdetail-modalexpbtn'>
+                        画像をタップして拡大
+                    </button>
+                </div>
             </div>
         );
     };
@@ -136,9 +141,9 @@ function App() {
                 <div className='lostdetail-font'>
                     詳細
                 </div>
-                <button className='lostdetail-detail-button' onClick={detail}>
+                {/* <button className='lostdetail-detail-button' onClick={detail}>
                     {open ? <GoChevronUp /> : <GoChevronDown />}
-                </button>
+                </button> */}
 
                 <div className={`lostdetail-collapse ${open ? 'lostdetail-visible' : 'lostdetail-hidden'}`}>
                     <div className='lostdetail-section'>
