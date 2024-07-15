@@ -231,18 +231,19 @@
 
 /* 詳細のタイトルスタイル */
 .lostdetail-title {
-    padding: 5px;
+    padding: 3px;
     display: inline-block;
 }
 
 /* 詳細のスタイル2 */
 .lostdetail-content {
-    margin-top: 5px;
+    margin-top: 2px;
     padding: 10px;
     text-align: center;
     font-size: 14px;
     color: var(--color-dark-gray);
     background-color: #00000011;
+    border-radius: 6px;
 }
 
 .lostdetail-timestamp {
