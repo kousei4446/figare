@@ -60,7 +60,18 @@
 
 .pro_input {
     margin-left: 25%;
-    font-size: 15px;
+    font-size: 20px;
+}
+
+
+.New_username{
+    height: 25px;
+    font-size: 20px;
+}
+
+.New_place{
+    height: 25px;
+    font-size: 20px;
 }
 
 .line {
