@@ -45,6 +45,16 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
   }, [setMyInfo]);
 
   useEffect(() => {
+    const fetchGoogleUserData = async () => {
+      const Uid = localStorage.getItem('uid');
+      const userDocRef = doc(db, "googleusers", Uid)
+      await updateDoc(userDocRef, {
+        place: myInfo.place,
+      });
+    };
+    fetchGoogleUserData();
+  }, [myInfo])
+  useEffect(() => {
     const fetchAllPosts = async () => {
       if (!serch || serch == "all") {
         const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
@@ -88,7 +98,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       }
     };
     fetchAllPosts();
-  }, [myInfo.place], [serch]);
+  }, [myInfo.place], [serch],[]);
 
   useEffect(() => {
     const fetchAllPosts = async () => {
@@ -134,7 +144,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       }
     };
     fetchAllPosts();
-  }, [serch]);
+  }, [serch],[myInfo.place]);
 
   const serchpage = () => {
     if (modal === false) {
@@ -218,7 +228,19 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         <IoMdSearch onClick={serchpage} className='search' />
       </div><br/>
       <div className='backsr'>
-        <div className='serchresult'>検索結果：{cnt}件</div>
+        <div className='serchresult'>
+          {!serch || serch == "all" ?  
+            <div>
+              検索結果：{cnt}件
+            </div>
+          : 
+            <div>
+              {serch}の検索結果：{cnt}件
+            </div>
+          }
+          {/* 検索結果：{cnt}件 */}
+        </div>
+
       </div>
       {modal ? (
         <div>

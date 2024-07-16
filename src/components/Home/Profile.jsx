@@ -174,6 +174,7 @@ function Profile({ prof, setProf }) {
             <input
               type='text'
               name='username'
+              class='New_username'
               value={editProfile.username}
               onChange={handleChange}
             />
@@ -189,6 +190,7 @@ function Profile({ prof, setProf }) {
           {isEditing ? (
             <select
               name='place'
+              class='New_place'
               value={editProfile.place}
               onChange={PhandleChange}>
               <option value="" disabled>選択してください</option>

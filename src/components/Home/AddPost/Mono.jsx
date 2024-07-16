@@ -110,7 +110,7 @@ function Mono({ disInfo, setDisInfo }) {
             name="text"
             value={disInfo.text}
             onChange={handleInputChange}
-            placeholder="※特徴や情報などご記載ください。(任意)"
+            placeholder="※名称、見つけた場所などをご記載ください。(例：1105教室で筆箱を見つけました)"
           />
         </div>
         <div className='okbtn-posi'>
