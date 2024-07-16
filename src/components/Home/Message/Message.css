@@ -1,4 +1,4 @@
-.msg-person{
+.msg-person {
     border: 0.5px solid rgb(175, 175, 175);
     background-color: rgb(246, 246, 246);
     display: flex;
@@ -6,14 +6,17 @@
     align-items: center;
     height: 80px;
 }
-.msg-content{
+
+.msg-content {
     margin-left: 10px;
 }
-.msg-content strong{
+
+.msg-content strong {
     margin-bottom: 0px;
     font-size: 20px;
 }
-.msg-content p{
+
+.msg-content p {
     margin-top: 0px;
 }
 .msg-num{
@@ -29,4 +32,9 @@
     background-color: rgb(255, 109, 109);
     width: 40px;
     height: 40px;
+}
+
+.back-btn svg {
+    width: 30px;
+    height: 30px;
 }

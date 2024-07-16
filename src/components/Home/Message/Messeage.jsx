@@ -5,6 +5,7 @@ import { db } from '../../../firebase';
 import image from "../../img/image.png";
 import "./Message.css";
 import { v4 as uuidv4 } from 'uuid';
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 function Message() {
   const [documentIdList, setDocumentIdList] = useState([]);
@@ -152,7 +153,9 @@ function Message() {
       ) : (
         <>
           <div className='msg-head'>
-            <img src={image} height="40px" className='back-btn' onClick={back} alt="Back" />
+            <botton className='back-btn' onClick={back} alt="Back">
+              <IoMdArrowRoundBack />
+            </botton>
             <h3>メッセージ一覧</h3>
           </div>
           <div className='messages'>

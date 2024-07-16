@@ -5,12 +5,13 @@ import image1 from "./../img/image.png";
 import image from "../img/profile-img.png";
 // import image2 from "./../img/profile-img.png";
 import { collection, doc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
-import {getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import { db } from '../../firebase';
 import { regions } from '../../RegionData';
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 function Profile({ prof, setProf }) {
-  
+
   // console.log(prof);
   const navigate = useNavigate();
 
@@ -24,10 +25,10 @@ function Profile({ prof, setProf }) {
   const PhandleChange = (e) => {
     const { value } = e.target;
     setEditProfile(prevState => ({
-        ...prevState,
-        place: value
-      }));
-      
+      ...prevState,
+      place: value
+    }));
+
     // console.log(value);
     // console.log(editProfile);
   };
@@ -43,12 +44,12 @@ function Profile({ prof, setProf }) {
   const closebtn = () => {
     dialog.close();
   }
-   const dialog = document.getElementById("dialog");
+  const dialog = document.getElementById("dialog");
 
-  function SignOutButton(){
+  function SignOutButton() {
     const auth = getAuth();
     signOut(auth).then(() => {
-      localStorage.setItem("uid","")
+      localStorage.setItem("uid", "")
       navigate("/");
       console.log('signout');
     }).catch((error) => {
@@ -58,19 +59,20 @@ function Profile({ prof, setProf }) {
 
   useEffect(() => {
     const fetchAllUserData = async () => {
-      
+
       const querySnapshot = await getDocs(collection(db, "googleusers"));
       const userList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       const savedUid = localStorage.getItem('uid');
       if (savedUid) {
         const foundUser = userList.find((user) => user.uid === savedUid);
-        setProf({ 
-          place: foundUser.place, 
-          photoURL: foundUser.photoURL, 
+        setProf({
+          place: foundUser.place,
+          photoURL: foundUser.photoURL,
           displayname: foundUser.displayName,
           email: foundUser.email,
           username: foundUser.username,
-          uid: foundUser.uid });
+          uid: foundUser.uid
+        });
       }
     };
     fetchAllUserData();
@@ -80,10 +82,10 @@ function Profile({ prof, setProf }) {
     setEditProfile(prof);
   }, [prof]);
 
-  const max_length=10;
+  const max_length = 10;
   const handleChange = (e) => {
     const { value } = e.target;
-    if(value.length <= max_length){
+    if (value.length <= max_length) {
       setEditProfile(prevState => ({
         ...prevState,
         username: value
@@ -100,7 +102,7 @@ function Profile({ prof, setProf }) {
   const handleSave = async () => {
     // console.log(editProfile);
     const Uid = localStorage.getItem('uid');
-    const userDocRef = doc(db,"googleusers", Uid )
+    const userDocRef = doc(db, "googleusers", Uid)
     // console.log(editProfile);
     // const userDocRef = doc(db, "googleusers", prof.id);
 
@@ -113,11 +115,11 @@ function Profile({ prof, setProf }) {
     //   setProf(prev => ({ ...prev, id: newInfo, place: newInfo }));
     //   localStorage.setItem("情報更新", JSON.stringify(newInfo));
     // } else {
-      await updateDoc(userDocRef,{
-        username: editProfile.username,
-        place: editProfile.place,
-      });
-      setProf(editProfile);
+    await updateDoc(userDocRef, {
+      username: editProfile.username,
+      place: editProfile.place,
+    });
+    setProf(editProfile);
     // }
 
     setIsEditing(false);
@@ -126,21 +128,24 @@ function Profile({ prof, setProf }) {
   const handleEditToggle = () => {
     setIsEditing(prev => !prev);
   };
-  useEffect(()=>{
-    if (!localStorage.getItem("uid")){
+  useEffect(() => {
+    if (!localStorage.getItem("uid")) {
       navigate("/")
     }
-  },[])
+  }, [])
   return (
     <div className='Background-Color'>
-      <img src={image1} className='back_btn' onClick={back} />
+      <button className='back_btn' onClick={back}>
+        <IoMdArrowRoundBack />
+      </button>
+
       <h2 className='pro_title'>プロフィール</h2>
       <div className='profile_checker'>
-      <div className='edit_save_btn'>
-        {isEditing ? '' : (
-          <button className='pro_editbtn' onClick={handleEditToggle}>編集</button>
-        )}
-      </div>
+        <div className='edit_save_btn'>
+          {isEditing ? '' : (
+            <button className='pro_editbtn' onClick={handleEditToggle}>編集</button>
+          )}
+        </div>
         <label className='pro_item'>プロフィール画</label>
         <br />
         <div className='pro_content'>
@@ -151,7 +156,7 @@ function Profile({ prof, setProf }) {
         <label className='pro_item'>名前</label>
         <br />
         <div className='pro_content'>
-            <div className='pro_input'>{prof.displayname}</div>
+          <div className='pro_input'>{prof.displayname}</div>
         </div>
         <div className='line'></div>
 
@@ -171,7 +176,7 @@ function Profile({ prof, setProf }) {
               name='username'
               value={editProfile.username}
               onChange={handleChange}
-             />
+            />
           ) : (
             <div className='pro_input'>{prof.username}</div>
           )}
@@ -186,14 +191,14 @@ function Profile({ prof, setProf }) {
               name='place'
               value={editProfile.place}
               onChange={PhandleChange}>
-                <option value="" disabled>選択してください</option>
-                {regions.map((region, index) => (
+              <option value="" disabled>選択してください</option>
+              {regions.map((region, index) => (
                 <optgroup key={index} label={region.label}>
                   {region.options.map((option, idx) => (
                     <option key={idx} value={option}>{option}</option>
                   ))}
                 </optgroup>
-                ))}
+              ))}
             </select>
           ) : (
             <div className='pro_input'>{prof.place}</div>
@@ -201,13 +206,13 @@ function Profile({ prof, setProf }) {
         </div>
         <div className='line'></div>
       </div>
-    
-      <dialog id = "dialog" className="dialog">
+
+      <dialog id="dialog" className="dialog">
         <h2 className='Diatext'>このアカウントからサインアウトしますか？</h2>
-        <div className = "diabtn">
+        <div className="diabtn">
           <button onClick={SignOutButton} className='logout_btn'>はい</button>
           <button onClick={closebtn} className='logout_btn'>いいえ</button>
-        </div>  
+        </div>
       </dialog>
       <div className='save_cancel_btn'>
         {isEditing ? (
