@@ -82,10 +82,8 @@ function App() {
                     <dialog id="picture" className="lostdetail-picture">
                         <div id="dialogcls">
                             <div className="diabtn">
+                                {/* <a onClick={closebtn} className='lostdetail-logo-expand'>x</a> */}
                                 <img className='lostdetail-logo-epict' src={activePost.file} alt="Logo" />
-                                {/* <button onClick={closebtn} className='lostdetail-logo-expand'>
-                                
-                            </button> */}
                             </div>
                         </div>
                     </dialog>
