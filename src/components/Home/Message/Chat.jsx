@@ -4,6 +4,7 @@ import { doc, updateDoc, arrayUnion, onSnapshot, Timestamp } from 'firebase/fire
 import { db } from '../../../firebase'; // Firestoreインスタンスのインポート
 import image from "../../img/image.png";
 import "./Chat.css";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 function Chat() {
   const [msg, setMsg] = useState([]);
@@ -62,7 +63,9 @@ function Chat() {
 
   return (
     <div>
-      <img src={image} height="40px" className="back-btn" onClick={back} alt="戻る" />
+      <button className="back-btn" onClick={back} alt="戻る" >
+        <IoMdArrowRoundBack />
+      </button>
       <div className='chat-container' ref={chatContainerRef}>
         {msg.map((ms, index) => (
           <div className={`chat-${ms.sender === localStorage.getItem("uid") ? 'false' : 'true'}`} key={index}>
