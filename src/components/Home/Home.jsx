@@ -216,9 +216,22 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         <img src={myInfo.photoURL || image} className='Icon' onClick={profilepage} alt='Profile' />
         <h3 className='main-title'>{myInfo.place && `${myInfo.place}の検索一覧`}</h3>
         <IoMdSearch onClick={serchpage} className='search' />
-      </div><br/>
+      </div>
+      <div className='Headpad'></div>
       <div className='backsr'>
-        <div className='serchresult'>検索結果：{cnt}件</div>
+        <div className='serchresult'>
+          {!serch || serch == "all" ?  
+            <div>
+              検索結果：{cnt}件
+            </div>
+          : 
+            <div>
+              {serch}の検索結果：{cnt}件
+            </div>
+          }
+          {/* 検索結果：{cnt}件 */}
+        </div>
+
       </div>
       {modal ? (
         <div>
