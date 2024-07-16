@@ -170,6 +170,11 @@ function Message() {
                     <p>{user.text}</p>}
                   {/* <p>{user.time.toDate().toLocaleString()}</p> */}
                 </div>
+                {user.count > 0 && (
+                  <div className='msg-num'>
+                    <p>{user.count}</p>
+                  </div>
+                )}
               </div>
             ))}
           </div>
