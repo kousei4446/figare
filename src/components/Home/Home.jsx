@@ -45,16 +45,6 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
   }, [setMyInfo]);
 
   useEffect(() => {
-    const fetchGoogleUserData = async () => {
-      const Uid = localStorage.getItem('uid');
-      const userDocRef = doc(db, "googleusers", Uid)
-      await updateDoc(userDocRef, {
-        place: myInfo.place,
-      });
-    };
-    fetchGoogleUserData();
-  }, [myInfo])
-  useEffect(() => {
     const fetchAllPosts = async () => {
       if (!serch || serch == "all") {
         const q = query(collection(db, 'Posts'), orderBy('time', 'desc'));
@@ -98,7 +88,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       }
     };
     fetchAllPosts();
-  }, [myInfo.place], [serch],[]);
+  }, [myInfo.place], [serch]);
 
   useEffect(() => {
     const fetchAllPosts = async () => {
@@ -219,6 +209,16 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         ...prevState,
         place: value
       }));
+    const placeset = async () => {
+      const Uid = localStorage.getItem('uid');
+      const userDocRef = doc(db, "googleusers", Uid)
+      await updateDoc(userDocRef, {
+        place: value
+      });
+      console.log(myInfo);
+    }
+    placeset();
+    
   }
   return (
     <div className="home-container">
