@@ -1,10 +1,13 @@
 .chat-container {
-    height: calc(100vh - 90px); /* フッターの高さを引いたチャット領域の高さ */
-    overflow-y: auto; /* 縦スクロールを有効にする */
-    margin: 5%; 
+    height: calc(100vh - 90px);
+    /* フッターの高さを引いたチャット領域の高さ */
+    overflow-y: auto;
+    /* 縦スクロールを有効にする */
+    margin: 5%;
     /* 内側の余白 */
     margin-bottom: 72px;
-    box-sizing: border-box; /* パディングを含めて幅を計算 */
+    box-sizing: border-box;
+    /* パディングを含めて幅を計算 */
 }
 
 .chat-true {
@@ -21,7 +24,8 @@
     border-radius: 5px;
     max-width: 70%;
     color: white;
-    font-size: 16px; /* フォントサイズを調整 */
+    font-size: 16px;
+    /* フォントサイズを調整 */
     padding: 10px;
     word-wrap: break-word;
 }
@@ -40,7 +44,8 @@
     border-radius: 5px;
     max-width: 70%;
     color: black;
-    font-size: 16px; /* フォントサイズを調整 */
+    font-size: 16px;
+    /* フォントサイズを調整 */
     padding: 10px;
     word-wrap: break-word;
 }
@@ -78,4 +83,14 @@
 
 .NyuuryokuRan button:hover {
     background-color: #0056b3;
+}
+
+.back-btn {
+    width: 35px;
+    height: 35px;
+}
+
+.back-btn svg {
+    width: 28px;
+    height: 28px;
 }
