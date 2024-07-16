@@ -141,7 +141,7 @@
     margin: 0;
     position: relative;
     display: inline-block;
-    margin: 0.3em 0.4em 0.3em;
+    margin: 0.3em 0.4em 0.2em;
     padding: 0.4em 0.6em 0.4em 0.7em;
     line-height: 1;
     color: #000;
@@ -294,8 +294,8 @@
 }
 
 .lostdetail-separator {
-    width: 10%;
-    height: 2px;
+    width: 15%;
+    height: 1px;
     background-color: #000;
     margin-left: 10%;
     margin: 5px 0;
@@ -322,10 +322,11 @@
 .lostdetail-detail-display::before {
     content: "";
     position: absolute;
-    top: -40px;
+    top: -44px;
     left: 10%;
     border: 20px solid transparent;
-    border-bottom: 20px solid var(--color-background);
+    border-bottom: 40px solid var(--color-background);
+    transform: rotate(30deg);
 }
 
 .lostdetail-detail-display p {

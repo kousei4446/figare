@@ -63,10 +63,10 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       }
       else {
         const prefRef = collection(db, "Posts");
-        const q = query(prefRef, where("place", "==", myInfo.place)/*orderBy('time','desc')*/);
+        const q = query(prefRef,orderBy('time','desc'));
         const querySnapshot = await getDocs(q);
         const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        const filterResult = filteredPosts.filter((item) => item.kind === serch);
+        const filterResult = filteredPosts.filter((item) => item.kind === serch && item.place === myInfo.place);
 
         const updatedPosts = await Promise.all(filterResult.map(async post => {
           const userDocRef = doc(db, "googleusers", post.poster);
@@ -109,10 +109,10 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       }
       else {
         const prefRef = collection(db, "Posts");
-        const q = query(prefRef, where("place", "==", myInfo.place)/*,orderBy('time','desc')*/);
+        const q = query(prefRef,orderBy('time','desc'));
         const querySnapshot = await getDocs(q);
         const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        const filterResult = filteredPosts.filter((item) => item.kind === serch);
+        const filterResult = filteredPosts.filter((item) => item.kind === serch && item.place === myInfo.place);
 
         const updatedPosts = await Promise.all(filterResult.map(async post => {
           const userDocRef = doc(db, "googleusers", post.poster);
@@ -218,7 +218,19 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         <IoMdSearch onClick={serchpage} className='search' />
       </div><br/>
       <div className='backsr'>
-        <div className='serchresult'>検索結果：{cnt}件</div>
+        <div className='serchresult'>
+          {!serch || serch == "all" ?  
+            <div>
+              検索結果：{cnt}件
+            </div>
+          : 
+            <div>
+              {serch}の検索結果：{cnt}件
+            </div>
+          }
+          {/* 検索結果：{cnt}件 */}
+        </div>
+
       </div>
       {modal ? (
         <div>
