@@ -112,7 +112,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         const q = query(prefRef,orderBy('time','desc'));
         const querySnapshot = await getDocs(q);
         const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        const filterResult = filteredPosts.filter((item) => item.kind === serch);
+        const filterResult = filteredPosts.filter((item) => item.kind === serch && item.place === myInfo.place);
 
         const updatedPosts = await Promise.all(filterResult.map(async post => {
           const userDocRef = doc(db, "googleusers", post.poster);
