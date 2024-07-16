@@ -31,8 +31,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
-    /* min-height: 100vh; */
 }
 
 /* コンテナのスタイル */
@@ -42,7 +40,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 600px;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -54,16 +52,19 @@
     background-color: white;
     color: #000;
     border: none;
-    /* padding: 5px 5px; */
     border-radius: 50%;
     cursor: pointer;
     margin-bottom: 5px;
-    /* display: flex; */
-    /* align-items: center; */
     gap: 5px;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
 }
+
+.lostdetail-backbtn svg {
+    width: 24px;
+    height: 24px;
+}
+
 
 /* 基本的なスタイル */
 .lostdetail-box {
@@ -72,20 +73,16 @@
     font-weight: bold;
     color: var(--color-dark-gray);
     background: var(--color-background);
-    /* border-radius: 10px; */
-    /* box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); */
     border-color: var(--color-primary);
     width: 100%;
     max-width: 450px;
     margin-left: auto;
     margin-right: auto;
-    /* padding: auto; */
 }
 
 
 .lostdetail-ctp {
     display: flex;
-    /* justify-content: space-between; */
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -96,24 +93,6 @@
     position: relative;
     padding-bottom: 10px;
 }
-
-/* overflow: visible; */
-/* position: relative; */
-
-
-/* display: flex;
-
-margin-bottom: 20px;
-width: 100%;
-box-sizing: border-box;
-height: 350px;
-overflow: visible;
-position: relative;
-border-radius: 10px;
-font-size: 16px;
-align-items: center; */
-
-
 
 
 /* inbtnのためのスタイル */
@@ -130,69 +109,92 @@ align-items: center; */
     margin-right: auto;
 }
 
-/* 写真タイトル */
-.lostdetail-image-container {
-    /* position: relative; */
-    text-align: center;
-    color: rgb(0, 0, 0);
+.lostdetail-image-container,
+.lostdetail-tag-container {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* align-items: center; */
-    /* justify-content: center; */
+    align-items: center;
 }
 
-.lostdeital-image-container,
+/* タグのスタイル */
+
 .lostdetail-tag-container {
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    align-items: center;
     margin-bottom: 0;
 }
 
-.lostdeital-image-container>div,
-.lostdetail-tag-container>div {
-    width: 100%;
+/* タグをリスト形式に表示 */
+.lostdetail-tag-list {
+    align-self: center;
+    padding-left: 0;
+    list-style-type: none;
+    margin: 0;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5em;
+}
+
+.lostdetail-tag-list li {
+    margin: 0;
+    position: relative;
+    display: inline-block;
+    margin: 0.3em 0.4em 0.3em;
+    padding: 0.4em 0.6em 0.4em 0.7em;
+    line-height: 1;
+    color: #000;
+    text-decoration: none;
+    background-color: var(--color-tagmark);
+    border-radius: 50px;
+    border: 2px solid #000;
+    font-size: 0.9em;
+}
+
+
+
+.lostdetail-modalexp {
+    font-size: 12px;
+    color: #00000070;
+    align-self: center;
+    text-align: center;
+    width: 100%;
+}
+
+.lostdetail-modalexpbtn {
+    background-color: transparent;
+    border-color: transparent;
+    color: #00000049;
+    cursor: pointer;
+}
+
+.lostdetail-modalexpbtn:hover {
+    color: #0c6dff;
 }
 
 .lostdetail-title-text {
-    /* position: relative;
-    top: 5px;
-    left: 50%;
-    transform: translateX(-50%); */
     display: inline-block;
     text-align: left;
-    width: 100%;
     padding: 1% 7px;
-    border-radius: 4px;
     font-size: 1.2em;
     font-weight: bold;
-    border-bottom: none;
     margin-bottom: 3px;
+    position: relative;
+    padding-bottom: 2px;
     align-self: flex-start;
+    margin-bottom: 7px;
 }
 
-/* position: relative;
-    top: -65px;
-    left: 50%;
-    transform: translateX(-50%); */
-/* background-color: rgba(0, 0, 0, 0.5); */
-/* width: 120%;
-    padding: 2px 5px;
-    font-weight: bold;
-    color: black;
-    border-bottom: 4px solid #000;
-    border-radius: 4px;
-
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-} */
+.lostdetail-title-text::after {
+    content: '';
+    position: absolute;
+    left: 7px;
+    bottom: 0;
+    width: calc(100% - 14px);
+    height: 3px;
+    background-color: currentColor;
+}
 
 /* 詳細情報の枠組み */
 .lostdetail-collapse {
@@ -201,7 +203,6 @@ align-items: center; */
     overflow: hidden;
     color: rgb(35, 35, 35);
     background-color: white;
-    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 400px;
@@ -223,7 +224,6 @@ align-items: center; */
 /* 詳細のスタイル */
 .lostdetail-section {
     margin-bottom: 10px;
-    /* border: 1px solid #c9c9c9; */
     border-radius: 10px;
     background-color: white;
     padding: 0;
@@ -231,25 +231,19 @@ align-items: center; */
 
 /* 詳細のタイトルスタイル */
 .lostdetail-title {
-    /* background-color: #00000007; */
-    padding: 5px;
+    padding: 3px;
     display: inline-block;
-    /* border-bottom: 1px solid var(--color-detailborder); */
-    /* font-weight: bold; */
-    /* border-top-left-radius: 5px;
-    border-top-right-radius: 5px; */
-    /* text-align: center; */
-
 }
 
 /* 詳細のスタイル2 */
 .lostdetail-content {
-    margin-top: 5px;
+    margin-top: 2px;
     padding: 10px;
     text-align: center;
     font-size: 14px;
     color: var(--color-dark-gray);
     background-color: #00000011;
+    border-radius: 6px;
 }
 
 .lostdetail-timestamp {
@@ -266,6 +260,7 @@ align-items: center; */
     background: none;
     border: none;
     align-items: center;
+    cursor: pointer;
 }
 
 
@@ -295,71 +290,16 @@ align-items: center; */
     max-height: 200px;
     height: auto;
     border-radius: 8px;
-    /* margin-right: 10px; */
     object-fit: contain;
 }
 
 .lostdetail-separator {
-    /* position: absolute; */
-    /* left: 50%;
-    transform: translateX(-50%); */
     width: 10%;
     height: 2px;
     background-color: #000;
     margin-left: 10%;
     margin: 5px 0;
     align-self: center;
-    /* margin-left: 5px;
-    margin-top: 60px; */
-}
-
-
-/* タグのスタイル */
-.lostdetail-tag-container {
-    /* border: 1px solid var(--color-border); */
-    /* border-radius: 20px; */
-    /* padding: 5px; */
-    background-color: var(--color-light-gray);
-    /* flex: 1; */
-    /* margin-left: 25px; */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    /* justify-content: center; */
-    /* max-width: 50%; */
-}
-
-/* タグをリスト形式に表示 */
-.lostdetail-tag-list {
-    align-self: center;
-    padding-left: 0;
-    list-style-type: none;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5em;
-    /* list-style-type: disc;
-    padding-left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center; */
-}
-
-.lostdetail-tag-list li {
-    margin: 0;
-    position: relative;
-    display: inline-block;
-    margin: 0.3em 0.4em 0.3em;
-    padding: 0.4em 0.6em 0.4em 0.7em;
-    line-height: 1;
-    color: #000;
-    text-decoration: none;
-    background-color: var(--color-tagmark);
-    border-radius: 50px;
-    border: 2px solid #000;
-    font-size: 0.9em;
 }
 
 
@@ -368,14 +308,12 @@ align-items: center; */
 .lostdetail-detail-display {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     margin-bottom: 20px;
     width: 100%;
     box-sizing: border-box;
     height: 350px;
     overflow: visible;
     position: relative;
-    /* border: 3px outset var(--color-detailborder); */
     border-radius: 10px;
     font-size: 16px;
     align-items: center;
@@ -388,7 +326,6 @@ align-items: center; */
     left: 10%;
     border: 20px solid transparent;
     border-bottom: 20px solid var(--color-background);
-    /* var(--color-light-gray) */
 }
 
 .lostdetail-detail-display p {
