@@ -82,7 +82,7 @@ function Profile({ prof, setProf }) {
     setEditProfile(prof);
   }, [prof]);
 
-  const max_length = 10;
+  const max_length = 8;
   const handleChange = (e) => {
     const { value } = e.target;
     if (value.length <= max_length) {
