@@ -8,6 +8,7 @@ import { db } from '../../firebase';
 import { FaCommentDots } from "react-icons/fa";
 import { FaRegListAlt } from "react-icons/fa";
 import { regions } from '../../RegionData';
+import { FcCustomerSupport } from "react-icons/fc";
 
 const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
   const [posts, setPosts] = useState([]);
@@ -302,6 +303,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         <FaCommentDots onClick={msgpage} className='main-msg-btn' />
         <FaRegListAlt onClick={() => navigate("/login/home/profile/pastpost")} className='past-btn' />
         <IoMdAdd onClick={addPost} className='add-postbtn' />
+        <a href='https://forms.gle/GnaeiD8MVhGDeCxi9'  target="_blank" rel="noopener noreferrer"><FcCustomerSupport className='add-postbtn'/></a>
       </div>
     </div>
   );
