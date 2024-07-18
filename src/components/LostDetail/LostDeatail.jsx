@@ -157,10 +157,10 @@ function App() {
                         </div>
                     </div>
                     <div className='lostdetail-section'>
-                        <div className='lostdetail-title'>その他</div>
-                        <div className='lostdetail-content'>
-                            {/* その他の内容があればここに追加 */}
-                        </div>
+                        {/* <div className='lostdetail-title'>その他</div>
+                        <div className='lostdetail-content'> */}
+                        {/* その他の内容があればここに追加 */}
+                        {/* </div> */}
                     </div>
                 </div>
             </>
