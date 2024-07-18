@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaRegPaperPlane } from "react-icons/fa";
 import { FaTag } from "react-icons/fa";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { MdOutlineCancel } from "react-icons/md";
 
 
 function App() {
@@ -84,6 +85,9 @@ function App() {
                             <div className="diabtn">
                                 {/* <a onClick={closebtn} className='lostdetail-logo-expand'>x</a> */}
                                 <img className='lostdetail-logo-epict' src={activePost.file} alt="Logo" />
+                                <button className='clsbtn' onClick={closebtn}>
+                                    <MdOutlineCancel />
+                                </button>
                             </div>
                         </div>
                     </dialog>
