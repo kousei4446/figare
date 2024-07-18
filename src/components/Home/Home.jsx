@@ -245,7 +245,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       </div>
       {modal ? (
         <div>
-          <div id="overlay" className='overlay'></div>
+          <div id="overlay" className='overlays'></div>
           <div id="search" className='diasearch'>
             <h3 className='diatext'>絞り込み検索</h3>
             <button
@@ -323,7 +323,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         <FaCommentDots onClick={msgpage} className='main-msg-btn' />
         <FaRegListAlt onClick={() => navigate("/login/home/profile/pastpost")} className='past-btn' />
         <IoMdAdd onClick={addPost} className='add-postbtn' />
-        <a href='https://forms.gle/GnaeiD8MVhGDeCxi9'  target="_blank" rel="noopener noreferrer"><FcCustomerSupport className='add-postbtn'/></a>
+        <a href='https://forms.gle/GnaeiD8MVhGDeCxi9'  target="_blank" rel="noopener noreferrer"><FcCustomerSupport className='add-formbtn'/></a>
       </div>
     </div>
   );

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./Profile.css";
-import image1 from "./../img/image.png";
-import image from "../img/profile-img.png";
+import image from "../img/profile.jpeg";
 // import image2 from "./../img/profile-img.png";
 import { collection, doc, getDocs, updateDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { getAuth, signOut } from "firebase/auth";
