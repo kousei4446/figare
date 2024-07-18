@@ -2,21 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase';
-import image from "../../img/image.png";
-import "./Message.css";
 import { v4 as uuidv4 } from 'uuid';
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundBack } from 'react-icons/io';
+import './Message.css';
 
 function Message() {
   const [documentIdList, setDocumentIdList] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  let senderId = ""
-  let time = ""
+  const [uid, setUid] = useState('');
+
   useEffect(() => {
-    const uid = localStorage.getItem("uid");
+    const uid = localStorage.getItem('uid');
     if (!uid) {
-      navigate("/");
+      navigate('/');
+    } else {
+      setUid(uid);
     }
   }, [navigate]);
 
@@ -24,10 +25,9 @@ function Message() {
     const fetchDocumentIdAndUsername = async () => {
       setLoading(true);
       try {
-        const UID = localStorage.getItem("uid");
-        if (!UID) return;
+        if (!uid) return;
 
-        const userChatDocRef = doc(db, 'userChats', UID);
+        const userChatDocRef = doc(db, 'userChats', uid);
         const userChatDocSnap = await getDoc(userChatDocRef);
 
         if (userChatDocSnap.exists()) {
@@ -36,14 +36,14 @@ function Message() {
           const fetchedUsernames = [];
 
           for (const id of keyList) {
-            const postDocRef = doc(db, "Posts", id);
+            const postDocRef = doc(db, 'Posts', id);
             const postDocSnap = await getDoc(postDocRef);
 
             if (postDocSnap.exists()) {
               const postData = postDocSnap.data();
               let posterId = postData.poster;
-              if (UID === posterId) {
-                const userInfoDoc = await getDoc(doc(db, "userChats", UID));
+              if (uid === posterId) {
+                const userInfoDoc = await getDoc(doc(db, 'userChats', uid));
                 if (userInfoDoc.exists()) {
                   const userInfoData = userInfoDoc.data();
                   if (userInfoData && userInfoData[id]) {
@@ -51,50 +51,34 @@ function Message() {
                   }
                 }
               }
-              let chatDocRef = doc(db, "chats", id + posterId + UID);
-              let chatDocSnap = await getDoc(chatDocRef);
-              let chatDocRefs = doc(db, "chats", id + UID + posterId);
-              let chatDocSnaps = await getDoc(chatDocRefs);
-              let lastMessage = "";
+              const chatDocRef1 = doc(db, 'chats', id + posterId + uid);
+              const chatDocSnap1 = await getDoc(chatDocRef1);
+              const chatDocRef2 = doc(db, 'chats', id + uid + posterId);
+              const chatDocSnap2 = await getDoc(chatDocRef2);
+
+              let lastMessage = '';
+              let senderId = '';
+              let time = '';
               let count = 0;
 
-              console.log(`Checking chat documents for ID ${id}:`);
-              console.log(`chatDocSnap.exists(): ${chatDocSnap.exists()}`);
-              console.log(`chatDocSnap ID: ${id + posterId + UID}`);
-              console.log(`chatDocSnaps.exists(): ${chatDocSnaps.exists()}`);
-              console.log(`chatDocSnaps ID: ${id + UID + posterId}`);
-
-              if (chatDocSnap.exists() && chatDocSnap.data()) {
-                const messages = chatDocSnap.data().message;
-                console.log(`Messages from chatDocSnap: ${messages}`);
+              if (chatDocSnap1.exists() && chatDocSnap1.data()) {
+                const messages = chatDocSnap1.data().message;
                 if (messages && messages.length > 0) {
                   lastMessage = messages[messages.length - 1].text;
                   senderId = messages[messages.length - 1].sender;
                   time = messages[messages.length - 1].date;
-                  messages.forEach((msg) => {
-                    if (msg.checked === false) {
-                      count += 1;
-                    }
-                  });
+                  count = messages.filter((msg) => msg.checked === false && msg.sender !== uid).length;
                 }
-              } else if (chatDocSnaps.exists() && chatDocSnaps.data()) {
-                const messages = chatDocSnaps.data().message;
-                console.log(`Messages from chatDocSnaps: ${messages}`);
+              } else if (chatDocSnap2.exists() && chatDocSnap2.data()) {
+                const messages = chatDocSnap2.data().message;
                 if (messages && messages.length > 0) {
                   lastMessage = messages[messages.length - 1].text;
                   senderId = messages[messages.length - 1].sender;
                   time = messages[messages.length - 1].date;
-                  messages.forEach((msg) => {
-                    if (msg.checked === false) {
-                      if (msg.sender != UID) {
-                        count += 1;
-                      }
-                    }
-                  });
+                  count = messages.filter((msg) => msg.checked === false && msg.sender !== uid).length;
                 }
               }
-              console.log(count)
-              const messagee = chatDocSnaps.exists() && chatDocSnaps.data() ? chatDocSnaps.data().message : [];
+
               fetchedUsernames.push({
                 time: time,
                 tokutyou: postData.text,
@@ -108,70 +92,83 @@ function Message() {
             }
           }
 
+          // 時間順にソート
+          fetchedUsernames.sort((a, b) => b.time.seconds - a.time.seconds);
           setDocumentIdList(fetchedUsernames);
         } else {
-          console.log(`User chat document with ID ${UID} does not exist`);
+          console.log(`User chat document with ID ${uid} does not exist`);
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error('Error fetching user data:', error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchDocumentIdAndUsername();
-  }, []);
+  }, [uid]);
 
   const back = () => {
-    navigate("/login/home");
-  }
+    navigate('/login/home');
+  };
 
   const chatpage = async (id, posterId) => {
-    const UID = localStorage.getItem("uid");
-    const documents = posterId + UID + id;
-    const docRef = doc(db, 'chats', documents);
-    const docSnap = await getDoc(docRef);
-    const docRefs = doc(db, "chats", posterId + id + UID);
-    const docSnaps = await getDoc(docRefs);
+    const documents = posterId + uid + id;
+    const docRef1 = doc(db, 'chats', documents);
+    const docSnap1 = await getDoc(docRef1);
+    const docRef2 = doc(db, 'chats', posterId + id + uid);
+    const docSnap2 = await getDoc(docRef2);
 
-    if (docSnap.exists()) {
-      localStorage.setItem("chatpair", posterId + UID + id);
-      navigate("/login/home/chat");
-    } else if (docSnaps.exists()) {
-      localStorage.setItem("chatpair", posterId + id + UID);
-      navigate("/login/home/chat");
+    if (docSnap1.exists()) {
+      localStorage.setItem('chatpair', posterId + uid + id);
+      navigate('/login/home/chat');
+    } else if (docSnap2.exists()) {
+      localStorage.setItem('chatpair', posterId + id + uid);
+      navigate('/login/home/chat');
     }
-  }
-
+  };
+  const formatDate = (timestamp) => {
+    if (!timestamp) return '';
+    const date = timestamp.toDate();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hours = date.getHours().toString().padStart(2, '0'); // 時間を0パディング
+    const minutes = date.getMinutes().toString().padStart(2, '0'); // 分を0パディング
+    return `${month}/${day} ${hours}:${minutes}`;
+  };
+  
   return (
     <div>
       {loading ? (
-        <div className='load'>
+        <div className="load">
           <h3>メッセージデータを取得中</h3>
-          <div className='loader'></div>
+          <div className="loader"></div>
         </div>
       ) : (
         <>
-          <div className='msg-head'>
-            <botton className='back-btn' onClick={back} alt="Back">
+          <div className="msg-head">
+            <button className="back-btn" onClick={back} alt="Back">
               <IoMdArrowRoundBack />
-            </botton>
+            </button>
             <h3>メッセージ一覧</h3>
           </div>
-          <div className='messages'>
+          <div className="messages">
             {documentIdList.map((user) => (
-              <div onClick={() => chatpage(user.id, user.postid)} className='msg-person' key={uuidv4()}>
-                <img src={user.postIcon} width="60px" />
-                <div className='msg-content'>
-                  <strong>{user.tokutyou}</strong>
-
-                  {user.count > 0 && user.senderId !== localStorage.getItem("uid") ?
-                    <h6>新着メッセージ{user.count}件あります</h6> :
-                    <p>{user.text}</p>}
-                  {/* <p>{user.time.toDate().toLocaleString()}</p> */}
+              <div onClick={() => chatpage(user.id, user.postid)} className="msg-person" key={uuidv4()}>
+                <img src={user.postIcon} width="60px" alt="icon" />
+                <div className="msg-content">
+                  <strong>{user.tokutyou.length > 12 ? `${user.tokutyou.slice(0, 12)}...` : user.tokutyou}</strong>
+                  {user.count > 0 && user.senderId !== localStorage.getItem('uid') ? (
+                    <h6>新着メッセージ{user.count}件あります</h6>
+                  ) : (
+                    <p>{user.text}</p>
+                  )}
+                </div>
+                <div className='msg-time'>
+                  <p>{formatDate(user.time)}</p>
                 </div>
                 {user.count > 0 && (
-                  <div className='msg-num'>
+                  <div className="msg-num">
                     <p>{user.count}</p>
                   </div>
                 )}

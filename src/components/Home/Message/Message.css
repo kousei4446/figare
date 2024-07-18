@@ -19,8 +19,11 @@
 .msg-content p {
     margin-top: 0px;
 }
+.msg-person img{
+    max-height: 100%;
+}
 .msg-num{
-    font-weight: bold;
+    /* font-weight: bold; */
     font-size: 20px;
     color: white;
     border-radius: 50%;
@@ -30,11 +33,19 @@
     position: absolute;
     right: 20px;
     background-color: rgb(255, 109, 109);
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 
 .back-btn svg {
     width: 30px;
     height: 30px;
+}
+.msg-time{
+    position: absolute;
+    right: 5px;
+    margin-bottom: 50px;
+}
+.msg-time p{
+    color: rgb(109, 109, 109);
 }
