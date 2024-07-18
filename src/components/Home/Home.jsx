@@ -274,22 +274,20 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
                   message(post, post.poster === localStorage.getItem("uid"));
                 }
               }} className='main-postcard'>
-                <div className='post-username'>
-                  <p>{post.userImg && <img src={post.userImg} width="40px" height="40px" alt="User" />}</p>
-                  <strong>@{post.username}</strong>
-                </div>
+                <img src={post.file} className='postimg' alt='Post' />
+                <div className='post-void'></div>
                 <div className='post-main'>
-                  <img src={post.file} width='130px' alt='Post' className='postimg' />
-                  <div className='palce-and-toku'>
-                    <div>
-                      <p className='place'>{post.place}</p>
+                  <div className='post-username'>
+                    <div>{post.userImg && 
+                      <img src={post.userImg} alt="User" />}
                     </div>
-                    <p className='text'>{post.text}</p>
+                    <strong>@{post.username}</strong>
                   </div>
-                </div>
-                <div>
-                  <p>{post.time.toDate().toLocaleString()}</p>
-                  {/* <p>{post.poster === localStorage.getItem("uid") && "※これは自分の投稿です"}</p> */}
+                  <div className='post-text' id="post-textId">{post.text}</div>
+                  <div className='post-time'>
+                    <div>{post.time.toDate().toLocaleString()}</div>
+                    {/* <p>{post.poster === localStorage.getItem("uid") && "※これは自分の投稿です"}</p> */}
+                  </div>
                 </div>
               </div>
             </div>
