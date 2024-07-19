@@ -23,35 +23,54 @@
         margin-right: 0.5vh;
     }
 
-    .pastpost{
-        width: 100vw;
+    .past-post {
+        margin-top: 10vh;
+        margin-left: 1.8vh;
+    }
+
+    .past-post-main{
+        margin-top: 5vh;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .pastpostcard{
-        margin-top: 11vh;
-    }
-    .post-item{
-        border: 1px solid black;
+        position: relative;
+        border: 2px solid rgb(55, 55, 55);
         border-radius: 5px;
-        height: 20%;
-        width: 90%;
+        width: 95%;
+        height: 22vh;
         background-color: white;
         border-radius: 10px;
-        margin-top: 20px;
+        z-index:10;
     }
+
+    .past-right {
+        width: 45%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .past-time {
+        font-size: 1.5vh;
+        margin: auto 0;
+    }
+
+    .past-text {
+        font-size: 1.5vh;
+        margin-top: auto;
+    }
+
+    .past-delbtn {
+        margin-top: auto;
+        margin-bottom: 1vh;
+    }
+
     .delbtn{
+        font-size: 1.5vh;
         background-color: rgb(223, 43, 43);
-        
         color: white;
-        padding: 7px 15px;
+        padding: 0.5vh 1.5vh;
         border-radius: 3px;
         border: none;
         cursor: pointer;
-        margin-bottom: 10px;
-        margin-right: 20px;
     }
 }
 

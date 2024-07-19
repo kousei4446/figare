@@ -83,34 +83,29 @@ function PastPost() {
                     </div>
                     <div>
                         <div className='pastpostcard'></div>
-                        <div className='pastpost'>
-                            {myPostList.map((post) => (
-                                <div key={uuidv4()} className='post-item'>
-                                    <div className='post-main'>
-                                        <img src={post.file} width='130px' alt='Post' className='postimg' />
-                                        <div className='place-and-toku'>
-                                            <div>
-                                                <p className='place'>{post.place}</p>
+                            <div className='past-post'>
+                                {myPostList.map((post) => (
+                                    <div key={uuidv4()} className='past-post-item'>
+                                        <div className='past-post-main'>
+                                            <img src={post.file} alt='Post' className='postimg' />
+                                            <div className='past-right'>
+                                                <div className='past-time'>{post.time.toDate().toLocaleString()}</div>
+                                                <div className='past-text'>{post.text}</div>
+                                                <div className='past-delbtn'>
+                                                    <button className='delbtn' onClick={() => {
+                                                        setConfirm(true);
+                                                        setId(post.id);
+                                                        setStoragePath(post.storagePath);
+                                                    }}>削除</button>
+                                                </div>
                                             </div>
-                                            <p>{post.text}</p>
                                         </div>
                                     </div>
-                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0px 10px" }}>
-                                        <p>{post.time.toDate().toLocaleString()}</p>
-                                        <div>
-                                            <button className='delbtn' onClick={() => {
-                                                setConfirm(true);
-                                                setId(post.id);
-                                                setStoragePath(post.storagePath);
-                                            }}>削除</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                            <br />
+                                ))}
+                                <br />
+                            </div>
                         </div>
                     </div>
-                </div>
             }
         </>
     );
