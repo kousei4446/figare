@@ -64,7 +64,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       }
       else {
         const prefRef = collection(db, "Posts");
-        const q = query(prefRef,orderBy('time','desc'));
+        const q = query(prefRef, orderBy('time', 'desc'));
         const querySnapshot = await getDocs(q);
         const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         const filterResult = filteredPosts.filter((item) => item.kind === serch && item.place === myInfo.place);
@@ -110,7 +110,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       }
       else {
         const prefRef = collection(db, "Posts");
-        const q = query(prefRef,orderBy('time','desc'));
+        const q = query(prefRef, orderBy('time', 'desc'));
         const querySnapshot = await getDocs(q);
         const filteredPosts = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         const filterResult = filteredPosts.filter((item) => item.kind === serch && item.place === myInfo.place);
@@ -135,7 +135,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       }
     };
     fetchAllPosts();
-  }, [serch],[myInfo.place]);
+  }, [serch], [myInfo.place]);
 
   const serchpage = () => {
     if (modal === false) {
@@ -207,9 +207,9 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
   const placeChange = (e) => {
     const { value } = e.target;
     setMyInfo(prevState => ({
-        ...prevState,
-        place: value
-      }));
+      ...prevState,
+      place: value
+    }));
     const placeset = async () => {
       const Uid = localStorage.getItem('uid');
       const userDocRef = doc(db, "googleusers", Uid)
@@ -219,15 +219,15 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       // console.log(myInfo);
     }
     placeset();
-    
+
   }
-  const [isMsg,setIsMsg]=useState(false)
+  const [isMsg, setIsMsg] = useState(false)
   useEffect(() => {
     async function fetchDocuments() {
       // コレクション名を指定
-      const collectionName ="chats" ;
+      const collectionName = "chats";
       const colRef = collection(db, collectionName);
-      
+
       // コレクション内の全ドキュメントを取得
       const querySnapshot = await getDocs(colRef);
 
@@ -236,11 +236,11 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
 
       // 結果を表示
       matchingDocs.forEach(doc => {
-        console.log(`Document ID: ${doc.id}`);
-        console.log('Document Data:', doc.data().message[doc.data().message.length-1]);
-        console.log('Document Data:', doc.data().message[doc.data().message.length-1].checked);
-        if (localStorage.getItem("uid")!==doc.data().message[doc.data().message.length-1].sender){
-          if(!doc.data().message[doc.data().message.length-1].checked){
+        // console.log(`Document ID: ${doc.id}`);
+        // console.log('Document Data:', doc.data().message[doc.data().message.length - 1]);
+        // console.log('Document Data:', doc.data().message[doc.data().message.length - 1].checked);
+        if (localStorage.getItem("uid") !== doc.data().message[doc.data().message.length - 1].sender) {
+          if (!doc.data().message[doc.data().message.length - 1].checked) {
             setIsMsg(true)
           }
         }
@@ -255,14 +255,14 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
         <img src={myInfo.photoURL || image} className='Icon' onClick={profilepage} alt='Profile' />
         <h3 className='main-title'>{myInfo.place && `${myInfo.place}の検索一覧`}</h3>
         <IoMdSearch onClick={serchpage} className='search' />
-      </div><br/>
+      </div><br />
       <div className='backsr'>
         <div className='serchresult'>
-          {!serch || serch == "all" ?  
+          {!serch || serch == "all" ?
             <div>
               検索結果：{cnt}件
             </div>
-          : 
+            :
             <div>
               {serch}の検索結果：{cnt}件
             </div>
@@ -290,20 +290,20 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
               onClick={() => { changeMF(), handleSerch('もの') }}
               className={MF ? 'selected' : 'Select-btn'}
             >もの
-            </button><br/><br/>
+            </button><br /><br />
             <div>
               <select
                 name='place'
                 value={myInfo.place}
                 onChange={placeChange}>
-                  <option value="" disabled>選択してください</option>
-                  {regions.map((region, index) => (
+                <option value="" disabled>選択してください</option>
+                {regions.map((region, index) => (
                   <optgroup key={index} label={region.label}>
                     {region.options.map((option, idx) => (
                       <option key={idx} value={option}>{option}</option>
                     ))}
                   </optgroup>
-                  ))}
+                ))}
               </select>
             </div>
           </div>
@@ -329,12 +329,12 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
                 <div className='post-void'></div>
                 <div className='post-main'>
                   <div className='post-username'>
-                    <div>{post.userImg && 
+                    <div>{post.userImg &&
                       <img src={post.userImg} alt="User" />}
                     </div>
                     <strong>@{post.username}</strong>
                   </div>
-                  <div className='post-text' id="post-textId">{post.text.length > 50? `${post.text.slice(0,50)}....`:post.text}</div>
+                  <div className='post-text' id="post-textId">{post.text.length > 50 ? `${post.text.slice(0, 50)}....` : post.text}</div>
                   <div className='post-time'>
                     <div>{post.time.toDate().toLocaleString()}</div>
                     {/* <p>{post.poster === localStorage.getItem("uid") && "※これは自分の投稿です"}</p> */}
@@ -348,10 +348,13 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
 
 
       <div className='main-foot'>
-        <FaCommentDots onClick={msgpage} className='main-msg-btn' />
+        <div style={{display:"flex"}}>
+          <FaCommentDots onClick={msgpage} className='main-msg-btn' />
+          {isMsg && <p style={{backgroundColor:"red",height:"10px",width:"10px",borderRadius:"50%"}}></p>}
+        </div>
         <FaRegListAlt onClick={() => navigate("/login/home/profile/pastpost")} className='past-btn' />
         <IoMdAdd onClick={addPost} className='add-postbtn' />
-        <a href='https://forms.gle/GnaeiD8MVhGDeCxi9'  target="_blank" rel="noopener noreferrer"><FcCustomerSupport className='add-formbtn'/></a>
+        <a href='https://forms.gle/GnaeiD8MVhGDeCxi9' target="_blank" rel="noopener noreferrer"><FcCustomerSupport className='add-formbtn' /></a>
       </div>
     </div>
   );
