@@ -221,6 +221,34 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
     placeset();
     
   }
+  const [isMsg,setIsMsg]=useState(false)
+  useEffect(() => {
+    async function fetchDocuments() {
+      // コレクション名を指定
+      const collectionName ="chats" ;
+      const colRef = collection(db, collectionName);
+      
+      // コレクション内の全ドキュメントを取得
+      const querySnapshot = await getDocs(colRef);
+
+      // ドキュメント ID をフィルタリング
+      const matchingDocs = querySnapshot.docs.filter(doc => doc.id.includes(localStorage.getItem("uid")));
+
+      // 結果を表示
+      matchingDocs.forEach(doc => {
+        console.log(`Document ID: ${doc.id}`);
+        console.log('Document Data:', doc.data().message[doc.data().message.length-1]);
+        console.log('Document Data:', doc.data().message[doc.data().message.length-1].checked);
+        if (localStorage.getItem("uid")!==doc.data().message[doc.data().message.length-1].sender){
+          if(!doc.data().message[doc.data().message.length-1].checked){
+            setIsMsg(true)
+          }
+        }
+      });
+    }
+
+    fetchDocuments();
+  }, []); // Add de
   return (
     <div className="home-container">
       <div className='background'>
