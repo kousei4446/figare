@@ -46,8 +46,25 @@ function PastPost() {
             const storage = getStorage();
             const desertRef = ref(storage, storagePath);
             await deleteObject(desertRef);
+
+            // Firestore ドキュメントを削除
             const delDocRef = doc(db, "Posts", id);
             await deleteDoc(delDocRef);
+
+            // コレクション名を指定
+            const collectionName = "chats";
+            const colRef = collection(db, collectionName);
+
+            // コレクション内の全ドキュメントを取得
+            const querySnapshot = await getDocs(colRef);
+
+            // ドキュメント ID をフィルタリング
+            const matchingDocs = querySnapshot.docs.filter(doc => doc.id.includes(id));
+            for (const matchingDoc of matchingDocs) {
+                const docRef = doc(db, collectionName, matchingDoc.id);
+                await deleteDoc(docRef);
+            }
+
             setMyPostList(myPostList.filter(post => post.id !== id));
         } catch (error) {
             console.error("Error deleting document: ", error);
@@ -85,7 +102,7 @@ function PastPost() {
                         <div className='pastpostcard'></div>
                         <div className='past-post'>
                             {myPostList.map((post) => (
-                                <div className='main-post' style={{width:"93vw"}}>
+                                <div className='main-post' style={{ width: "93vw" }}>
                                     <div className='main-postcard'>
                                         <img src={post.file} className='postimg' alt='Post' />
                                         <div className='post-void'></div>

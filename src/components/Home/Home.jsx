@@ -324,7 +324,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
                 } else {
                   message(post, post.poster === localStorage.getItem("uid"));
                 }
-              }} className='main-postcard'>
+              }}className='main-postcard'>
                 <img src={post.file} className='postimg' alt='Post' />
                 <div className='post-void'></div>
                 <div className='post-main'>
