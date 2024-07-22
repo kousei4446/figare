@@ -157,9 +157,9 @@ function Message() {
               <div onClick={() => chatpage(user.id, user.postid)} className="msg-person" key={uuidv4()}>
                 <img src={user.postIcon} width="60px" alt="icon" />
                 <div className="msg-content">
-                  <strong>{user.tokutyou.length > 12 ? `${user.tokutyou.slice(0, 12)}...` : user.tokutyou}</strong>
+                  <strong>{user.tokutyou.length > 10 ? `${user.tokutyou.slice(0, 10)}...` : user.tokutyou}</strong>
                   {user.count > 0 && user.senderId !== localStorage.getItem('uid') ? (
-                    <h6>新着メッセージ{user.count}件あります</h6>
+                    <h6 >新着メッセージ{user.count}件あります</h6>
                   ) : (
                     <p>{user.text}</p>
                   )}
@@ -168,8 +168,8 @@ function Message() {
                   <p>{formatDate(user.time)}</p>
                 </div>
                 {user.count > 0 && (
-                  <div className="msg-num">
-                    <p>{user.count}</p>
+                  <div className="msg-num" style={{marginTop:"10px"}}>
+                    <p >{user.count}</p>
                   </div>
                 )}
               </div>

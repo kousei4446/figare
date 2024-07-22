@@ -83,29 +83,38 @@ function PastPost() {
                     </div>
                     <div>
                         <div className='pastpostcard'></div>
-                            <div className='past-post'>
-                                {myPostList.map((post) => (
-                                    <div key={uuidv4()} className='past-post-item'>
-                                        <div className='past-post-main'>
-                                            <img src={post.file} alt='Post' className='postimg' />
-                                            <div className='past-right'>
-                                                <div className='past-time'>{post.time.toDate().toLocaleString()}</div>
-                                                <div className='past-text'>{post.text}</div>
-                                                <div className='past-delbtn'>
-                                                    <button className='delbtn' onClick={() => {
-                                                        setConfirm(true);
-                                                        setId(post.id);
-                                                        setStoragePath(post.storagePath);
-                                                    }}>削除</button>
+                        <div className='past-post'>
+                            {myPostList.map((post) => (
+                                <div className='main-post' style={{width:"93vw"}}>
+                                    <div className='main-postcard'>
+                                        <img src={post.file} className='postimg' alt='Post' />
+                                        <div className='post-void'></div>
+                                        <div className='post-main'>
+                                            <div className='post-username'>
+                                                <div>{post.userImg &&
+                                                    <img src={post.userImg} alt="User" />}
                                                 </div>
+                                            </div>
+                                            <div className='post-text' id="post-textId">{post.text.length > 50 ? `${post.text.slice(0, 50)}....` : post.text}</div>
+
+                                            <div className='post-time'>
+                                                {/* <p>{post.poster === localStorage.getItem("uid") && "※これは自分の投稿です"}</p> */}
+                                            </div>
+                                            <div className='past-delbtn'>
+                                                <button className='delbtn' onClick={() => {
+                                                    setConfirm(true);
+                                                    setId(post.id);
+                                                    setStoragePath(post.storagePath);
+                                                }}>削除</button>
                                             </div>
                                         </div>
                                     </div>
-                                ))}
-                                <br />
-                            </div>
+                                </div>
+                            ))}
+                            <br />
                         </div>
                     </div>
+                </div>
             }
         </>
     );

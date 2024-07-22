@@ -1,4 +1,6 @@
-.overlaysss{
+/* DeleteModal.css */
+
+.overlaysss {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,8 +10,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000; /* 高い値に設定して最前面に */
 }
-.content{
+
+.content {
     background-color: white;
     padding: 20px;
     border-radius: 4px;
@@ -21,17 +25,30 @@
     align-items: center;
     justify-content: center;
 }
-.content p{
+
+.content p {
     font-size: 20px;
     margin-bottom: 20px;
 }
-.content button{
+
+.content button {
     background-color: rgb(223, 43, 43);
-    /* background-color: rgb(0, 17, 255); */
     color: white;
     padding: 7px 15px;
     border-radius: 3px;
     border: none;
     cursor: pointer;
     margin-right: 10px;
+}
+
+@media (max-width:768px){
+    .pastpost-title{
+        font-size: 20px;
+    }
+    .pastpost-back{
+        font-size: 15px;
+    }
+    .pastpost-back-icon{
+        font-size: 20px;
+    }
 }

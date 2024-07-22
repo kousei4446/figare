@@ -216,7 +216,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
       await updateDoc(userDocRef, {
         place: value
       });
-      console.log(myInfo);
+      // console.log(myInfo);
     }
     placeset();
     
@@ -306,7 +306,7 @@ const Home = ({ myInfo, setMyInfo, setProf, serch, setSerch }) => {
                     </div>
                     <strong>@{post.username}</strong>
                   </div>
-                  <div className='post-text' id="post-textId">{post.text}</div>
+                  <div className='post-text' id="post-textId">{post.text.length > 50? `${post.text.slice(0,50)}....`:post.text}</div>
                   <div className='post-time'>
                     <div>{post.time.toDate().toLocaleString()}</div>
                     {/* <p>{post.poster === localStorage.getItem("uid") && "※これは自分の投稿です"}</p> */}
